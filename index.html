@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSparkAI — Learn AI. Use AI. Lead with AI.</title>
+    <meta name="description" content="Master AI tools, build autonomous business agents, and future-proof your career with the MindSparkAI Masterclass. 7 modules. Lifetime access. $97.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mindsparkstack.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MindSparkAI — Learn AI. Use AI. Lead with AI.">
+    <meta property="og:description" content="Master AI tools, build autonomous business agents, and future-proof your career with the MindSparkAI Masterclass.">
+    <meta property="og:url" content="https://mindsparkstack.com/">
+    <meta property="og:site_name" content="MindSparkAI">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MindSparkAI — Learn AI. Use AI. Lead with AI.">
+    <meta name="twitter:description" content="Master AI tools, build autonomous business agents, and future-proof your career.">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Course","name":"MindSparkAI Masterclass","description":"Learn AI tools, boost productivity, and future-proof your career with hands-on AI training across 7 comprehensive modules.","provider":{"@type":"Organization","name":"MindSparkAI","url":"https://mindsparkstack.com"},"offers":{"@type":"Offer","price":"97","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206"}}
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        syne: ['"Syne"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    },
+                    colors: {
+                        brandLime: '#D4FF00',
+                        brandCyan: '#00D0FF',
+                        obsidian: '#04070D',
+                        ash: '#0F1115',
+                        ivory: '#F4F7F9',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --mx: 50%; --my: 50%; }
+
+        body {
+            background-color: #04070D;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Film Grain */
+        #grain {
+            position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+            opacity: 0.03; mix-blend-mode: overlay;
+        }
+
+        /* Aurora Volumes */
+        .aurora-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .aurora-lime {
+            position: absolute; top: -15%; left: -20%; width: 70vw; height: 70vw;
+            background: radial-gradient(circle, rgba(212, 255, 0, 0.2) 0%, transparent 60%);
+            filter: blur(140px); will-change: transform;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+        .aurora-cyan {
+            position: absolute; top: 20%; right: -20%; width: 80vw; height: 80vw;
+            background: radial-gradient(circle, rgba(0, 208, 255, 0.12) 0%, transparent 60%);
+            filter: blur(160px); will-change: transform;
+            animation: drift-reverse 25s infinite alternate ease-in-out;
+        }
+        @keyframes drift {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(5%, 10%, 0) scale(1.1); }
+        }
+        @keyframes drift-reverse {
+            0% { transform: translate3d(0, 0, 0) scale(1.1); }
+            100% { transform: translate3d(-5%, -10%, 0) scale(1); }
+        }
+
+        /* Cursor Glow */
+        #cursor-glow {
+            position: fixed; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(212, 255, 0, 0.04) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: none;
+        }
+
+        /* Typography */
+        .h-display {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 9vw, 8.5rem);
+            line-height: 0.85; font-weight: 800;
+            letter-spacing: -0.05em; text-transform: uppercase;
+        }
+        .h-section {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            line-height: 0.9; font-weight: 800;
+            letter-spacing: -0.04em; text-transform: uppercase;
+        }
+        .hero-mask { overflow: hidden; display: block; padding-bottom: 6px; }
+        .hero-line { display: block; transform: translateY(110%); will-change: transform; }
+
+        /* Titanium Text Sheen */
+        .text-sheen {
+            background: linear-gradient(170deg, #FFFFFF 0%, #A1A1AA 35%, #F4F4F5 50%, #71717A 65%, #FFFFFF 100%);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: sheen 6s linear infinite;
+        }
+        @keyframes sheen { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* CTA Button */
+        .btn-lime {
+            background: #D4FF00; color: #04070D; font-family: 'Syne', sans-serif; font-weight: 800;
+            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.1em;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+            box-shadow: 0 4px 15px rgba(212,255,0,0.2), inset 0 1px 1px rgba(255,255,255,0.6);
+            will-change: transform; cursor: pointer; border: none;
+        }
+        .btn-lime:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212,255,0,0.4), inset 0 1px 1px rgba(255,255,255,0.8); }
+        .btn-lime:active { transform: scale(0.97) translateY(-1px); transition: transform 0.1s ease; }
+        .btn-lime:focus-visible { outline: 2px solid #D4FF00; outline-offset: 4px; }
+
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: 'Syne', sans-serif; font-weight: 800;
+            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.1em; background: transparent;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer;
+        }
+        .btn-outline:hover { border-color: #D4FF00; color: #D4FF00; box-shadow: 0 0 20px rgba(212,255,0,0.1); }
+        .btn-outline:focus-visible { outline: 2px solid #D4FF00; outline-offset: 4px; }
+
+        /* Chamfered Cards (Legacy vs Sovereign) */
+        .tab-card-wrapper {
+            position: relative; padding: 2px; border-radius: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
+            clip-path: polygon(0 0, 65% 0, 70% 20px, 100% 20px, 100% 100%, 0 100%);
+        }
+        .tab-card-inner {
+            background: rgba(10, 15, 25, 0.6); backdrop-filter: blur(30px);
+            height: 100%; border-radius: 1.4rem; padding: 2.5rem;
+            clip-path: polygon(0 0, 64.5% 0, 69.5% 19px, 100% 19px, 100% 100%, 0 100%);
+        }
+        .tab-card-red { background: linear-gradient(135deg, rgba(255, 51, 102, 0.4), transparent 50%); }
+        .tab-card-red:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(255, 51, 102, 0.15); }
+        .tab-card-lime { background: linear-gradient(135deg, rgba(212, 255, 0, 0.6), transparent 50%); }
+        .tab-card-lime:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(212, 255, 0, 0.2); }
+
+        /* Ivory Cards (Light Section) */
+        .bento-group:hover .ivory-card:not(:hover),
+        .bento-group:hover .lime-card:not(:hover) {
+            opacity: 0.5; filter: grayscale(50%) blur(1px);
+        }
+        .ivory-card {
+            background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.04); border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255,255,255,0.8);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease, opacity 0.5s ease, filter 0.5s ease;
+            position: relative; overflow: hidden;
+        }
+        .ivory-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08); }
+
+        .lime-card {
+            background: linear-gradient(145deg, #D4FF00, #bfe600);
+            border-radius: 1.5rem; position: relative; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(212, 255, 0, 0.3), inset 0 2px 8px rgba(255,255,255,0.6);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, filter 0.5s ease;
+        }
+        .lime-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(212, 255, 0, 0.5); }
+
+        /* Terminal Block */
+        .terminal-block {
+            background: #0A0A0A; border-radius: 1rem; position: relative; overflow: hidden;
+        }
+        .terminal-block::after {
+            content: ""; position: absolute; inset: -100% 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+            pointer-events: none; z-index: 2; animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .cursor-blink { display: inline-block; animation: blink 1s step-end infinite; }
+
+        /* PCB Circuit Background */
+        .circuit-bg {
+            background-color: #F4F7F9;
+            background-image:
+                radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        /* Dynamic Nav Theming */
+        #nav-pill {
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+            backdrop-filter: blur(20px);
+        }
+        #nav-pill.theme-dark { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.05); color: #F1F5F9; }
+        #nav-pill.theme-dark .nav-link { color: rgba(255,255,255,0.5); }
+        #nav-pill.theme-dark .nav-link:hover { color: #fff; }
+        #nav-pill.theme-light { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); color: #04070D; }
+        #nav-pill.theme-light .nav-link { color: rgba(0,0,0,0.5); }
+        #nav-pill.theme-light .nav-link:hover { color: #000; }
+
+        /* Pricing Card Glow */
+        .pricing-glow {
+            background: rgba(255,255,255,0.015);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-top: 2px solid #D4FF00;
+            border-radius: 2rem;
+            position: relative;
+        }
+
+        /* Social Proof Ticker */
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-track { animation: ticker 30s linear infinite; }
+
+        /* Initial load states */
+        .initial-fade { opacity: 0; transform: translateY(20px); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        ::-webkit-scrollbar-thumb { background: rgba(212,255,0,0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(212,255,0,0.5); }
+    </style>
+</head>
+<body class="antialiased font-sans text-ivory">
+
+    <div id="grain"></div>
+    <div id="cursor-glow"></div>
+
+    <!-- ====== NAVIGATION ====== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 sm:p-6 lg:p-8" aria-label="Main navigation">
+        <div id="nav-pill" class="theme-dark flex items-center justify-between w-full max-w-7xl px-6 sm:px-10 py-4 sm:py-5 rounded-[2rem]">
+            <a href="/" class="flex items-center gap-3 font-syne text-lg sm:text-xl tracking-tighter uppercase font-black no-underline" style="color: inherit; text-decoration: none;">
+                <i data-lucide="activity" class="text-brandLime size-5 sm:size-6 drop-shadow-[0_0_10px_rgba(212,255,0,0.5)]"></i>
+                MindSpark
+            </a>
+            <div class="hidden lg:flex gap-8 xl:gap-10 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <a href="#curriculum" class="nav-link transition-colors no-underline">Syllabus</a>
+                <a href="#pricing" class="nav-link transition-colors no-underline">Investment</a>
+                <a href="#results" class="nav-link transition-colors no-underline">Results</a>
+                <a href="blog.html" class="nav-link transition-colors no-underline">Blog</a>
+                <a href="contact.html" class="nav-link transition-colors no-underline">Contact</a>
+            </div>
+            <div class="flex items-center gap-4 sm:gap-8">
+                <a href="course/login.html" class="hidden md:block text-[10px] font-bold uppercase tracking-[0.2em] nav-link transition-colors no-underline">Sign In</a>
+                <a href="#pricing" class="px-6 sm:px-8 py-3 btn-lime text-[10px] sm:text-[11px] font-black tracking-[0.2em] no-underline inline-block">Enroll</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== DARK ZONE: HERO + TRANSFORMATION ====== -->
+    <div id="dark-zone" class="relative">
+        <div class="aurora-container">
+            <div class="aurora-lime"></div>
+            <div class="aurora-cyan"></div>
+        </div>
+
+        <!-- HERO -->
+        <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-8 z-10 pt-24">
+            <div class="mb-10 initial-fade">
+                <div class="inline-flex items-center justify-center border border-white/10 bg-white/[0.03] text-white text-[10px] font-mono tracking-widest px-5 py-2.5 rounded-full backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-brandLime animate-pulse mr-3 shadow-[0_0_10px_#D4FF00]"></span>
+                    7 MODULES &middot; LIFETIME ACCESS &middot; BUILD REAL AGENTS
+                </div>
+            </div>
+
+            <h1 class="h-display mb-8 text-white">
+                <span class="hero-mask"><span class="hero-line">Learn AI.</span></span>
+                <span class="hero-mask"><span class="hero-line">Use AI.</span></span>
+                <span class="hero-mask"><span class="hero-line text-brandLime drop-shadow-[0_0_30px_rgba(212,255,0,0.2)]">Lead With AI.</span></span>
+            </h1>
+
+            <p class="text-lg sm:text-xl md:text-2xl text-white/50 max-w-2xl mx-auto mb-16 font-light leading-relaxed initial-fade">
+                Master AI tools, architect autonomous business agents, and future-proof your career. Not another "prompt tips" course&mdash;this is <span class="text-white italic">operational intelligence.</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 items-center initial-fade">
+                <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime px-10 sm:px-12 py-5 sm:py-6 text-[12px] sm:text-[13px] tracking-[0.2em] shadow-[0_0_40px_rgba(212,255,0,0.3)] no-underline inline-block">
+                    Get the Masterclass &mdash; $97
+                </a>
+                <a href="#pricing" class="btn-outline px-8 py-5 text-[11px] tracking-[0.15em] no-underline inline-flex items-center gap-3">
+                    See All Plans <i data-lucide="arrow-down" class="size-4"></i>
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/20 initial-fade">
+                <span class="text-[9px] font-bold uppercase tracking-[0.3em]">Scroll</span>
+                <div class="w-px h-10 bg-gradient-to-b from-white/20 to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- THE SHIFT: Legacy vs Sovereign -->
+        <section id="problem" class="py-24 sm:py-32 relative z-10 px-4 sm:px-8 max-w-6xl mx-auto">
+            <div class="text-center mb-20 reveal-fold">
+                <span class="text-white/40 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">The Transformation</span>
+                <h2 class="h-section text-sheen mb-6">Legacy vs Sovereign</h2>
+                <p class="text-white/30 text-base font-light max-w-xl mx-auto leading-relaxed">The modern professional drowns in "digital housework." We provide the escape velocity.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-14">
+                <div class="tab-card-wrapper tab-card-red reveal-fold mt-6">
+                    <div class="tab-card-inner flex flex-col justify-between min-h-[240px]">
+                        <span class="absolute -top-7 left-8 text-[9px] font-mono text-white/30 uppercase tracking-widest">Traditional Path</span>
+                        <div>
+                            <h3 class="font-syne text-3xl sm:text-4xl font-bold text-white mb-4 uppercase">Manual Triage</h3>
+                            <p class="text-white/40 text-sm leading-relaxed font-light">Triaging inboxes, manual data entry, and decision fatigue on repetitive tasks that eat your best hours.</p>
+                        </div>
+                        <div class="flex items-center gap-3 mt-6 text-red-400/60 text-[10px] font-bold uppercase tracking-widest">
+                            <i data-lucide="x-circle" class="size-4"></i> Time Lost Daily: 4+ Hours
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-card-wrapper tab-card-lime reveal-fold mt-6">
+                    <div class="tab-card-inner flex flex-col justify-between min-h-[240px] relative">
+                        <span class="absolute -top-7 left-8 text-[9px] font-mono text-brandLime uppercase tracking-widest drop-shadow-[0_0_5px_#D4FF00]">Agentic Path</span>
+                        <div class="absolute top-6 right-6 border border-brandLime/30 text-brandLime px-3 py-1 rounded text-[8px] font-bold tracking-widest uppercase bg-brandLime/10 backdrop-blur-md">You After This</div>
+                        <div>
+                            <h3 class="font-syne text-3xl sm:text-4xl font-bold text-brandLime mb-4 uppercase drop-shadow-[0_0_15px_rgba(212,255,0,0.3)]">Autonomous Flow</h3>
+                            <p class="text-white/70 text-sm leading-relaxed font-light">Agents that observe, learn, and execute your operations with zero prompt overhead. You focus on strategy.</p>
+                        </div>
+                        <div class="flex items-center gap-3 mt-6 text-brandLime/60 text-[10px] font-bold uppercase tracking-widest">
+                            <i data-lucide="check-circle" class="size-4"></i> Time Reclaimed: 20+ Hrs/Week
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL PROOF TICKER -->
+        <section class="py-16 relative z-10 overflow-hidden border-y border-white/5">
+            <div class="ticker-track flex gap-16 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-white/20" style="width: max-content;">
+                <span>7 Comprehensive Modules</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>35+ Hands-On Lessons</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Prompt Library Included</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>AI Tools Reference Deck</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Certificate of Completion</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Lifetime Updates</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <!-- Duplicate for seamless loop -->
+                <span>7 Comprehensive Modules</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>35+ Hands-On Lessons</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Prompt Library Included</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>AI Tools Reference Deck</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Certificate of Completion</span>
+                <span class="text-brandLime/40">&bull;</span>
+                <span>Lifetime Updates</span>
+                <span class="text-brandLime/40">&bull;</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- ====== LIGHT ZONE: CURRICULUM + PRICING ====== -->
+    <div id="light-zone" class="relative circuit-bg text-obsidian pb-0">
+        <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#04070D] to-transparent z-10 pointer-events-none"></div>
+
+        <!-- CURRICULUM BENTO GRID -->
+        <section id="curriculum" class="pt-48 sm:pt-60 pb-32 sm:pb-40 relative z-10 px-4 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-20 sm:mb-24 reveal-fold">
+                    <h2 class="h-display text-obsidian leading-none">Curriculum.</h2>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4 sm:gap-6 mt-4 border-b border-obsidian/10 pb-4">
+                        <p class="text-obsidian font-bold text-[11px] uppercase tracking-[0.2em]">7 Modules &middot; 35+ Lessons</p>
+                        <div class="h-1 w-32 sm:w-48 bg-brandLime"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 xl:gap-6 auto-rows-[300px] sm:auto-rows-[340px] bento-group">
+                    <!-- Module 1 -->
+                    <div class="ivory-card p-8 sm:p-10 flex flex-col justify-between reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">01 / Foundation</span>
+                            <h3 class="font-syne text-xl sm:text-2xl font-bold text-obsidian mb-2 uppercase">AI Mindset</h3>
+                            <p class="text-obsidian/60 text-sm leading-relaxed font-light mt-3">Break the "chatbot" habit. Learn to think in systems, workflows, and autonomous loops.</p>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/40">5 Lessons</span>
+                            <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
+                        </div>
+                    </div>
+
+                    <!-- Master Project Card -->
+                    <div class="lime-card p-8 sm:p-10 md:p-12 md:col-span-2 flex flex-col justify-between reveal-fold group">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-obsidian/60 font-bold text-[10px] uppercase tracking-[0.2em] mb-3 block">Capstone</span>
+                                <h3 class="font-syne text-4xl sm:text-5xl font-bold text-obsidian uppercase leading-none tracking-tighter">Master Project</h3>
+                            </div>
+                            <span class="w-4 h-4 bg-white rounded-full shadow-[0_0_20px_#fff] animate-pulse"></span>
+                        </div>
+                        <div class="terminal-block p-5 sm:p-6 mt-6 sm:mt-8 font-mono text-[10px] leading-loose text-brandLime border border-obsidian/20">
+                            <p class="text-white/90">> BOOT_SEQUENCE: AUTHENTICATED</p>
+                            <p class="text-white/70">> ANALYZING_PIPELINE... <span class="text-brandLime">[DONE]</span></p>
+                            <p class="text-white/70">> BOTTLENECK_FOUND: MANUAL_ENTRY</p>
+                            <p class="text-brandLime drop-shadow-[0_0_8px_#D4FF00]">> DEPLOYING_FIX_AGENT... <span class="text-white">[ACTIVE]</span> <span class="cursor-blink">_</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Module 2 -->
+                    <div class="ivory-card p-8 sm:p-10 flex flex-col justify-between reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">02 / Tools</span>
+                            <h3 class="font-syne text-xl sm:text-2xl font-bold text-obsidian mb-2 uppercase">Prompt Craft</h3>
+                            <p class="text-obsidian/60 text-sm leading-relaxed font-light mt-3">Master prompt engineering, chain-of-thought, and tool-use patterns.</p>
+                        </div>
+                    </div>
+
+                    <!-- Module 3+4 -->
+                    <div class="ivory-card p-8 sm:p-10 md:col-span-2 flex flex-col justify-between reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">03-04 / Automation</span>
+                            <h3 class="font-syne text-2xl sm:text-3xl font-bold text-obsidian mb-4 uppercase">Workflows &amp; Agents</h3>
+                            <p class="text-obsidian/60 text-sm leading-relaxed font-light max-w-md">Build real automation pipelines. Connect AI to your tools. Deploy agents that work while you sleep.</p>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/40">10 Lessons Combined</span>
+                            <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
+                        </div>
+                    </div>
+
+                    <!-- Modules 5-7 -->
+                    <div class="ivory-card p-8 sm:p-10 md:col-span-3 flex flex-col sm:flex-row gap-8 reveal-fold">
+                        <div class="flex-1">
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">05 / Content</span>
+                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">AI Content Engine</h3>
+                            <p class="text-obsidian/50 text-sm font-light mt-2">Generate, repurpose, and distribute content at scale.</p>
+                        </div>
+                        <div class="w-px bg-black/10 hidden sm:block"></div>
+                        <div class="flex-1">
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">06 / Revenue</span>
+                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">Monetization</h3>
+                            <p class="text-obsidian/50 text-sm font-light mt-2">Turn AI skills into income streams and business value.</p>
+                        </div>
+                        <div class="w-px bg-black/10 hidden sm:block"></div>
+                        <div class="flex-1">
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">07 / Future</span>
+                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">AI Leadership</h3>
+                            <p class="text-obsidian/50 text-sm font-light mt-2">Stay ahead of the curve. Lead teams and orgs into the AI era.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT'S INCLUDED -->
+        <section class="py-20 relative z-10 px-4 sm:px-8 bg-white/50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 reveal-fold">
+                    <span class="text-obsidian/40 font-bold uppercase tracking-[0.2em] text-[10px] mb-4 block">Everything You Get</span>
+                    <h2 class="font-syne text-3xl sm:text-4xl font-bold text-obsidian uppercase tracking-tighter">Included With Every Plan</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 reveal-fold">
+                    <div class="ivory-card p-6 sm:p-8 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
+                            <i data-lucide="book-open" class="size-5 text-obsidian"></i>
+                        </div>
+                        <h4 class="font-syne text-sm font-bold uppercase mb-1">7 Modules</h4>
+                        <p class="text-obsidian/50 text-xs font-light">35+ in-depth lessons</p>
+                    </div>
+                    <div class="ivory-card p-6 sm:p-8 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
+                            <i data-lucide="file-text" class="size-5 text-obsidian"></i>
+                        </div>
+                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Cheatsheets</h4>
+                        <p class="text-obsidian/50 text-xs font-light">Quick-reference guides</p>
+                    </div>
+                    <div class="ivory-card p-6 sm:p-8 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
+                            <i data-lucide="terminal" class="size-5 text-obsidian"></i>
+                        </div>
+                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Prompt Library</h4>
+                        <p class="text-obsidian/50 text-xs font-light">Copy-paste templates</p>
+                    </div>
+                    <div class="ivory-card p-6 sm:p-8 text-center">
+                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
+                            <i data-lucide="award" class="size-5 text-obsidian"></i>
+                        </div>
+                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Certificate</h4>
+                        <p class="text-obsidian/50 text-xs font-light">Verifiable completion</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ====== DARK ZONE: PRICING + FOOTER ====== -->
+    <div id="pricing-zone" class="relative bg-obsidian text-ivory">
+        <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#F4F7F9] to-transparent z-10 pointer-events-none"></div>
+
+        <section id="pricing" class="pt-48 sm:pt-60 pb-32 sm:pb-40 relative z-10 px-4 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20 sm:mb-24 reveal-fold">
+                    <span class="text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">Investment</span>
+                    <h2 class="h-section text-white">Secure Your Access.</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 lg:gap-10 max-w-5xl mx-auto">
+                    <!-- Masterclass $97 -->
+                    <div class="pricing-glow p-8 sm:p-12 flex flex-col justify-between reveal-fold">
+                        <div>
+                            <div class="flex items-center justify-between mb-8">
+                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Masterclass</span>
+                                <span class="px-3 py-1 rounded-full bg-brandLime/10 text-brandLime text-[9px] font-bold uppercase tracking-widest border border-brandLime/20">Most Popular</span>
+                            </div>
+                            <div class="font-syne text-6xl sm:text-7xl font-bold tracking-tighter text-white mb-2">$97</div>
+                            <p class="text-white/40 text-xs font-medium mb-10">One-time. Lifetime access. All 7 modules.</p>
+
+                            <ul class="space-y-4 text-[11px] font-medium text-white/60 mb-10">
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Full 7-Module Curriculum</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Prompt Library &amp; Cheatsheets</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> AI Tools Reference Deck</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Certificate of Completion</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Lifetime Updates</li>
+                            </ul>
+                        </div>
+                        <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime w-full py-5 text-center text-sm tracking-[0.15em] no-underline block">
+                            Get the Masterclass
+                        </a>
+                    </div>
+
+                    <!-- VIP $297 -->
+                    <div class="pricing-glow p-8 sm:p-12 flex flex-col justify-between reveal-fold border-t-brandCyan" style="border-top-color: #00D0FF;">
+                        <div>
+                            <div class="flex items-center justify-between mb-8">
+                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">VIP Experience</span>
+                                <span class="px-3 py-1 rounded-full bg-brandCyan/10 text-brandCyan text-[9px] font-bold uppercase tracking-widest border border-brandCyan/20">Premium</span>
+                            </div>
+                            <div class="font-syne text-6xl sm:text-7xl font-bold tracking-tighter text-white mb-2">$297</div>
+                            <p class="text-white/40 text-xs font-medium mb-10">One-time. Everything in Masterclass, plus:</p>
+
+                            <ul class="space-y-4 text-[11px] font-medium text-white/60 mb-10">
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Everything in Masterclass</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Priority Support Access</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Exclusive Agent Blueprints</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Advanced Automation Templates</li>
+                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Future Module Early Access</li>
+                            </ul>
+                        </div>
+                        <a href="https://buy.stripe.com/7sY00l9bRgTu5QGbwgcV207" target="_blank" class="btn-lime w-full py-5 text-center text-sm tracking-[0.15em] no-underline block" style="background: #00D0FF; box-shadow: 0 4px 15px rgba(0,208,255,0.2);">
+                            Get VIP Access
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Money-Back Guarantee -->
+                <div class="text-center mt-16 reveal-fold">
+                    <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] text-white/40 text-[10px] font-bold uppercase tracking-widest">
+                        <i data-lucide="shield-check" class="size-4 text-brandLime"></i>
+                        30-Day Money-Back Guarantee &mdash; No Questions Asked
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTS / TESTIMONIAL -->
+        <section id="results" class="py-20 sm:py-32 relative z-10 px-4 sm:px-8 border-t border-white/5">
+            <div class="max-w-4xl mx-auto text-center reveal-fold">
+                <span class="text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">What Students Say</span>
+                <blockquote class="font-syne text-2xl sm:text-4xl text-white font-bold leading-tight mb-8 tracking-tight">
+                    "This course didn't just teach me about AI&mdash;it changed how I think about my entire workflow. I automated 15 hours of weekly tasks in the first month."
+                </blockquote>
+                <p class="text-white/30 text-sm font-medium">&mdash; Early Access Student</p>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="py-20 sm:py-32 relative z-10 px-4 sm:px-8">
+            <div class="max-w-3xl mx-auto text-center reveal-fold">
+                <h2 class="font-syne text-4xl sm:text-6xl text-white font-bold uppercase tracking-tighter mb-8">Ready to Lead?</h2>
+                <p class="text-white/40 text-base font-light mb-12 max-w-lg mx-auto leading-relaxed">AI is moving fast. The gap between those who use it and those who don't is growing every day. Pick your side.</p>
+                <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime px-12 py-6 text-[13px] tracking-[0.2em] shadow-[0_0_40px_rgba(212,255,0,0.3)] no-underline inline-block">
+                    Start Now &mdash; $97
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-12 sm:py-16 border-t border-white/5 relative z-10 px-4 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                    <a href="/" class="font-syne font-black text-white text-xl tracking-widest uppercase no-underline flex items-center gap-3">
+                        <i data-lucide="activity" class="text-brandLime size-5"></i>
+                        MindSparkAI
+                    </a>
+                    <div class="flex flex-wrap justify-center gap-6 sm:gap-8 text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
+                        <a href="blog.html" class="hover:text-white transition-colors no-underline">Blog</a>
+                        <a href="contact.html" class="hover:text-white transition-colors no-underline">Contact</a>
+                        <a href="affiliates.html" class="hover:text-white transition-colors no-underline">Affiliates</a>
+                        <a href="privacy.html" class="hover:text-white transition-colors no-underline">Privacy</a>
+                        <a href="terms.html" class="hover:text-white transition-colors no-underline">Terms</a>
+                        <a href="refund.html" class="hover:text-white transition-colors no-underline">Refund Policy</a>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/20 font-medium tracking-widest uppercase">
+                    &copy; 2026 MindSparkAI. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // GSAP + ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. HERO LOAD SEQUENCE
+        window.addEventListener('load', () => {
+            gsap.to('.initial-fade', {
+                opacity: 1, y: 0, duration: 1.2, stagger: 0.2,
+                ease: "power3.out", delay: 0.3, clearProps: "all"
+            });
+            gsap.to('.hero-line', {
+                y: '0%', duration: 1.4, stagger: 0.15,
+                ease: "power4.out", delay: 0.1
+            });
+        });
+
+        // 2. SCROLL REVEALS
+        gsap.utils.toArray('.reveal-fold').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 90%" },
+                y: 50, opacity: 0, duration: 1.2, ease: "power3.out"
+            });
+        });
+
+        // 3. NAV THEME SWITCHING (Dark <-> Light zones)
+        ScrollTrigger.create({
+            trigger: "#light-zone",
+            start: "top 80px",
+            onEnter: () => {
+                document.getElementById('nav-pill').classList.remove('theme-dark');
+                document.getElementById('nav-pill').classList.add('theme-light');
+            },
+            onLeaveBack: () => {
+                document.getElementById('nav-pill').classList.remove('theme-light');
+                document.getElementById('nav-pill').classList.add('theme-dark');
+            }
+        });
+        ScrollTrigger.create({
+            trigger: "#pricing-zone",
+            start: "top 80px",
+            onEnter: () => {
+                document.getElementById('nav-pill').classList.remove('theme-light');
+                document.getElementById('nav-pill').classList.add('theme-dark');
+            },
+            onLeaveBack: () => {
+                document.getElementById('nav-pill').classList.remove('theme-dark');
+                document.getElementById('nav-pill').classList.add('theme-light');
+            }
+        });
+
+        // 4. CURSOR GLOW (Desktop only)
+        if (window.matchMedia('(pointer: fine)').matches) {
+            let glow = document.getElementById('cursor-glow');
+            let raf;
+            document.addEventListener('mousemove', e => {
+                if (raf) cancelAnimationFrame(raf);
+                raf = requestAnimationFrame(() => {
+                    glow.style.left = e.clientX + 'px';
+                    glow.style.top = e.clientY + 'px';
+                });
+            });
+        } else {
+            document.getElementById('cursor-glow').style.display = 'none';
+        }
+
+        // 5. SMOOTH SCROLL FOR ANCHOR LINKS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
