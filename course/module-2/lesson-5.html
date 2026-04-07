@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCC in Practice: 5 Scenarios - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 2: The RCC Prompting Framework</p>
+      <h1>RCC in Practice: 5 Scenarios</h1>
+
+      <p>You now understand what Role, Context, and Constraints are and how each one improves your AI output. But frameworks only become skills through practice. This lesson gives you five complete real-world scenarios, each with a fully constructed RCC prompt and an explanation of why each component was chosen.</p>
+
+      <p>These are not toy examples. They are the kinds of tasks professionals face every week. Study the patterns, notice what stays the same across scenarios, and by the end you will be able to build RCC prompts for any situation without thinking twice.</p>
+
+      <h2>Scenario 1: Writing a Performance Review</h2>
+
+      <p>The situation: You are a team lead and performance review season is here. You need to write a thoughtful review for a team member who has done excellent work on a major project but needs improvement in communication with other departments.</p>
+
+      <p><strong>The RCC Prompt:</strong> "You are an experienced HR manager who writes fair, constructive performance reviews that motivate employees while addressing areas for growth. I am a team lead in a software company writing a review for my senior developer, Marcus. Over the past six months, Marcus led the migration of our payment system to a new platform, finishing two weeks ahead of schedule and reducing transaction errors by 40%. However, three different department heads have mentioned that Marcus does not keep them updated on timeline changes that affect their teams, which has caused scheduling conflicts. Write a performance review that celebrates Marcus's technical achievements with specific metrics, addresses the communication gap constructively by framing it as a growth opportunity rather than a failure, and includes two specific actionable suggestions for improvement. Keep the tone encouraging and professional. 400-500 words."</p>
+
+      <p>Notice how the <strong>Role</strong> (experienced HR manager) sets the tone and expertise level. The <strong>Context</strong> provides the specific achievements, the specific problem, and even the interpersonal dynamics. The <strong>Constraints</strong> define the structure (celebrate then address), the framing (growth opportunity), the specificity (two actionable suggestions), the tone, and the length.</p>
+
+      <h2>Scenario 2: Planning a Marketing Campaign</h2>
+
+      <p>The situation: You need to plan a product launch campaign for a new feature, and you have a limited budget and a tight timeline.</p>
+
+      <p><strong>The RCC Prompt:</strong> "You are a digital marketing strategist who specializes in B2B SaaS product launches with limited budgets. My company sells project management software to mid-size construction firms. We are launching a new AI scheduling feature that automatically adjusts project timelines when delays occur. Our target audience is operations managers at construction companies with 50-200 employees. Our budget is $5,000 for the launch, and we need to generate at least 200 qualified leads within 30 days. Our existing channels are a LinkedIn company page with 3,000 followers, an email list of 1,200 current customers, and a blog that gets about 2,000 monthly visitors. Create a 30-day launch campaign plan. Break it into three phases: pre-launch buzz (days 1-7), launch week (days 8-14), and sustained momentum (days 15-30). For each phase, specify the channels to use, the content to create, the budget allocation, and the expected outcome. Present this as a table with columns for Phase, Channel, Action, Budget, and Expected Result."</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> Notice how the constraints in this prompt include a specific output format (table with named columns). Specifying the exact format you want is one of the most powerful constraints you can use. It eliminates the AI's guesswork about how to present information and gives you output that is immediately usable.</div>
+
+      <h2>Scenario 3: Summarizing a Long Document</h2>
+
+      <p>The situation: You received a 30-page industry report and need to extract the key points for your boss who has five minutes to review it before a board meeting.</p>
+
+      <p><strong>The RCC Prompt:</strong> "You are an executive assistant who is skilled at distilling complex reports into concise briefings for C-level executives. I need to summarize the attached industry report for my CEO before her board meeting in one hour. She specifically cares about three things: market size projections for our sector, competitive threats that could affect our current strategy, and any regulatory changes on the horizon. She does not care about methodology details or historical data. Create a one-page executive briefing with four sections: a 2-sentence overview, 3-4 bullet points on market size projections, 3-4 bullet points on competitive threats, and 2-3 bullet points on regulatory changes. Use bold text for the most critical numbers and findings. If a section has no relevant information in the report, say so explicitly rather than filling it with tangential content."</p>
+
+      <p>The key insight here is the constraint about what the audience does not care about. Telling the AI what to exclude is often as valuable as telling it what to include. It prevents the AI from padding the output with information that wastes your boss's time.</p>
+
+      <h2>Scenario 4: Preparing for a Difficult Conversation</h2>
+
+      <p>The situation: You need to have a conversation with a long-time vendor about reducing their prices because your budget has been cut, but you want to maintain the relationship.</p>
+
+      <p><strong>The RCC Prompt:</strong> "You are a negotiation coach who helps professionals handle difficult business conversations while preserving relationships. I need to call our web hosting vendor, TechHost Solutions, and ask for a 20% price reduction on our annual contract. We have been their customer for four years and currently pay $24,000 per year. Our department budget was cut by 15% last quarter, and if we cannot reduce costs, we may need to switch to a competitor. However, TechHost has been reliable and switching would be disruptive, so I genuinely want to keep working with them. Help me prepare for this conversation. Give me: an opening statement that is honest about the budget situation without sounding like an ultimatum, three talking points that emphasize the value of our long-term relationship, two potential compromises I can offer if they cannot do the full 20% (such as a longer contract term or reduced service tier), and a graceful way to end the conversation if they say no, that keeps the door open for future renegotiation. Write these as bullet points I can reference during the call, not as a script. Keep each bullet to 1-2 sentences."</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> The constraint "Write these as bullet points I can reference during the call, not as a script" is a perfect example of telling the AI HOW you will use the output. This changes the writing style from performative (a script you would read verbatim) to practical (quick-reference notes you can glance at). Always consider how you will actually use the output and build that into your constraints.</div>
+
+      <h2>Scenario 5: Learning a New Skill</h2>
+
+      <p>The situation: You want to learn the basics of data visualization for an upcoming presentation, but you have no technical background and limited time.</p>
+
+      <p><strong>The RCC Prompt:</strong> "You are a patient, encouraging tutor who specializes in teaching technical concepts to non-technical professionals. I am a sales director with no data science background. I need to create 3-4 charts for a quarterly business review presentation next week. I am comfortable with Excel and Google Sheets but have never created anything beyond a basic bar chart. My data includes monthly revenue by product line (12 months, 4 products), customer acquisition cost trends, and regional sales distribution. Teach me which chart type to use for each dataset and why. Explain how to create each chart in Google Sheets with step-by-step instructions. Assume I know nothing about data visualization principles. Use analogies to sales concepts I would already understand. Start with the simplest chart and build up to the most complex. Keep the total explanation under 800 words."</p>
+
+      <p>Notice how the Role here is not just "tutor" but a tutor with specific qualities: patient, encouraging, and specialized in non-technical audiences. These adjectives shape the AI's tone and approach. The Context specifies not just the goal but the current skill level, the tools available, and the specific data. The Constraints set the learning progression (simple to complex), the explanation style (analogies to sales), and the length.</p>
+
+      <h2>Patterns Across All Five Scenarios</h2>
+
+      <p>Now that you have seen five complete RCC prompts, let us identify what they have in common:</p>
+
+      <ul>
+        <li><strong>The Role is always specific.</strong> Not just "expert" but "experienced HR manager who writes fair reviews" or "negotiation coach who preserves relationships." The more specific the role, the more focused the output.</li>
+        <li><strong>The Context always includes the "why."</strong> Every prompt explains not just what you need but why you need it. This helps the AI make better judgment calls about emphasis and tone.</li>
+        <li><strong>The Constraints always define the format.</strong> Bullet points, tables, numbered lists, word counts — every prompt tells the AI exactly how to structure the output.</li>
+        <li><strong>Every prompt anticipates problems.</strong> "Do not include methodology details." "Frame it as growth, not failure." "Not a script, but reference notes." These preemptive constraints prevent the most common ways the output could miss the mark.</li>
+      </ul>
+
+      <p>These patterns are your blueprint. When you sit down to write an RCC prompt, use this checklist: Is my role specific enough? Does my context include the "why"? Have I defined the output format? Have I anticipated how the output could go wrong?</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Choose a real task from your work that you need to complete this week. It could be anything: writing an email, preparing a presentation, analyzing data, planning a project, or having a conversation. Build a complete RCC prompt for this task using the patterns from the five scenarios above. Before you run the prompt, review it against the four-question checklist: Is the role specific? Does the context include why? Is the format defined? Have you anticipated failure modes? Then run it and evaluate the result. Save your prompt — it becomes the starting template for every similar task in the future.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-2/lesson-5')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-2/lesson-5';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

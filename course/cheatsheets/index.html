@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheets - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .page-header {
+      margin-bottom: 28px;
+    }
+    .page-header .breadcrumb {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .page-header .breadcrumb a { color: var(--text-muted); }
+    .page-header .breadcrumb a:hover { color: var(--cyan); }
+    .page-header h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 560px;
+    }
+
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--violet);
+      margin-bottom: 24px;
+    }
+    .tier-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--violet); }
+
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .cs-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cs-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .cs-card:hover {
+      border-color: rgba(124,58,237,0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      text-decoration: none;
+    }
+    .cs-card:hover::before { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .module-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .card-arrow {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-top: 6px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .cs-card:hover .card-arrow { color: var(--cyan); transform: translateX(3px); }
+
+    .card-module-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .card-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .topic-tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 0.67rem;
+      color: var(--text-muted);
+    }
+
+    .print-all-bar {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .print-all-bar .bar-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .print-all-bar .bar-text strong { color: var(--text); }
+
+    @media (max-width: 640px) {
+      .cs-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      .sidebar, .mobile-menu-btn { display: none !important; }
+      .course-layout { display: block !important; }
+      .main-content { padding: 16px !important; }
+      .cs-card { background: #f9f9f9 !important; border-color: #ddd !important; break-inside: avoid; }
+      .page-header h1 { -webkit-text-fill-color: #333 !important; color: #333 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="page-header">
+        <div class="breadcrumb"><a href="/course/dashboard.html">Dashboard</a> / Cheat Sheets</div>
+        <h1>Course Cheat Sheets</h1>
+        <p>One-page reference cards for each module. Key frameworks, copy-paste prompts, checklists, and action items — all in one place.</p>
+      </div>
+
+      <div class="tier-badge">
+        <span class="dot"></span>
+        Masterclass, VIP &amp; Vanguard only
+      </div>
+
+      <div class="print-all-bar">
+        <span class="bar-text"><strong>Tip:</strong> Open any cheat sheet and use the "Print This Page" button for a clean, print-ready version to keep at your desk.</span>
+      </div>
+
+      <div class="cs-grid">
+
+        <a href="/course/cheatsheets/module-1.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">1</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 1</div>
+          <div class="card-title">Why Most People Use AI Wrong</div>
+          <div class="card-topics">
+            <span class="topic-tag">Input-Output Principle</span>
+            <span class="topic-tag">AI as Collaborator</span>
+            <span class="topic-tag">3 Common Mistakes</span>
+            <span class="topic-tag">Iteration Habit</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-2.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">2</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 2</div>
+          <div class="card-title">The Role-Context-Constraints Framework</div>
+          <div class="card-topics">
+            <span class="topic-tag">RCC Template</span>
+            <span class="topic-tag">Role Examples</span>
+            <span class="topic-tag">Context Checklist</span>
+            <span class="topic-tag">Constraint Types</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-3.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">3</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 3</div>
+          <div class="card-title">The 5 Workflow Patterns</div>
+          <div class="card-topics">
+            <span class="topic-tag">Generate</span>
+            <span class="topic-tag">Refine</span>
+            <span class="topic-tag">Decompose</span>
+            <span class="topic-tag">Critique</span>
+            <span class="topic-tag">Automate</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-4.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">4</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 4</div>
+          <div class="card-title">Building Your Personal AI Stack</div>
+          <div class="card-topics">
+            <span class="topic-tag">Decision Tree</span>
+            <span class="topic-tag">$0 / $20 / $50 Stacks</span>
+            <span class="topic-tag">Tool Comparison</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-5.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">5</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 5</div>
+          <div class="card-title">Real Use Cases</div>
+          <div class="card-topics">
+            <span class="topic-tag">Email Prompts</span>
+            <span class="topic-tag">Reports</span>
+            <span class="topic-tag">Research</span>
+            <span class="topic-tag">Meetings</span>
+            <span class="topic-tag">Data Analysis</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-6.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">6</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 6</div>
+          <div class="card-title">Coding &amp; Technical Work with AI</div>
+          <div class="card-topics">
+            <span class="topic-tag">Coding Templates</span>
+            <span class="topic-tag">Debug Checklist</span>
+            <span class="topic-tag">No-Code Tools</span>
+          </div>
+        </a>
+
+        <a href="/course/cheatsheets/module-7.html" class="cs-card">
+          <div class="card-top">
+            <div class="module-num">7</div>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-module-label">Module 7</div>
+          <div class="card-title">Advanced Automation and Agent Workflows</div>
+          <div class="card-topics">
+            <span class="topic-tag">Agent Diagram</span>
+            <span class="topic-tag">Tool Comparison</span>
+            <span class="topic-tag">First Agent Checklist</span>
+          </div>
+        </a>
+
+      </div>
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+  </script>
+</body>
+</html>

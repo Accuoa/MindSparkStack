@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheet: Advanced Automation and Agent Workflows - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .cs-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cs-header-left .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .cs-header-left h1 { font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+    .print-btn { background: var(--gradient); border: none; color: #fff; font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    .print-btn:hover { opacity: 0.85; }
+
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .cs-card-full { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .label-violet { color: var(--violet); border-color: rgba(124,58,237,0.3); }
+    .label-cyan { color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    .label-amber { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .label-green { color: #10b981; border-color: rgba(16,185,129,0.3); }
+    .label-red { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    .cs-card ul, .cs-card-full ul { list-style: none; margin: 0; padding: 0; }
+    .cs-card ul li, .cs-card-full ul li { font-size: 0.82rem; color: var(--text); padding: 4px 0 4px 16px; position: relative; line-height: 1.45; }
+    .cs-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.7rem; top: 5px; }
+    .cs-card ul li.check::before { content: '✓'; color: #10b981; }
+    .cs-card ul li.mistake::before { content: '✕'; color: #ef4444; }
+    .cs-card ul li.action::before { content: '◆'; color: var(--violet); font-size: 0.55rem; top: 7px; }
+
+    /* Agent Workflow Diagram */
+    .agent-diagram {
+      display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 4px;
+    }
+    .ag-step {
+      display: flex; flex-direction: column; align-items: center; min-width: 110px;
+    }
+    .ag-box {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 8px; text-align: center; width: 100%;
+    }
+    .ag-box .ag-icon { font-size: 1rem; margin-bottom: 4px; }
+    .ag-box .ag-title { font-size: 0.72rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .ag-box .ag-sub { font-size: 0.65rem; color: var(--text-muted); line-height: 1.3; }
+    .ag-arrow { display: flex; align-items: center; padding: 0 6px; padding-top: 20px; color: var(--violet); font-size: 1rem; }
+    .ag-box.trigger { border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.08); }
+    .ag-box.plan { border-color: rgba(6,182,212,0.4); background: rgba(6,182,212,0.08); }
+    .ag-box.tool { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
+    .ag-box.eval { border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
+    .ag-box.output { border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+
+    /* Tool Comparison */
+    .tool-compare-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .tc-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+    .tc-name { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .tc-tag { display: inline-block; background: rgba(124,58,237,0.15); color: var(--violet); border-radius: 4px; padding: 1px 7px; font-size: 0.62rem; font-weight: 700; margin-bottom: 6px; }
+    .tc-tag.no-code { background: rgba(16,185,129,0.15); color: #10b981; }
+    .tc-tag.low-code { background: rgba(6,182,212,0.15); color: var(--cyan); }
+    .tc-tag.code { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .tc-desc { font-size: 0.73rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* Project Checklist */
+    .checklist-step {
+      display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border);
+    }
+    .checklist-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .cl-box {
+      width: 18px; height: 18px; min-width: 18px; border: 2px solid rgba(124,58,237,0.5);
+      border-radius: 4px; margin-top: 1px;
+    }
+    .cl-text strong { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+    .cl-text span { font-size: 0.74rem; color: var(--text-muted); line-height: 1.35; }
+
+    .prompt-block { background: var(--bg3); border: 1px solid rgba(6,182,212,0.2); border-left: 3px solid var(--cyan); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
+    .prompt-block:last-child { margin-bottom: 0; }
+    .prompt-label { font-size: 0.65rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .prompt-text { font-size: 0.8rem; color: var(--text); line-height: 1.5; }
+
+    @media (max-width: 768px) { .cs-grid, .cs-grid-3, .tool-compare-grid { grid-template-columns: 1fr; } .agent-diagram { flex-direction: column; } .ag-arrow { transform: rotate(90deg); padding: 4px 0; } }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; font-size: 11px; }
+      .sidebar, .mobile-menu-btn { display: none !important; }
+      .course-layout { display: block !important; }
+      .main-content { padding: 16px !important; max-width: 100% !important; }
+      .cs-header { background: #f5f5f5 !important; border-color: #ccc !important; break-inside: avoid; }
+      .cs-header-left h1 { -webkit-text-fill-color: #333 !important; color: #333 !important; }
+      .cs-card, .cs-card-full { background: #f9f9f9 !important; border-color: #ddd !important; break-inside: avoid; }
+      .ag-box, .tc-card { background: #f0f0f0 !important; break-inside: avoid; }
+      .print-btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="cs-header">
+        <div class="cs-header-left">
+          <div class="module-label">Module 7 — Cheat Sheet</div>
+          <h1>Advanced Automation and Agent Workflows</h1>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print This Page</button>
+      </div>
+
+      <!-- Key Concepts -->
+      <div class="cs-card-full">
+        <div class="section-label label-violet">Key Concepts</div>
+        <div class="cs-grid">
+          <ul>
+            <li>An <strong>agent</strong> is an AI that can take actions — not just respond. It calls tools, browses the web, writes files, and makes decisions in a loop.</li>
+            <li>The difference between a chatbot and an agent: a chatbot responds once. An agent reasons, acts, checks results, and continues until the goal is done.</li>
+            <li><strong>Tools</strong> are what agents act with — APIs, browser access, code execution, file operations. The tools define what's possible.</li>
+          </ul>
+          <ul>
+            <li>Agents fail gracefully when each step is deterministic and verifiable. Design for failure — assume steps will break.</li>
+            <li>Start simple: automate one 3-step workflow before building a 10-step agent pipeline.</li>
+            <li>Human-in-the-loop is not a weakness — it's a best practice until you've verified the agent is reliable end-to-end.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Agent Workflow Diagram -->
+      <div class="cs-card-full">
+        <div class="section-label label-cyan">Agent Workflow Diagram</div>
+        <div class="agent-diagram">
+          <div class="ag-step">
+            <div class="ag-box trigger">
+              <div class="ag-icon">⚡</div>
+              <div class="ag-title">Trigger</div>
+              <div class="ag-sub">Schedule, webhook, user input, or event</div>
+            </div>
+          </div>
+          <div class="ag-arrow">→</div>
+          <div class="ag-step">
+            <div class="ag-box plan">
+              <div class="ag-icon">◎</div>
+              <div class="ag-title">Plan</div>
+              <div class="ag-sub">AI reasons about the goal and selects next action</div>
+            </div>
+          </div>
+          <div class="ag-arrow">→</div>
+          <div class="ag-step">
+            <div class="ag-box tool">
+              <div class="ag-icon">⚙</div>
+              <div class="ag-title">Tool Call</div>
+              <div class="ag-sub">Search, write file, call API, run code</div>
+            </div>
+          </div>
+          <div class="ag-arrow">→</div>
+          <div class="ag-step">
+            <div class="ag-box eval">
+              <div class="ag-icon">✓</div>
+              <div class="ag-title">Evaluate</div>
+              <div class="ag-sub">Did it work? Continue or retry</div>
+            </div>
+          </div>
+          <div class="ag-arrow">→</div>
+          <div class="ag-step">
+            <div class="ag-box output">
+              <div class="ag-icon">▶</div>
+              <div class="ag-title">Output</div>
+              <div class="ag-sub">Deliver result, notify human, or trigger next agent</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:0.74rem;color:var(--text-muted);margin-top:10px;">The Plan → Tool Call → Evaluate loop repeats until the goal is achieved or a stop condition is hit. Always define a maximum iteration limit.</p>
+      </div>
+
+      <!-- Automation Tool Comparison -->
+      <div class="cs-card-full">
+        <div class="section-label label-amber">Automation Tool Comparison</div>
+        <div class="tool-compare-grid">
+          <div class="tc-card">
+            <div class="tc-name">Zapier</div>
+            <div class="tc-tag no-code">No-Code</div>
+            <div class="tc-desc">Visual workflow builder. 6,000+ integrations. Best for connecting apps without code. Limited branching logic.</div>
+          </div>
+          <div class="tc-card">
+            <div class="tc-name">Make (Integromat)</div>
+            <div class="tc-tag no-code">No-Code</div>
+            <div class="tc-desc">More powerful than Zapier. Complex branching, data transformation. Steeper learning curve but more flexible.</div>
+          </div>
+          <div class="tc-card">
+            <div class="tc-name">n8n</div>
+            <div class="tc-tag low-code">Low-Code</div>
+            <div class="tc-desc">Open-source, self-hostable. Full control. Write custom code within nodes. Best for technical users wanting no vendor lock-in.</div>
+          </div>
+          <div class="tc-card">
+            <div class="tc-name">LangChain / LangGraph</div>
+            <div class="tc-tag code">Code</div>
+            <div class="tc-desc">Python framework for building agent pipelines. Full control over logic and memory. Requires development skills.</div>
+          </div>
+          <div class="tc-card">
+            <div class="tc-name">Claude Agents SDK</div>
+            <div class="tc-tag code">Code</div>
+            <div class="tc-desc">Anthropic's native SDK for multi-agent workflows. Best for Claude-native pipelines with tool use and orchestration.</div>
+          </div>
+          <div class="tc-card">
+            <div class="tc-name">Relevance AI</div>
+            <div class="tc-tag low-code">Low-Code</div>
+            <div class="tc-desc">Build AI agents visually. Chain LLM calls with tools. Good middle ground between no-code and custom development.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- First Agent Project Checklist + Prompts -->
+      <div class="cs-grid">
+        <div class="cs-card">
+          <div class="section-label label-green">First Agent Project Checklist</div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Define the trigger</strong><span>What starts the workflow? Schedule, webhook, manual run, or event?</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Map the steps (3 max to start)</strong><span>List what the agent must do. Keep it linear before adding branching.</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Identify the tools needed</strong><span>Which APIs, apps, or data sources does each step require?</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Define success criteria</strong><span>How will you know the agent completed the task correctly?</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Test with manual inputs first</strong><span>Run each step by hand before automating. Verify outputs at each stage.</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Add error handling</strong><span>What happens if step 2 fails? Define fallbacks before going live.</span></div>
+          </div>
+          <div class="checklist-step">
+            <div class="cl-box"></div>
+            <div class="cl-text"><strong>Monitor the first 10 runs</strong><span>Watch every run and log unexpected behavior before running unsupervised.</span></div>
+          </div>
+        </div>
+
+        <div class="cs-card">
+          <div class="section-label label-cyan">Quick-Reference Prompts</div>
+          <div class="prompt-block">
+            <div class="prompt-label">Design an agent workflow</div>
+            <div class="prompt-text">"I want to automate this workflow: [describe it]. Break it into discrete steps. For each step, identify: what triggers it, what data it needs, what tool it uses, and how to verify it succeeded."</div>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-label">Identify automation opportunities</div>
+            <div class="prompt-text">"Here's how I currently do [task] manually: [describe steps]. Which parts are repetitive and rule-based enough to automate? Rank them by impact and implementation difficulty."</div>
+          </div>
+          <div class="prompt-block">
+            <div class="prompt-label">Debug an agent failure</div>
+            <div class="prompt-text">"My agent failed at step [N]. Here's the input it received: [data]. Here's what it was supposed to do: [expected]. Here's what happened: [actual]. What likely went wrong and how do I fix it?"</div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="section-label label-red" style="margin-top:0">Common Mistakes</div>
+            <ul>
+              <li class="mistake">Building 10-step agents before mastering 2-step automations.</li>
+              <li class="mistake">No error handling — one failed API call breaks the whole chain.</li>
+              <li class="mistake">Automating a workflow you haven't done manually enough times to know all the edge cases.</li>
+              <li class="mistake">Skipping the monitoring phase — agents behave differently at scale.</li>
+            </ul>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="section-label label-green" style="margin-top:0">This Week's Action Items</div>
+            <ul>
+              <li class="action">Find one 3-step manual task you do weekly and map it using the checklist above.</li>
+              <li class="action">Build it in Zapier or Make — no code required. Ship a working v1 before optimizing.</li>
+              <li class="action">Watch the first 5 runs manually and log any unexpected behavior.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+  </script>
+</body>
+</html>

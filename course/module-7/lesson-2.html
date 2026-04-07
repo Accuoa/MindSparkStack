@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your First Agent Workflow - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 7: Agents and Automation</p>
+      <h1>Your First Agent Workflow</h1>
+
+      <p>In the previous lesson, you learned what AI agents are and mapped your daily tasks onto the trust spectrum. Now it is time to build something. By the end of this lesson, you will have a working agent workflow that handles a real task for you — not a hypothetical exercise, but something that saves you actual time starting today.</p>
+
+      <p>We are going to start simple. Your first agent does not need to be sophisticated. It needs to work reliably and prove to you that agent-based automation is worth investing in. Once you have that proof, you will naturally want to build more.</p>
+
+      <h2>Choosing Your First Agent Task</h2>
+
+      <p>The ideal first agent task has three qualities:</p>
+
+      <p><strong>Repetitive.</strong> You do this task at least weekly, ideally daily. The more often you do it, the more time the agent saves you, and the faster you learn whether it is working correctly.</p>
+
+      <p><strong>Low-risk.</strong> If the agent makes a mistake, the consequences are minor and easily corrected. Do not automate your tax filing as your first project. Automate your email summaries or your meeting prep notes.</p>
+
+      <p><strong>Clear success criteria.</strong> You can look at the agent's output and quickly determine whether it did a good job. "Summarize my unread emails" has clear success criteria — you can check the summary against the actual emails. "Be creative with my marketing strategy" does not — success is subjective and hard to evaluate.</p>
+
+      <p>Good first agent tasks include: summarizing daily emails, creating meeting agendas from calendar events, organizing files or notes into categories, drafting social media posts from a content calendar, converting meeting notes into action items, or generating weekly status updates from project management tools.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> Choose a task you currently dread or procrastinate on. The psychological benefit of automating an annoying task is just as valuable as the time savings. When the task you hate gets done automatically, your entire day feels lighter.</div>
+
+      <h2>The Agent Blueprint</h2>
+
+      <p>Before you build anything, write a simple blueprint. This is a plain-language description of what the agent does. Think of it as a job description for your AI employee. Every agent blueprint has four parts:</p>
+
+      <p><strong>Trigger:</strong> What causes the agent to start? (A new email arrives, a calendar event is 30 minutes away, a form is submitted, you manually start it each morning)</p>
+
+      <p><strong>Input:</strong> What information does the agent need? (The email content, the calendar event details, the form responses, your project data)</p>
+
+      <p><strong>Process:</strong> What does the agent do with the input? (Summarize it, categorize it, draft a response, extract action items, compare against criteria)</p>
+
+      <p><strong>Output:</strong> What does the agent produce? (A summary in Slack, a draft email for your review, a categorized list, an alert notification)</p>
+
+      <p>Here is an example blueprint for a daily email summary agent:</p>
+
+      <ul>
+        <li><strong>Trigger:</strong> Every morning at 8:00 AM</li>
+        <li><strong>Input:</strong> All unread emails from the past 24 hours</li>
+        <li><strong>Process:</strong> Categorize each email (urgent, needs response, FYI, newsletter/spam). For urgent and needs-response emails, write a 1-sentence summary and suggest a response approach.</li>
+        <li><strong>Output:</strong> A formatted digest organized by category, delivered to my Slack channel or shown in a dashboard</li>
+      </ul>
+
+      <h2>Building with No-Code Tools</h2>
+
+      <p>You do not need to write code to build an agent workflow. No-code automation platforms make it possible to connect AI to your existing tools with a visual, drag-and-drop interface. The two most popular platforms are Zapier and Make (formerly Integromat).</p>
+
+      <p>Here is how you would build the email summary agent using Zapier:</p>
+
+      <p><strong>Step 1: Set the trigger.</strong> In Zapier, create a new "Zap." Set the trigger to "Schedule by Zapier" and configure it to run every day at 8:00 AM.</p>
+
+      <p><strong>Step 2: Get the emails.</strong> Add a step that connects to your email (Gmail, Outlook, etc.) and retrieves unread emails from the past 24 hours.</p>
+
+      <p><strong>Step 3: Process with AI.</strong> Add a step that sends the email content to an AI tool (ChatGPT, Claude, etc.) with a prompt like: "Here are my unread emails from the past 24 hours. Categorize each one as Urgent, Needs Response, FYI, or Newsletter. For Urgent and Needs Response emails, provide a 1-sentence summary and suggest a response approach. Present as a formatted list organized by category."</p>
+
+      <p><strong>Step 4: Deliver the output.</strong> Add a step that sends the AI's response to your preferred destination — a Slack message, an email to yourself, a Notion page, or a Google Doc.</p>
+
+      <p>Four steps. No code. Your email summary agent is live. Total setup time: 15-30 minutes.</p>
+
+      <h2>Building with AI Chat Tools</h2>
+
+      <p>If you do not want to use Zapier or Make, you can build lightweight agents using the custom features built into AI chat tools:</p>
+
+      <p><strong>Custom GPTs (OpenAI):</strong> You can create a GPT with specific instructions that persist across conversations. Create a "Meeting Prep" GPT with instructions like: "When the user provides a meeting title and attendees, research each attendee on LinkedIn, identify recent news about their companies, suggest three talking points, and draft an agenda. Always format the output with clear headers."</p>
+
+      <p><strong>Claude Projects (Anthropic):</strong> Similar to Custom GPTs, you can create a Claude Project with custom instructions, reference documents, and a defined workflow. Upload your company's brand guidelines, your previous meeting notes, or your content calendar as reference material.</p>
+
+      <p>These are simpler than Zapier workflows because they do not connect to external tools automatically. You still need to paste in the input data and copy out the results. But they are faster to set up, and the persistent instructions mean you do not need to explain the context every time.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> Start with the simplest tool that gets the job done. If a Custom GPT or Claude Project handles your task, use that. Only move to Zapier or Make when you need automatic triggers or connections to external tools. Complexity is not a feature — reliability is.</div>
+
+      <h2>Testing Your Agent</h2>
+
+      <p>Before you trust your agent to run autonomously, test it thoroughly. Here is a testing checklist:</p>
+
+      <ol>
+        <li><strong>Run it with real data.</strong> Do not test with made-up examples. Use your actual emails, your actual calendar, your actual data. Synthetic data misses the edge cases that real data contains.</li>
+        <li><strong>Check the output carefully.</strong> Read every line of the agent's output and compare it to the source data. Did it miss any emails? Did it miscategorize anything? Did the summaries accurately represent the content?</li>
+        <li><strong>Test edge cases.</strong> What happens when there are no unread emails? What happens when an email is in a language the AI does not expect? What happens when the email content is very long?</li>
+        <li><strong>Run it for three days before trusting it.</strong> Automated systems often work perfectly on day one and fail on day three when the data is slightly different. Give it a few days of manual review before you stop checking every output.</li>
+      </ol>
+
+      <h2>Monitoring and Adjusting</h2>
+
+      <p>Even after your agent passes testing, do not set it and forget it. Build a monitoring habit:</p>
+
+      <p><strong>Daily for the first week:</strong> Review every output. This is your training period where you learn the agent's strengths and weaknesses.</p>
+
+      <p><strong>Every other day for weeks 2-3:</strong> Spot-check the outputs. If they are consistently accurate, reduce your checking frequency.</p>
+
+      <p><strong>Weekly after the first month:</strong> Do a quick review of the agent's outputs from the past week. Look for patterns of error or drift.</p>
+
+      <p>When you find issues, adjust the agent's instructions. If it keeps miscategorizing newsletter emails as "needs response," add a specific instruction: "Emails from Substack, Mailchimp, or any email with an 'Unsubscribe' link at the bottom should always be categorized as Newsletter, regardless of content."</p>
+
+      <p>These adjustments are normal. You are training your agent the same way you would train a new team member — through feedback and iteration.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Build your first agent workflow. Choose a task from the exercise in the previous lesson (one that you placed at level 2 or 3 on the trust spectrum). Write the Agent Blueprint (trigger, input, process, output). Then build it using either a no-code tool like Zapier, a Custom GPT, or a Claude Project. Run it with real data at least three times and evaluate the results. Write down what worked, what did not, and what you would adjust. Congratulations — you have built your first AI agent.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-7/lesson-2')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-7/lesson-2';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

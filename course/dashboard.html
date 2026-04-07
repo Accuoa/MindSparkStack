@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Dashboard — MindSparkAI</title>
+  <link rel="stylesheet" href="/course/shared/styles.css" />
+  <style>
+    .layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+    .mobile-menu-toggle { display: none; position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border: none; border-radius: 50%; cursor: pointer; align-items: center; justify-content: center; font-size: 1.25rem; color: #fff; box-shadow: 0 4px 20px rgba(124,58,237,0.4); z-index: 100; transition: transform 0.15s, box-shadow 0.15s; }
+    .mobile-menu-toggle:hover { transform: scale(1.05); box-shadow: 0 4px 28px rgba(124,58,237,0.6); }
+    .dashboard-main { padding: 48px 56px; max-width: 960px; }
+    .welcome-section { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .welcome-header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+    .welcome-title { font-size: 1.875rem; font-weight: 800; background: linear-gradient(135deg, #7c3aed, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2; }
+    .welcome-sub { font-size: 0.9375rem; color: #94a3b8; margin-top: 6px; }
+    .tier-vanguard { background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.2)); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.4); }
+    .overall-progress { background: #111118; border: 1px solid rgba(124,58,237,0.2); border-radius: 12px; padding: 24px 28px; margin-bottom: 40px; }
+    .overall-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .overall-progress-label { font-size: 0.9375rem; font-weight: 600; color: #e2e8f0; }
+    .overall-progress-count { font-size: 0.875rem; color: #94a3b8; }
+    .progress-bar-lg { width: 100%; height: 8px; background: #1a1a24; border-radius: 4px; overflow: hidden; }
+    .progress-fill-lg { height: 100%; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 4px; transition: width 0.6s ease; }
+    .section-heading { font-size: 1.125rem; font-weight: 700; color: #e2e8f0; margin-bottom: 16px; margin-top: 40px; }
+    .module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 8px; }
+    .module-card { background: #111118; border: 1px solid rgba(124,58,237,0.2); border-radius: 12px; padding: 22px; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .module-card:hover { border-color: rgba(124,58,237,0.45); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.12); }
+    .module-card-title { font-size: 0.875rem; font-weight: 600; color: #e2e8f0; margin-bottom: 10px; line-height: 1.4; flex: 1; }
+    .module-card-count { font-size: 0.75rem; color: #94a3b8; margin-bottom: 10px; }
+    .module-mini-bar { width: 100%; height: 4px; background: #1a1a24; border-radius: 2px; overflow: hidden; margin-bottom: 16px; }
+    .module-mini-fill { height: 100%; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 2px; transition: width 0.4s ease; }
+    .module-card-btn { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 8px; font-size: 0.8125rem; font-weight: 600; text-decoration: none; transition: opacity 0.15s, transform 0.1s; line-height: 1; }
+    .module-card-btn:hover { opacity: 0.9; transform: translateY(-1px); text-decoration: none; }
+    .module-btn-start { background: linear-gradient(135deg, #7c3aed, #06b6d4); color: #fff; }
+    .module-btn-continue { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.35); }
+    .module-btn-review { background: rgba(6,182,212,0.1); color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); }
+    .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 8px; }
+    .resource-card { background: #111118; border: 1px solid rgba(124,58,237,0.2); border-radius: 12px; padding: 20px; text-decoration: none; display: block; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; }
+    .resource-card:hover { border-color: rgba(124,58,237,0.45); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.12); text-decoration: none; }
+    .resource-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 12px; }
+    .resource-title { font-size: 0.9375rem; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+    .resource-desc { font-size: 0.8125rem; color: #94a3b8; line-height: 1.5; }
+    .resource-locked { opacity: 0.5; cursor: not-allowed; }
+    .resource-locked:hover { transform: none !important; box-shadow: none !important; border-color: rgba(124,58,237,0.2) !important; }
+    .lock-badge { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+    .vip-section { background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(124,58,237,0.06)); border: 1px solid rgba(245,158,11,0.25); border-radius: 12px; padding: 28px; margin-bottom: 8px; }
+    .vip-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .vip-section-title { font-size: 1rem; font-weight: 700; color: #fcd34d; }
+    .vip-perks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .vip-perk-card { background: rgba(0,0,0,0.2); border: 1px solid rgba(245,158,11,0.15); border-radius: 10px; padding: 18px; }
+    .vip-perk-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .vip-perk-title { font-size: 0.875rem; font-weight: 600; color: #fcd34d; margin-bottom: 6px; }
+    .vip-perk-desc { font-size: 0.8125rem; color: #94a3b8; line-height: 1.5; }
+    .vip-perk-link { display: inline-block; margin-top: 10px; font-size: 0.8125rem; font-weight: 600; color: #f59e0b; text-decoration: none; }
+    .vip-perk-link:hover { text-decoration: underline; }
+    .community-card { background: linear-gradient(135deg, rgba(88,101,242,0.1), rgba(124,58,237,0.1)); border: 1px solid rgba(88,101,242,0.3); border-radius: 12px; padding: 28px; display: flex; align-items: center; gap: 24px; margin-bottom: 8px; text-decoration: none; transition: border-color 0.2s, transform 0.15s; }
+    .community-card:hover { border-color: rgba(88,101,242,0.55); transform: translateY(-2px); text-decoration: none; }
+    .community-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .community-info { flex: 1; }
+    .community-title { font-size: 1rem; font-weight: 700; color: #e2e8f0; margin-bottom: 4px; }
+    .community-desc { font-size: 0.875rem; color: #94a3b8; line-height: 1.5; }
+    .community-cta { flex-shrink: 0; background: #5865f2; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
+    .community-cta:hover { opacity: 0.9; text-decoration: none; }
+    .certificate-card { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(6,182,212,0.12)); border: 1px solid rgba(124,58,237,0.35); border-radius: 12px; padding: 32px; display: flex; align-items: center; gap: 24px; margin-bottom: 8px; }
+    .certificate-icon { font-size: 3rem; flex-shrink: 0; }
+    .certificate-info { flex: 1; }
+    .certificate-title { font-size: 1.125rem; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; }
+    .certificate-desc { font-size: 0.875rem; color: #94a3b8; line-height: 1.5; }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .mobile-menu-toggle { display: flex; }
+      .dashboard-main { padding: 32px 20px; max-width: 100%; }
+      .welcome-title { font-size: 1.5rem; }
+      .module-grid { grid-template-columns: 1fr; }
+      .resources-grid { grid-template-columns: 1fr 1fr; }
+      .vip-perks-grid { grid-template-columns: 1fr; }
+      .community-card { flex-direction: column; text-align: center; gap: 16px; }
+      .community-cta { width: 100%; text-align: center; }
+      .certificate-card { flex-direction: column; text-align: center; gap: 16px; }
+    }
+    @media (max-width: 480px) { .resources-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">&#9776;</button>
+
+  <div class="layout">
+    <div id="sidebar" class="sidebar"></div>
+    <div class="dashboard-main" id="main">
+      <p style="text-align:center;padding:4rem;color:#94a3b8;">Loading...</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      renderSidebar('sidebar', null);
+      getProgress().then(function(completedSlugs) {
+        var main = document.getElementById('main');
+        var html = [];
+
+        var tierName = (profile && profile.tier) ? profile.tier : 'core';
+        var badgeClass = 'tier-badge tier-' + tierName;
+        html.push('<div class="welcome-section">');
+        html.push('<div class="welcome-header">');
+        html.push('<span class="' + badgeClass + '">' + tierName + '</span>');
+        html.push('</div>');
+        html.push('<div id="welcome-title-wrap" class="welcome-title"></div>');
+        html.push('<p class="welcome-sub">Here's your progress at a glance. Keep going — every lesson compounds.</p>');
+        html.push('</div>');
+
+        var completedCount = completedSlugs ? completedSlugs.length : 0;
+        var pct = Math.round((completedCount / TOTAL_LESSONS) * 100);
+        html.push('<div class="overall-progress">');
+        html.push('<div class="overall-progress-header">');
+        html.push('<span class="overall-progress-label">Course Progress</span>');
+        html.push('<span class="overall-progress-count">' + completedCount + ' of ' + TOTAL_LESSONS + ' lessons complete — ' + pct + '%</span>');
+        html.push('</div>');
+        html.push('<div class="progress-bar-lg"><div class="progress-fill-lg" id="overall-fill" style="width:0%"></div></div>');
+        html.push('</div>');
+
+        html.push('<div class="section-heading">Your Modules</div>');
+        html.push('<div class="module-grid">');
+        for (var m = 0; m < COURSE_STRUCTURE.length; m++) {
+          var mod = COURSE_STRUCTURE[m];
+          var lessons = mod.lessons;
+          var modCompleted = 0;
+          var firstIncomplete = null;
+          for (var l = 0; l < lessons.length; l++) {
+            var ls = lessons[l];
+            var isDone = completedSlugs && completedSlugs.indexOf(ls.slug) !== -1;
+            if (isDone) { modCompleted++; } else if (!firstIncomplete) { firstIncomplete = ls.slug; }
+          }
+          var modTotal = lessons.length;
+          var modPct = modTotal > 0 ? Math.round((modCompleted / modTotal) * 100) : 0;
+          var targetSlug = firstIncomplete || (lessons.length > 0 ? lessons[0].slug : '');
+          var targetHref = targetSlug ? '/course/' + targetSlug + '.html' : '#';
+          var btnClass, btnLabel;
+          if (modCompleted === 0) { btnClass = 'module-card-btn module-btn-start'; btnLabel = 'Start'; }
+          else if (modCompleted === modTotal) { btnClass = 'module-card-btn module-btn-review'; btnLabel = 'Review'; }
+          else { btnClass = 'module-card-btn module-btn-continue'; btnLabel = 'Continue'; }
+          html.push('<div class="module-card">');
+          html.push('<div class="module-card-title">' + mod.title + '</div>');
+          html.push('<div class="module-card-count">' + modCompleted + ' of ' + modTotal + ' lessons</div>');
+          html.push('<div class="module-mini-bar"><div class="module-mini-fill" style="width:' + modPct + '%"></div></div>');
+          html.push('<a href="' + targetHref + '" class="' + btnClass + '">' + btnLabel + '</a>');
+          html.push('</div>');
+        }
+        html.push('</div>');
+        html.push('<div class="section-heading">Resources</div>');
+        html.push('<div class="resources-grid">');
+        html.push('<a href="/course/prompts.html" class="resource-card"><div class="resource-icon" style="background:rgba(124,58,237,0.12);">&#128196;</div><div class="resource-title">Prompt Library</div><div class="resource-desc">Ready-to-use prompts for every workflow and use case.</div></a>');
+        html.push('<a href="/course/tools.html" class="resource-card"><div class="resource-icon" style="background:rgba(6,182,212,0.12);">&#128295;</div><div class="resource-title">Tool Comparison Guide</div><div class="resource-desc">Side-by-side breakdown of the best AI tools available today.</div></a>');
+        var canSeeCheatsheets = canAccess(['masterclass', 'vip', 'vanguard']);
+        if (canSeeCheatsheets) {
+          html.push('<a href="/course/cheatsheets/" class="resource-card"><div class="resource-icon" style="background:rgba(16,185,129,0.12);">&#9889;</div><div class="resource-title">Cheat Sheets</div><div class="resource-desc">Quick-reference sheets for every major concept in the course.</div></a>');
+        } else {
+          html.push('<div class="resource-card resource-locked"><div class="resource-icon" style="background:rgba(100,116,139,0.1);">&#9889;</div><div class="resource-title">Cheat Sheets</div><div class="resource-desc">Quick-reference sheets for every major concept in the course.</div><span class="lock-badge">&#128274; Masterclass+</span></div>');
+        }
+        html.push('</div>');
+
+        var isVip = canAccess(['vip', 'vanguard']);
+        if (isVip) {
+          html.push('<div class="section-heading">VIP Perks</div>');
+          html.push('<div class="vip-section">');
+          html.push('<div class="vip-section-header"><span style="font-size:1.25rem;">&#11088;</span><span class="vip-section-title">Exclusive VIP Access</span></div>');
+          html.push('<div class="vip-perks-grid">');
+          html.push('<div class="vip-perk-card"><div class="vip-perk-icon">&#128222;</div><div class="vip-perk-title">1:1 Onboarding Call</div><div class="vip-perk-desc">Book a personal onboarding session to get you set up and moving fast.</div><a href="mailto:aiden@mindsparkstack.com?subject=1:1%20Onboarding%20Call" class="vip-perk-link">Book a call &rarr;</a></div>');
+          html.push('<div class="vip-perk-card"><div class="vip-perk-icon">&#128197;</div><div class="vip-perk-title">Monthly Q&amp;A</div><div class="vip-perk-desc">Live group Q&amp;A every last Thursday of the month at 12pm EST. Check your email for the Zoom link.</div></div>');
+          html.push('<div class="vip-perk-card"><div class="vip-perk-icon">&#128736;</div><div class="vip-perk-title">Priority Support</div><div class="vip-perk-desc">Jump the queue. Email us directly and get a response within 24 hours.</div><a href="mailto:aiden@mindsparkstack.com?subject=VIP%20Priority%20Support" class="vip-perk-link">Email VIP support &rarr;</a></div>');
+          html.push('</div>');
+          html.push('</div>');
+        }
+
+        html.push('<div class="section-heading">Community</div>');
+        html.push('<a href="https://discord.gg/mindsparkai" target="_blank" rel="noopener" class="community-card"><div class="community-icon">&#128172;</div><div class="community-info"><div class="community-title">Join the MindSparkAI Discord</div><div class="community-desc">Connect with fellow learners, share prompts, ask questions, and stay ahead of the curve.</div></div><span class="community-cta">Join Discord</span></a>');
+
+        var canGetCert = canAccess(['masterclass', 'vip', 'vanguard']);
+        if (canGetCert) {
+          html.push('<div class="section-heading">Certificate</div>');
+          if (completedCount >= TOTAL_LESSONS) {
+            html.push('<div class="certificate-card"><div class="certificate-icon">&#127941;</div><div class="certificate-info"><div class="certificate-title">Congratulations! You've completed the course.</div><div class="certificate-desc">Your certificate of completion is ready. Download and share your achievement.</div></div><a href="/course/certificate.html" class="module-card-btn module-btn-start" style="flex-shrink:0;">Get Certificate</a></div>');
+          } else {
+            var remaining = TOTAL_LESSONS - completedCount;
+            html.push('<div class="certificate-card" style="opacity:0.6;"><div class="certificate-icon">&#127941;</div><div class="certificate-info"><div class="certificate-title">Certificate of Completion</div><div class="certificate-desc">Complete all ' + TOTAL_LESSONS + ' lessons to unlock your certificate. ' + remaining + ' lesson' + (remaining === 1 ? '' : 's') + ' remaining.</div></div></div>');
+          }
+        }
+
+        main.innerHTML = html.join('');
+
+        var nameWrap = document.getElementById('welcome-title-wrap');
+        if (nameWrap) {
+          var displayName = (profile && profile.full_name) ? profile.full_name : ((user && user.email) ? user.email : 'there');
+          var firstName = displayName.split(' ')[0];
+          nameWrap.appendChild(document.createTextNode('Welcome back, ' + firstName));
+        }
+
+        var fillEl = document.getElementById('overall-fill');
+        if (fillEl) { setTimeout(function() { fillEl.style.width = pct + '%'; }, 60); }
+      });
+    }
+  </script>
+</body>
+</html>

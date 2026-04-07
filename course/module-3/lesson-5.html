@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Automation Chain - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 3: Prompt Patterns That 10x Your Output</p>
+      <h1>The Automation Chain</h1>
+
+      <p>So far in this module, you have learned patterns that work within a single AI interaction: research synthesis, draft-refine loops, decision matrices, and content multiplication. Each pattern produces great results for one task. But the real power of AI emerges when you chain multiple tasks together — when the output of one AI interaction becomes the input for the next.</p>
+
+      <p>This is the Automation Chain pattern, and it is the closest thing to having a personal team working on a project sequentially. Each link in the chain handles one specific job, and the chain as a whole accomplishes something no single prompt could.</p>
+
+      <h2>What Is an Automation Chain</h2>
+
+      <p>An automation chain is a sequence of AI tasks where each step builds on the output of the previous one. Think of it like an assembly line. Step 1 gathers raw materials. Step 2 shapes them. Step 3 assembles the components. Step 4 does quality control. No single step produces the finished product, but together they create something polished and complete.</p>
+
+      <p>The reason chains work better than trying to do everything in one prompt is the same reason assembly lines work better than having one person build an entire car: specialization. Each step in the chain has a narrow, focused job. It can do that job well because it does not have to worry about everything else.</p>
+
+      <h2>Simple Chain Example</h2>
+
+      <p>Let us start with a straightforward three-step chain for competitive research:</p>
+
+      <p><strong>Step 1 — Research:</strong></p>
+      <p><strong>Prompt:</strong> "I work at a SaaS company that sells inventory management software to mid-size retailers. Our main competitor just launched a new AI-powered demand forecasting feature. Research what AI demand forecasting typically offers in retail inventory management. What are the key capabilities, common pricing models, and the main benefits customers report? Present your findings as structured notes with headers."</p>
+
+      <p><strong>Step 2 — Analysis:</strong></p>
+      <p><strong>Prompt:</strong> "Based on these research notes [paste Step 1 output], analyze how this competitive threat affects our business. Consider: which of our customers would find this feature most valuable, what it would take for us to build something similar, and whether there are alternative approaches that could differentiate us. Present this as a SWOT analysis."</p>
+
+      <p><strong>Step 3 — Communication:</strong></p>
+      <p><strong>Prompt:</strong> "Based on this analysis [paste Step 2 output], draft a 500-word memo to our product team. Frame the competitive threat clearly but constructively. Include a recommendation section with three specific actions we should consider, ranked by priority. The tone should be urgent but not alarmist. Our product team responds best to data-backed recommendations, not opinions."</p>
+
+      <p>Three prompts. Three focused tasks. The end result is a professional competitive analysis memo that would have taken hours to write manually, and it is grounded in structured research rather than off-the-top-of-your-head impressions.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> When chaining steps, always paste the actual output from the previous step rather than summarizing it. The AI needs the full context to do its job well. Summaries lose nuance, and that lost nuance compounds with each step in the chain.</div>
+
+      <h2>The Handoff Principle</h2>
+
+      <p>The quality of a chain depends on the quality of the handoffs between steps. A handoff is the moment when output from Step N becomes input for Step N+1. Good handoffs preserve the important information and discard the noise.</p>
+
+      <p>Here are three rules for clean handoffs:</p>
+
+      <p><strong>Rule 1: Structure the output of each step for the next step's needs.</strong> If Step 2 needs a list of key findings, make sure Step 1 presents its output as a structured list, not a flowing essay. Tell Step 1 what format to use based on what Step 2 will need.</p>
+
+      <p><strong>Rule 2: Include context about the chain in each prompt.</strong> Tell each step what came before and what comes after. "This is step 2 of a 4-step process. Step 1 gathered competitive research. Your job is to analyze it. Step 3 will use your analysis to draft a memo." This helps the AI calibrate the level of detail and format.</p>
+
+      <p><strong>Rule 3: Review each handoff before proceeding.</strong> Before you paste Step 1's output into Step 2, read it. Is anything missing? Is anything wrong? Catching errors early prevents them from propagating through the entire chain.</p>
+
+      <h2>Building Longer Chains</h2>
+
+      <p>Three-step chains are useful, but some workflows need more steps. Here is a five-step chain for producing a weekly client report:</p>
+
+      <ol>
+        <li><strong>Data Collection:</strong> "Here are the raw metrics from our analytics dashboard this week [paste data]. Organize this into a clean summary table with columns for Metric, This Week, Last Week, and % Change."</li>
+        <li><strong>Trend Analysis:</strong> "Based on this data summary, identify the three most significant trends — positive or negative. For each trend, explain what is happening and suggest a possible cause."</li>
+        <li><strong>Insight Generation:</strong> "Based on these trends, generate three actionable insights for our client. Each insight should connect a trend to a specific recommendation. Frame these from the client's perspective, not ours."</li>
+        <li><strong>Report Drafting:</strong> "Using the data summary, trend analysis, and insights, draft a client-facing weekly report. Start with a one-paragraph executive summary, then present the data table, then the trends and insights. Keep the tone professional but accessible. Under 800 words."</li>
+        <li><strong>Quality Review:</strong> "Review this draft report for accuracy, tone, and completeness. Check that all numbers match the original data. Flag any claims that are not supported by the data. Suggest improvements to the executive summary if it does not capture the most important finding."</li>
+      </ol>
+
+      <p>Each step is simple. The chain as a whole produces a polished, data-driven client report in a fraction of the time it would take to write from scratch.</p>
+
+      <h2>Error Handling in Chains</h2>
+
+      <p>Chains are only as strong as their weakest link. If Step 2 produces a flawed analysis, Step 3 will build on that flaw, and Step 4 will polish it into a convincing-looking document that is fundamentally wrong. This is the biggest risk of automation chains.</p>
+
+      <p>To manage this risk, use the checkpoint-and-verify approach:</p>
+
+      <ul>
+        <li><strong>Checkpoint after every step.</strong> Read the output before passing it to the next step. Do not blindly chain outputs together.</li>
+        <li><strong>Verify facts at step boundaries.</strong> If Step 1 claims "the market grew 15% last year," verify that number before it becomes the foundation of your entire analysis.</li>
+        <li><strong>Build in a review step.</strong> The last step of any chain should be a quality review that checks the final output against the original input. This catches errors that crept in during the middle steps.</li>
+      </ul>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> If you find an error at Step 3 of a 5-step chain, do not restart from Step 1. Fix the error at Step 3 and re-run from there. Each step is independent enough that you only need to redo the steps after the error, not the ones before it.</div>
+
+      <h2>Tools That Support Chaining</h2>
+
+      <p>You can chain AI tasks manually by copying and pasting between prompts. This works fine for chains of 3-4 steps that you run occasionally. But for chains you run regularly or chains with more steps, there are tools that automate the handoffs:</p>
+
+      <ul>
+        <li><strong>Zapier and Make:</strong> These no-code automation platforms can connect AI tools to other apps and chain multiple AI calls together. For example, a new email arrives, Zapier sends it to AI for summarization, then sends the summary to Slack.</li>
+        <li><strong>Custom GPTs and Claude Projects:</strong> You can set up pre-configured AI sessions that already have your chain's instructions built in, so you just provide the initial input and the chain runs automatically.</li>
+        <li><strong>Simple scripts:</strong> If you are comfortable with basic code (or use AI to write it), a Python or JavaScript script can chain API calls to AI tools and handle the data passing automatically.</li>
+      </ul>
+
+      <p>Start with manual chaining to learn the pattern. Move to automated tools once you have a chain that you run regularly and want to save time on the copy-paste steps.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Design a 3-step automation chain for a task you do regularly at work. It could be a report, a research process, a content creation workflow, or anything that involves multiple stages. Write out the prompt for each step, specifying what format the output should be in (so it hands off cleanly to the next step). Then run the chain, pasting each step's output into the next. After completing the chain, evaluate: Did each handoff work smoothly? Did the final output meet your expectations? Where could you improve the chain for next time?</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-3/lesson-5')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-3/lesson-5';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

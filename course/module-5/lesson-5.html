@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Analysis with AI - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 5: Real-World AI Workflows</p>
+      <h1>Data Analysis with AI</h1>
+
+      <p>Data analysis used to be something that required specialized skills — statistics, programming, expensive software. If you wanted to find patterns in your sales data or make sense of survey results, you either learned SQL and Python or you waited for someone on the analytics team to get to your request. That bottleneck is gone.</p>
+
+      <p>AI has democratized data analysis. You can now take a messy spreadsheet, describe what you want to learn, and get meaningful insights in minutes. You do not need to know formulas, pivot tables, or programming. You need to know how to ask the right questions. That is what this lesson teaches.</p>
+
+      <h2>What Counts as Data Analysis</h2>
+
+      <p>Before we start, let us define what we mean by data analysis. This is not about building machine learning models or writing complex algorithms. For most professionals, data analysis means making sense of information you already have:</p>
+
+      <ul>
+        <li><strong>Spreadsheets:</strong> Sales figures, expense reports, inventory counts, project timelines</li>
+        <li><strong>Survey results:</strong> Customer feedback, employee satisfaction scores, market research responses</li>
+        <li><strong>Website analytics:</strong> Traffic numbers, conversion rates, user behavior patterns</li>
+        <li><strong>Customer data:</strong> Purchase history, support tickets, usage patterns</li>
+        <li><strong>Financial data:</strong> Revenue trends, budget vs. actual spending, profitability by product line</li>
+      </ul>
+
+      <p>If you have ever stared at a spreadsheet full of numbers and thought "I know there is something useful in here, but I have no idea how to find it," this lesson is for you.</p>
+
+      <h2>Describing Your Data to AI</h2>
+
+      <p>The biggest challenge in AI-assisted data analysis is not the analysis itself — it is describing your data clearly enough that the AI understands what it is looking at. Here is a framework for doing that effectively:</p>
+
+      <p><strong>Step 1: Describe the structure.</strong> "I have a spreadsheet with 500 rows and 8 columns. Each row represents one customer order. The columns are: Order ID, Customer Name, Product Category, Order Date, Quantity, Unit Price, Total Amount, and Region."</p>
+
+      <p><strong>Step 2: Explain what the data represents.</strong> "This is all of our orders from January through June 2026. We sell office supplies to businesses in three regions: East, West, and Central."</p>
+
+      <p><strong>Step 3: State what you want to learn.</strong> "I want to understand which product categories are growing fastest, which region is underperforming, and whether there are seasonal patterns in ordering."</p>
+
+      <p><strong>Step 4: Mention any context the AI needs.</strong> "We launched a new product category called 'Ergonomic Furniture' in March, so it will have fewer months of data. Also, the West region lost a major account in April, which may affect the numbers."</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> If your data is in a spreadsheet, you can often paste a sample directly into the AI chat — the first 10-20 rows plus headers. This lets the AI see the actual format, data types, and any quirks in how the data is structured. It is much more effective than describing the data in words alone.</div>
+
+      <h2>Finding Patterns and Trends</h2>
+
+      <p>Once the AI understands your data, you can ask it to find patterns. But the quality of your question determines the quality of the analysis. Compare these two approaches:</p>
+
+      <p><strong>Vague question:</strong> "Analyze this data."</p>
+
+      <p>The AI will give you a generic summary — averages, totals, maybe a few obvious observations. It is the equivalent of asking a new employee to "look at these numbers and tell me what you think" without telling them what decisions the analysis will inform.</p>
+
+      <p><strong>Specific questions:</strong></p>
+      <ul>
+        <li>"Compare average order values between the three regions. Is there a statistically meaningful difference?"</li>
+        <li>"Which product category has the highest month-over-month growth rate from January to June?"</li>
+        <li>"Are there any customers who ordered in Q1 but have not ordered in Q2? How many, and what is their total Q1 revenue?"</li>
+        <li>"What day of the week do we receive the most orders? Does this vary by region?"</li>
+      </ul>
+
+      <p>Each of these questions is targeted, specific, and leads to an actionable insight. The first question helps you decide where to focus sales efforts. The second helps with product strategy. The third identifies at-risk customers. The fourth helps with staffing and logistics.</p>
+
+      <h2>Creating Visualizations</h2>
+
+      <p>Numbers in a spreadsheet tell you the facts. Charts and graphs tell you the story. AI can help you choose the right visualization and create it.</p>
+
+      <p><strong>Prompt:</strong> "Based on the monthly revenue data for our four product categories over the past six months, what type of chart would best show the growth trends? I need to present this to my VP who prefers clean, simple visuals over complex dashboards."</p>
+
+      <p>The AI will recommend a chart type (likely a line chart for trends over time), explain why it is the best choice, and can even generate the chart code or give you step-by-step instructions for creating it in Excel or Google Sheets.</p>
+
+      <p>For more complex visualizations, you can ask the AI to write the code:</p>
+
+      <p><strong>Prompt:</strong> "Write a Google Sheets formula that creates a chart showing monthly revenue by region as stacked bar charts, with a trend line for total revenue overlaid. Include labels for each month and a legend for the three regions."</p>
+
+      <p>Even if you cannot read the code, you can paste it into Google Sheets and see if the result matches what you need. If it does not, describe what is wrong and ask the AI to adjust.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> When creating visualizations for presentations, tell the AI who the audience is and what decision the visual should support. "This chart needs to convince my CEO to invest more in the East region" produces a very different visualization than "this chart needs to show our board that revenue is healthy." Same data, different story.</div>
+
+      <h2>Asking the Right Questions</h2>
+
+      <p>The most valuable skill in data analysis is not knowing how to crunch numbers. It is knowing which questions to ask. Here is a framework for generating good analytical questions:</p>
+
+      <p><strong>Comparison questions:</strong> How does X compare to Y? (This region vs. that region, this quarter vs. last quarter, this product vs. that product)</p>
+
+      <p><strong>Trend questions:</strong> Is X increasing or decreasing over time? How fast? Is the rate of change accelerating or slowing?</p>
+
+      <p><strong>Correlation questions:</strong> When X goes up, does Y tend to go up or down? (When we run promotions, do support tickets increase?)</p>
+
+      <p><strong>Outlier questions:</strong> What is unusual in this data? Are there any values that are significantly higher or lower than expected?</p>
+
+      <p><strong>Prediction questions:</strong> Based on current trends, what should we expect next quarter? What would need to change for us to hit our targets?</p>
+
+      <p>You can even ask the AI to help you generate questions: "Given this dataset of customer orders from the past six months, what are the ten most useful analytical questions I should be asking to improve our business performance?" The AI will often suggest angles you had not considered.</p>
+
+      <h2>Limitations and Verification</h2>
+
+      <p>AI is a powerful analysis tool, but it has real limitations that you must be aware of:</p>
+
+      <ul>
+        <li><strong>AI can hallucinate correlations.</strong> It might tell you that two variables are related when they are not, or assign causation where there is only coincidence. Always ask: "Does this make logical sense, or is it just a numerical coincidence?"</li>
+        <li><strong>AI can miss context.</strong> If your data has a known anomaly (a system outage, a one-time bulk order, a seasonal event), the AI will not know about it unless you tell it. These anomalies can skew the entire analysis.</li>
+        <li><strong>AI can be overconfident.</strong> It will present its analysis with certainty even when the data is insufficient to draw firm conclusions. With small datasets or noisy data, treat AI insights as hypotheses to test, not conclusions to act on.</li>
+        <li><strong>AI cannot replace domain expertise.</strong> You know your business, your customers, and your industry. If the AI's analysis contradicts your experience, investigate further rather than blindly trusting the numbers.</li>
+      </ul>
+
+      <p>The rule of thumb: use AI to generate insights, then use your judgment to validate them. If a finding would change a significant business decision, verify it independently before acting on it.</p>
+
+      <h2>Building a Data Analysis Workflow</h2>
+
+      <p>Here is a repeatable process you can use for any data analysis task:</p>
+
+      <ol>
+        <li><strong>Prepare:</strong> Gather your data, describe its structure and context to AI</li>
+        <li><strong>Explore:</strong> Ask broad questions to understand what the data contains ("What are the key summary statistics? Are there any obvious outliers or data quality issues?")</li>
+        <li><strong>Investigate:</strong> Ask specific analytical questions based on what you learned in the exploration step</li>
+        <li><strong>Visualize:</strong> Create charts and graphs that tell the story clearly</li>
+        <li><strong>Verify:</strong> Cross-check the most important findings against your domain knowledge and, if possible, the raw data</li>
+        <li><strong>Communicate:</strong> Use AI to draft a summary of your findings, tailored to your audience</li>
+      </ol>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Take a real spreadsheet or dataset from your work — sales data, survey results, website analytics, or anything else you have access to. Follow the six-step workflow above. Start by describing the data to AI, then ask at least three specific analytical questions (use the question framework from this lesson). Request at least one visualization recommendation. Finally, ask the AI to summarize its findings in three bullet points suitable for sharing with your team. Pay special attention to Step 5: does the analysis match your existing understanding of the business? If something surprises you, investigate whether it is a genuine insight or an AI error.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-5/lesson-5')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-5/lesson-5';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

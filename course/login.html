@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Login — MindSparkAI</title>
+  <link rel="stylesheet" href="/course/shared/styles.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="text-gradient" style="font-size:1.75rem;font-weight:800;text-align:center;margin-bottom:8px;">MindSparkAI</h1>
+      <p class="subtitle" id="subtitle" style="text-align:center;color:var(--text-muted);font-size:0.9375rem;margin-bottom:28px;">Sign in to access your course</p>
+
+      <div id="error-msg" class="form-error"></div>
+      <div id="success-msg" class="form-success"></div>
+
+      <form id="auth-form" novalidate>
+        <div class="form-group" id="name-group" style="display:none;">
+          <label for="name-input">Full Name</label>
+          <input type="text" id="name-input" placeholder="Your name" autocomplete="name" />
+        </div>
+
+        <div class="form-group" id="email-group">
+          <label for="email-input">Email</label>
+          <input type="email" id="email-input" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="password-input">Password</label>
+          <input type="password" id="password-input" placeholder="Your password" required autocomplete="current-password" />
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;padding:13px 20px;font-size:1rem;">
+          Sign In
+        </button>
+      </form>
+
+      <p class="auth-link" id="toggle-link" style="text-align:center;margin-top:20px;font-size:0.875rem;color:var(--text-muted);"></p>
+
+      <p class="auth-link" id="forgot-link" style="text-align:center;margin-top:10px;font-size:0.875rem;">
+        <a href="#" id="forgot-password">Forgot your password?</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script>
+    (function () {
+      // ── State ────────────────────────────────────────────────
+      var mode = 'signin'; // 'signin' | 'signup'
+      var params = new URLSearchParams(window.location.search);
+      var isReset = params.get('reset') === '1';
+
+      // ── Element refs ─────────────────────────────────────────
+      var form        = document.getElementById('auth-form');
+      var nameGroup   = document.getElementById('name-group');
+      var emailGroup  = document.getElementById('email-group');
+      var nameInput   = document.getElementById('name-input');
+      var emailInput  = document.getElementById('email-input');
+      var passInput   = document.getElementById('password-input');
+      var submitBtn   = document.getElementById('submit-btn');
+      var toggleLink  = document.getElementById('toggle-link');
+      var forgotLink  = document.getElementById('forgot-link');
+      var errorMsg    = document.getElementById('error-msg');
+      var successMsg  = document.getElementById('success-msg');
+      var subtitle    = document.getElementById('subtitle');
+
+      // ── Build toggle link (no innerHTML) ─────────────────────
+      function renderToggleLink() {
+        // Clear existing content safely
+        while (toggleLink.firstChild) {
+          toggleLink.removeChild(toggleLink.firstChild);
+        }
+
+        var anchor = document.createElement('a');
+        anchor.href = '#';
+        anchor.addEventListener('click', handleModeToggle);
+
+        if (mode === 'signin') {
+          toggleLink.appendChild(document.createTextNode("Don't have an account? "));
+          anchor.textContent = 'Sign up';
+        } else {
+          toggleLink.appendChild(document.createTextNode('Already have an account? '));
+          anchor.textContent = 'Sign in';
+        }
+
+        toggleLink.appendChild(anchor);
+      }
+
+      // ── Helpers ───────────────────────────────────────────────
+      function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.classList.add('visible');
+        successMsg.classList.remove('visible');
+      }
+
+      function showSuccess(msg) {
+        successMsg.textContent = msg;
+        successMsg.classList.add('visible');
+        errorMsg.classList.remove('visible');
+      }
+
+      function clearMessages() {
+        errorMsg.classList.remove('visible');
+        successMsg.classList.remove('visible');
+      }
+
+      function setLoading(loading, loadingLabel) {
+        submitBtn.disabled = loading;
+        submitBtn.textContent = loading ? loadingLabel : getSubmitLabel();
+      }
+
+      function getSubmitLabel() {
+        if (isReset) return 'Update Password';
+        return mode === 'signin' ? 'Sign In' : 'Create Account';
+      }
+
+      // ── Password reset flow ───────────────────────────────────
+      if (isReset) {
+        emailGroup.style.display = 'none';
+        toggleLink.style.display = 'none';
+        forgotLink.style.display = 'none';
+        passInput.placeholder = 'New password';
+        passInput.autocomplete = 'new-password';
+        submitBtn.textContent = 'Update Password';
+        subtitle.textContent = 'Enter your new password below.';
+      } else {
+        // ── Auto-redirect if already logged in ──────────────────
+        sb.auth.getSession().then(function (result) {
+          if (result.data && result.data.session) {
+            window.location.href = '/course/dashboard.html';
+          }
+        });
+
+        // Render the initial toggle link
+        renderToggleLink();
+      }
+
+      // ── Mode toggle (sign in <-> sign up) ─────────────────────
+      function handleModeToggle(e) {
+        e.preventDefault();
+        clearMessages();
+        mode = mode === 'signin' ? 'signup' : 'signin';
+
+        if (mode === 'signup') {
+          nameGroup.style.display = 'block';
+          nameInput.required = true;
+          passInput.autocomplete = 'new-password';
+          submitBtn.textContent = 'Create Account';
+        } else {
+          nameGroup.style.display = 'none';
+          nameInput.required = false;
+          passInput.autocomplete = 'current-password';
+          submitBtn.textContent = 'Sign In';
+        }
+
+        renderToggleLink();
+      }
+
+      // ── Forgot password ───────────────────────────────────────
+      document.getElementById('forgot-password').addEventListener('click', function (e) {
+        e.preventDefault();
+        clearMessages();
+
+        var email = emailInput.value.trim();
+        if (!email) {
+          showError('Please enter your email address first.');
+          emailInput.focus();
+          return;
+        }
+
+        var redirectTo = window.location.origin + '/course/login.html?reset=1';
+        sb.auth.resetPasswordForEmail(email, { redirectTo: redirectTo })
+          .then(function (result) {
+            if (result.error) {
+              showError(result.error.message || 'Something went wrong. Please try again.');
+            } else {
+              showSuccess('Password reset email sent! Check your inbox.');
+            }
+          });
+      });
+
+      // ── Form submit ───────────────────────────────────────────
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearMessages();
+
+        var email    = emailInput.value.trim();
+        var password = passInput.value;
+
+        // Password reset update
+        if (isReset) {
+          if (!password) {
+            showError('Please enter a new password.');
+            return;
+          }
+          setLoading(true, 'Updating...');
+          sb.auth.updateUser({ password: password })
+            .then(function (result) {
+              setLoading(false, '');
+              if (result.error) {
+                showError(result.error.message || 'Failed to update password.');
+              } else {
+                showSuccess('Password updated! Redirecting...');
+                setTimeout(function () {
+                  window.location.href = '/course/dashboard.html';
+                }, 1500);
+              }
+            });
+          return;
+        }
+
+        // Sign up
+        if (mode === 'signup') {
+          var name = nameInput.value.trim();
+          if (!name) {
+            showError('Please enter your full name.');
+            nameInput.focus();
+            return;
+          }
+          if (!email || !password) {
+            showError('Please fill in all fields.');
+            return;
+          }
+          setLoading(true, 'Creating account...');
+          sb.auth.signUp({
+            email: email,
+            password: password,
+            options: { data: { full_name: name } }
+          }).then(function (result) {
+            setLoading(false, '');
+            if (result.error) {
+              showError(result.error.message || 'Sign up failed. Please try again.');
+            } else {
+              window.location.href = '/course/dashboard.html';
+            }
+          });
+          return;
+        }
+
+        // Sign in
+        if (!email || !password) {
+          showError('Please enter your email and password.');
+          return;
+        }
+        setLoading(true, 'Signing in...');
+        sb.auth.signInWithPassword({ email: email, password: password })
+          .then(function (result) {
+            setLoading(false, '');
+            if (result.error) {
+              showError(result.error.message || 'Sign in failed. Please check your credentials.');
+            } else {
+              window.location.href = '/course/dashboard.html';
+            }
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

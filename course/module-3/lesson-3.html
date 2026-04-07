@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Decision Matrix Builder - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 3: Prompt Patterns That 10x Your Output</p>
+      <h1>The Decision Matrix Builder</h1>
+
+      <p>You've been there. You're staring at three options &mdash; maybe it's software tools, job offers, or places to live &mdash; and your brain just keeps going in circles. You list the pros and cons, sleep on it, ask a friend, and somehow you're still stuck two days later.</p>
+
+      <p>Here's why decisions are so hard: your brain can only juggle about four variables at once. But most real decisions involve eight, ten, or even fifteen factors that matter. You end up fixating on whichever factor feels most emotional in the moment, and the rest get pushed aside. That's not a character flaw &mdash; it's just how human cognition works.</p>
+
+      <p>AI doesn't have that limitation. It can hold dozens of variables simultaneously, weigh them against each other, and present a structured comparison without getting tired or emotional. In this lesson, you'll learn how to use AI to build <strong>decision matrices</strong> &mdash; a simple but powerful tool that turns messy, overwhelming choices into clear, actionable comparisons.</p>
+
+      <h2>What Is a Decision Matrix?</h2>
+
+      <p>A decision matrix is a structured comparison tool. If you've ever made a pros-and-cons list, you've used a primitive version of one. But a real decision matrix takes it much further.</p>
+
+      <p>Here's the basic structure:</p>
+      <ul>
+        <li><strong>Rows</strong> = your options (the things you're choosing between)</li>
+        <li><strong>Columns</strong> = your criteria (the factors that matter to you)</li>
+        <li><strong>Cells</strong> = scores (how well each option performs on each criterion)</li>
+      </ul>
+
+      <p>For example, if you're choosing between three project management tools, your rows might be Asana, Monday.com, and ClickUp. Your columns might be Price, Ease of Use, Integrations, Customer Support, and Scalability. Each cell gets a score from 1 to 5, and when you add them up, the best option rises to the top.</p>
+
+      <p>The real power comes from <strong>weighting</strong>. Not all criteria matter equally. If price is twice as important to you as customer support, you can assign weights to reflect that. The weighted scores give you a much more accurate picture of which option truly fits your needs.</p>
+
+      <h3>Why This Beats Pros and Cons</h3>
+      <p>A pros-and-cons list treats every factor as equal and gives you no way to compare across options systematically. A decision matrix forces you to be specific about what matters, how much it matters, and how each option stacks up. It turns a gut-feel decision into a data-informed one.</p>
+
+      <h2>Why AI Is Perfect for This</h2>
+
+      <p>Building a decision matrix by hand is powerful but tedious. You have to brainstorm criteria, research each option, assign scores, and do the math. That's exactly where AI shines.</p>
+
+      <p><strong>AI generates comprehensive criteria you might miss.</strong> When you're choosing a CRM tool, you might think of price, features, and ease of use. But AI will also suggest criteria like data migration support, API availability, mobile app quality, onboarding resources, and contract flexibility. It thinks broadly because it has seen thousands of similar decisions.</p>
+
+      <p><strong>AI reduces cognitive bias.</strong> When you already have a favorite option (and you usually do), you unconsciously skew your evaluation in its favor. AI doesn't have a favorite. It evaluates each option against each criterion independently, which gives you a more honest comparison.</p>
+
+      <p><strong>AI holds more variables without losing accuracy.</strong> A 5-option, 10-criteria matrix means 50 individual evaluations. Your brain would gloss over half of them. AI handles all 50 with the same level of attention.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> AI is excellent at generating and scoring the matrix, but the final decision should always be yours. Use the matrix as input to your decision, not as the decision itself. Your values, context, and gut feeling still matter &mdash; the matrix just makes sure you're not overlooking important factors.</div>
+
+      <h2>Building Your Matrix Step by Step</h2>
+
+      <p>Here's the four-step process for building a decision matrix with AI. Each step has a specific prompt pattern, and the output of each step feeds into the next.</p>
+
+      <h3>Step 1: Define the Decision Clearly</h3>
+
+      <p>Before you ask AI for help, get specific about what you're deciding. Vague decisions produce vague matrices. Instead of "Which tool should I use?", define the decision like this:</p>
+
+      <p><strong>Prompt:</strong> <em>"I need to choose a project management tool for my marketing team of 8 people. We're currently using spreadsheets and it's not working. Our budget is under $20/user/month. We need something that integrates with Slack and Google Workspace. Help me make this decision."</em></p>
+
+      <p>Notice how that prompt includes context about who will use it, what problem you're solving, your constraints, and your must-have requirements. The more context you give, the better the matrix will be.</p>
+
+      <h3>Step 2: Generate Evaluation Criteria</h3>
+
+      <p>Now ask AI to suggest the criteria you should evaluate:</p>
+
+      <p><strong>Prompt:</strong> <em>"Based on my situation, what criteria should I use to evaluate project management tools? Give me 8-10 criteria, with a brief explanation of why each one matters for a marketing team."</em></p>
+
+      <p>AI will typically return criteria like: pricing structure, ease of onboarding, Slack integration quality, Google Workspace integration, visual workflow features, reporting capabilities, template library, mobile experience, customer support responsiveness, and scalability.</p>
+
+      <p>Review the list. Remove anything that doesn't matter to you. Add anything that's missing. This is your chance to customize.</p>
+
+      <h3>Step 3: Score the Options</h3>
+
+      <p>Now ask AI to evaluate your options against those criteria:</p>
+
+      <p><strong>Prompt:</strong> <em>"Score the following project management tools on each of these criteria using a 1-5 scale (1 = poor, 5 = excellent). The tools are: Asana, Monday.com, ClickUp, and Trello. The criteria are: [paste your finalized criteria list]. Present this as a table and explain any scores of 1 or 5."</em></p>
+
+      <p>AI will produce a clean table with scores and explanations. The explanations for extreme scores are important &mdash; they help you verify whether the scoring makes sense based on your own experience.</p>
+
+      <h3>Step 4: Add Weights and Calculate</h3>
+
+      <p>Finally, apply your priorities:</p>
+
+      <p><strong>Prompt:</strong> <em>"Now I want to weight these criteria. Here are my weights on a 1-3 scale: Pricing = 3, Ease of onboarding = 2, Slack integration = 3, Google Workspace integration = 3, Visual workflows = 2, Reporting = 1, Templates = 1, Mobile = 1, Support = 2, Scalability = 1. Calculate the weighted scores and show me the final ranking."</em></p>
+
+      <p>AI will multiply each score by its weight, sum the results, and present a clear ranking. You now have a data-driven recommendation.</p>
+
+      <h2>Example: Choosing a Software Tool</h2>
+
+      <p>Let's walk through a complete real-world example so you can see how this plays out from start to finish.</p>
+
+      <p><strong>The situation:</strong> You run a small e-commerce business and need an email marketing platform. You've narrowed it down to Mailchimp, ConvertKit, and ActiveCampaign. Your list has about 5,000 subscribers and you send weekly newsletters plus automated sequences.</p>
+
+      <p><strong>Prompt 1 (Define + Criteria):</strong> <em>"I run a small e-commerce store with about 5,000 email subscribers. I send weekly newsletters and have 3 automated email sequences (welcome, abandoned cart, post-purchase). I need an email marketing platform. I'm comparing Mailchimp, ConvertKit, and ActiveCampaign. What criteria should I use to evaluate them? Give me 8 criteria relevant to my situation."</em></p>
+
+      <p>AI suggests: Monthly cost at 5K subscribers, automation builder quality, e-commerce integrations, template design options, deliverability reputation, analytics and reporting, ease of use, and list segmentation capabilities.</p>
+
+      <p><strong>Prompt 2 (Scoring):</strong> <em>"Score Mailchimp, ConvertKit, and ActiveCampaign on these 8 criteria using a 1-5 scale. Present it as a table. For any score of 1 or 2, explain why."</em></p>
+
+      <p>AI returns a detailed table. You notice that ConvertKit scores a 2 on e-commerce integrations because it's more focused on content creators. ActiveCampaign scores a 2 on ease of use because its powerful features come with a steeper learning curve. These explanations help you gut-check the results.</p>
+
+      <p><strong>Prompt 3 (Weighting):</strong> <em>"Apply these weights: Cost = 2, Automation = 3, E-commerce integrations = 3, Templates = 1, Deliverability = 2, Analytics = 2, Ease of use = 2, Segmentation = 3. Calculate weighted totals and rank them."</em></p>
+
+      <p>The final ranking might show ActiveCampaign winning on automation and segmentation, Mailchimp as a solid middle ground, and ConvertKit trailing because of weaker e-commerce features. You now have a clear, defensible recommendation rather than a gut feeling.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> After getting the final ranking, ask AI one more question: "What's the strongest argument against choosing the top-ranked option?" This forces you to consider downsides before committing, and it often surfaces an important trade-off you hadn't considered.</div>
+
+      <h2>Example: Making a Career Decision</h2>
+
+      <p>Decision matrices aren't just for business. They're incredibly useful for personal decisions too. Here's how the same pattern works for a career choice.</p>
+
+      <p><strong>The situation:</strong> You have two job offers. Company A is a large corporation with higher pay. Company B is a startup with equity and more creative freedom. You're also considering staying at your current job.</p>
+
+      <p><strong>Prompt:</strong> <em>"I'm deciding between three career options: (A) a senior role at a large corporation, salary $130K, traditional benefits, stable but limited growth; (B) a lead role at a funded startup, salary $95K plus equity, high growth potential but more risk; (C) staying at my current company, salary $105K, comfortable but no upward path. I value work-life balance, learning opportunities, financial security, and career growth. Generate evaluation criteria and build a decision matrix for me."</em></p>
+
+      <p>AI will generate criteria like: base compensation, total compensation potential (including equity), work-life balance, learning and skill development, career advancement speed, job security, company culture fit, commute or remote flexibility, management quality, and alignment with long-term goals.</p>
+
+      <p>After scoring and weighting, you might discover that the startup scores highest overall despite the lower salary &mdash; because you weighted learning opportunities and career growth very heavily. Or you might find that staying put scores surprisingly well because you underestimated the value of stability.</p>
+
+      <p>The point isn't that the matrix makes the decision for you. It's that it <strong>shows you what you actually value</strong> by forcing you to assign weights. Many people discover their real priorities only when they see the numbers.</p>
+
+      <h3>Adjusting for Uncertainty</h3>
+
+      <p>Career decisions involve more uncertainty than software purchases. You can ask AI to account for that:</p>
+
+      <p><strong>Prompt:</strong> <em>"For the startup option, I'm uncertain about the equity value and job security. Can you run the matrix twice &mdash; once with an optimistic scenario (startup succeeds) and once with a pessimistic scenario (startup struggles in 2 years)? Show me how the ranking changes."</em></p>
+
+      <p>This scenario analysis is something AI handles effortlessly, and it gives you a much clearer picture of the risk you're taking.</p>
+
+      <h2>When NOT to Use a Decision Matrix</h2>
+
+      <p>Decision matrices are powerful, but they're not the right tool for every choice. Here's when to skip them:</p>
+
+      <h3>Purely Emotional or Values-Based Decisions</h3>
+      <p>Should you move closer to your aging parents? Should you leave a career you're good at to pursue art? These decisions involve deep personal values that can't be meaningfully scored on a 1-5 scale. A matrix can help you clarify the practical trade-offs, but the core decision is about what kind of life you want to live. Use the matrix for the logistics, not the soul-searching.</p>
+
+      <h3>Decisions with Insufficient Information</h3>
+      <p>If you don't know enough about your options to score them meaningfully, a matrix just makes your ignorance look organized. Before building a matrix, make sure you have (or can get) enough information to evaluate each option on each criterion. If you can't, your first step is research &mdash; not matrix-building.</p>
+
+      <h3>Decisions Where One Factor Is a Dealbreaker</h3>
+      <p>If one criterion is truly binary &mdash; "I won't take any job that requires relocating" &mdash; then don't score it. Use it as a filter to eliminate options first, then build a matrix with the remaining options and criteria.</p>
+
+      <h3>Trivially Simple Decisions</h3>
+      <p>If you're choosing between two lunch spots, you don't need a matrix. Save this tool for decisions where the complexity genuinely makes it hard to think clearly. If you can resolve it with a quick pros-and-cons list, that's enough.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> If you find yourself wanting to override the matrix result, pay attention to that feeling. It usually means there's an important criterion you left out or underweighted. Go back and adjust the matrix rather than ignoring it &mdash; the process of figuring out why you disagree with the result is often the most valuable part.</div>
+
+      <h2>Advanced Techniques</h2>
+
+      <h3>Sensitivity Analysis</h3>
+      <p>Once you have your matrix, test how robust the result is:</p>
+
+      <p><strong>Prompt:</strong> <em>"Take my decision matrix and test its sensitivity. If I change any single weight by one point (up or down), does the winning option change? Show me which criteria are 'swing factors' that could flip the result."</em></p>
+
+      <p>This tells you where your decision is fragile. If changing the weight on "price" by one point flips the winner, you need to be very confident about how much price matters to you.</p>
+
+      <h3>Group Decision Making</h3>
+      <p>Decision matrices work brilliantly for teams. Have each team member assign their own weights, then average them:</p>
+
+      <p><strong>Prompt:</strong> <em>"Three team members have different weight preferences for our CRM evaluation. Person A weights: [list]. Person B weights: [list]. Person C weights: [list]. Calculate the result for each person's weights individually, and also for the averaged weights. Show where the team agrees and disagrees."</em></p>
+
+      <p>This turns a potentially contentious team decision into a structured conversation about priorities.</p>
+
+      <h3>Iterative Refinement</h3>
+      <p>Don't treat your first matrix as final. Use it as a starting point:</p>
+
+      <p><strong>Prompt:</strong> <em>"Looking at this matrix, I realize I forgot to include 'customer community and resources' as a criterion. Add it, score all options, and recalculate. Also, I think the score for Asana on mobile experience should be a 4 based on my own testing. Adjust that too."</em></p>
+
+      <p>The matrix should evolve as you learn more. That's the whole point &mdash; it gives you a structure to update rather than starting your thinking from scratch each time.</p>
+
+      <h2>Practice Exercise</h2>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Think of a real decision you're currently facing &mdash; it could be a purchase, a career choice, a business strategy, or anything with at least 3 options and multiple factors to consider. Now build a complete decision matrix using AI by following these steps:
+      <ol>
+        <li><strong>Define your decision</strong> clearly in 2-3 sentences, including context and constraints.</li>
+        <li><strong>Ask AI to generate 8-10 evaluation criteria</strong> relevant to your situation. Review the list and adjust it.</li>
+        <li><strong>Ask AI to score your options</strong> on each criterion (1-5 scale) and present it as a table with explanations for extreme scores.</li>
+        <li><strong>Assign your own weights</strong> (1-3 scale) to each criterion based on what matters most to you, and ask AI to calculate the weighted totals.</li>
+        <li><strong>Run a sensitivity check:</strong> ask AI which weight changes would flip the result.</li>
+        <li><strong>Ask the devil's advocate question:</strong> "What's the strongest argument against the top-ranked option?"</li>
+      </ol>
+      By the end, you should have a clear recommendation backed by structured analysis. Save the full conversation &mdash; you can revisit and refine the matrix as you learn more about your options.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-3/lesson-3')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-3/lesson-3';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

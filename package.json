@@ -1,0 +1,13 @@
+{
+  "name": "mindsparkstack",
+  "version": "1.0.0",
+  "description": "MindSparkStack marketing site and course platform",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "serve": "node serve.mjs"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context: Giving AI the Background It Needs - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 2: The RCC Prompting Framework</p>
+      <h1>Context: Giving AI the Background It Needs</h1>
+
+      <p>If Role tells the AI <em>who</em> to be, Context tells it <em>what it needs to know</em>. Context is the background information, the situational details, and the unspoken assumptions that you carry in your head but never think to share. It is, without question, the most overlooked element in prompting -- and the one that makes the biggest difference between generic output and output that actually fits your situation.</p>
+
+      <p>Here is the uncomfortable truth: <strong>AI cannot read your mind.</strong> Every time you get a response that feels off-target, too generic, or weirdly irrelevant, the problem is almost never the AI's capability. The problem is that the AI was working with incomplete information. It filled in the gaps with reasonable guesses, and those guesses did not match your reality.</p>
+
+      <h2>The "Pretend I Said Nothing" Test</h2>
+
+      <p>Before we go deeper, try this mental exercise. Take any prompt you have written recently and strip away everything except the core request. Read it as if you were a stranger with zero knowledge of your life, your work, or your goals. That is exactly how the AI reads it.</p>
+
+      <p>When you ask "Help me write a follow-up email," the AI does not know:</p>
+      <ul>
+        <li>Who you are emailing</li>
+        <li>What you are following up about</li>
+        <li>Whether this is the first follow-up or the fifth</li>
+        <li>Whether the relationship is warm or cold</li>
+        <li>What outcome you want from the email</li>
+        <li>What your company does or what tone your brand uses</li>
+      </ul>
+
+      <p>Without these details, the AI has to guess at every single one. Sometimes it guesses right. Most of the time, it produces something that is technically correct but practically useless. Context eliminates the guessing.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> A useful heuristic: if you would need to explain something to a new employee before they could do the task, you need to explain it to the AI too. New employees and AI share the same limitation -- they are capable but uninformed.</div>
+
+      <h2>The Six Types of Context</h2>
+
+      <p>Not all context is created equal. Here are the six categories you should consider for every prompt:</p>
+
+      <h3>1. Audience</h3>
+      <p>Who will consume the final output? A technical explanation written for software engineers looks nothing like the same explanation written for a board of directors. Audience context shapes vocabulary, depth, tone, and structure. Always specify who the reader, listener, or viewer is.</p>
+      <p><em>Example:</em> "The audience is non-technical small business owners who have never used analytics software before."</p>
+
+      <h3>2. Purpose</h3>
+      <p>What is this output supposed to accomplish? Are you trying to persuade, inform, entertain, document, or sell? Purpose determines the strategic angle of the entire output. A product description meant to drive purchases reads very differently from a product description meant to satisfy a compliance requirement.</p>
+      <p><em>Example:</em> "The purpose of this email is to re-engage customers who have not logged in for 30 days, with the goal of getting them to try our new dashboard feature."</p>
+
+      <h3>3. Tone and Voice</h3>
+      <p>How should the output feel? Professional, casual, urgent, reassuring, authoritative, playful? If you have an existing brand voice, describe it. If you are writing something personal, describe the relationship dynamic. Tone context prevents the AI from defaulting to its neutral, slightly formal baseline.</p>
+      <p><em>Example:</em> "Our brand voice is confident but not arrogant, uses simple language, avoids jargon, and occasionally uses dry humor."</p>
+
+      <h3>4. Format and Structure</h3>
+      <p>What should the output look like? A bullet-point summary, a narrative essay, a table, a step-by-step guide, an FAQ? Format context saves you from having to restructure everything after the fact. It also helps the AI organize its thinking in the right way from the start.</p>
+      <p><em>Example:</em> "Format this as a comparison table with columns for Feature, Plan A, Plan B, and Plan C."</p>
+
+      <h3>5. Background Situation</h3>
+      <p>What has already happened? What is the current state of things? Background context fills in the story that the AI is dropping into mid-scene. Without it, the AI writes as if starting from a blank slate, which often misses the nuances of your actual situation.</p>
+      <p><em>Example:</em> "We launched this product six months ago. Initial sales were strong but have plateaued. Our main competitor just dropped their price by 20%. We are considering a repositioning strategy rather than a price match."</p>
+
+      <h3>6. Constraints and Boundaries</h3>
+      <p>What should the AI avoid? Are there topics that are off-limits, facts that must be included, or approaches that have already been tried and failed? Negative context -- telling the AI what <em>not</em> to do -- is just as valuable as positive context. We will explore constraints in depth in the next lesson, but it is worth noting here that they are a form of context.</p>
+      <p><em>Example:</em> "Do not mention our pricing. Do not compare us to CompetitorX by name. Focus on workflow efficiency rather than cost savings."</p>
+
+      <h2>Before and After: Context in Practice</h2>
+
+      <p>Let us walk through a transformation to see how context changes output quality.</p>
+
+      <h3>Low-Context Prompt</h3>
+      <p>"Write a blog post about productivity tips."</p>
+      <p>This will produce a generic listicle that could appear on any website. It will include obvious advice like "make a to-do list" and "take regular breaks." It will help nobody because it was written for nobody in particular.</p>
+
+      <h3>High-Context Prompt</h3>
+      <p>"Write a blog post about productivity tips for remote freelance designers who struggle with context-switching between multiple client projects. The audience is mid-career professionals (5-10 years of experience) who already know the basics and are looking for advanced strategies. The post will be published on our design community blog, which has a conversational, peer-to-peer tone. Our readers dislike generic advice -- they want specific, actionable techniques they can implement today. Keep it under 1500 words."</p>
+      <p>This prompt gives the AI a clear picture of who is reading, what they already know, what they need, what tone to use, and what to avoid. The resulting output will be dramatically more useful, specific, and engaging.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> You do not need to provide all six types of context every time. Focus on the ones that matter most for your specific task. For a quick internal Slack message, audience and purpose might be enough. For a client-facing white paper, you probably need all six.</div>
+
+      <h2>The Context Layering Technique</h2>
+
+      <p>One of the most effective advanced techniques is building context in layers rather than dumping everything at once. Start with the most important context, get an initial output, then add more context to refine.</p>
+
+      <ol>
+        <li><strong>Layer 1: Core context.</strong> Provide audience, purpose, and the basic situation. Get the first draft.</li>
+        <li><strong>Layer 2: Refinement context.</strong> Add tone preferences, format requirements, and specific details. Ask the AI to revise.</li>
+        <li><strong>Layer 3: Polish context.</strong> Provide examples of what you like, point out what needs to change, and give final constraints. Ask for the final version.</li>
+      </ol>
+
+      <p>This approach works especially well for complex outputs like long-form content, strategic plans, or creative projects where you may not know exactly what you want until you see the first draft.</p>
+
+      <h2>Common Context Mistakes</h2>
+
+      <p><strong>Mistake 1: Assuming the AI knows your situation.</strong> You have been living with your project for months. The AI has been living with it for zero seconds. State the obvious. What feels redundant to you is brand-new information to the AI.</p>
+
+      <p><strong>Mistake 2: Providing irrelevant context.</strong> More context is not always better. If you are asking the AI to write a product description, your company's founding story is probably irrelevant. Focus on context that directly impacts the output you want.</p>
+
+      <p><strong>Mistake 3: Burying the important context.</strong> If there is one critical detail that changes everything -- like "this is for a regulated industry" or "the reader is hostile to our proposal" -- put it front and center. Do not hide it in paragraph four of a wall of text.</p>
+
+      <p><strong>Mistake 4: Providing contradictory context.</strong> "Write something casual and professional" or "Make it concise but cover everything in detail" forces the AI to choose between conflicting instructions. When you notice tension in your context, resolve it before prompting. Decide which priority wins.</p>
+
+      <p><strong>Mistake 5: Forgetting to update context across a conversation.</strong> If you are iterating with the AI over multiple messages, remember that earlier context still applies. But if your situation has changed -- say you got new information or shifted your goal -- explicitly tell the AI. It will not detect the shift on its own.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Take one of these bare prompts and add at least four types of context to transform it: (a) "Write a LinkedIn post about our new feature." (b) "Create a meal plan for the week." (c) "Help me prepare for a job interview." Write both the original and your context-rich version, then run both through an AI. Compare the outputs and note specifically what improved.</div>
+
+      <h2>Context Is Empathy for the Machine</h2>
+
+      <p>Here is the lesson distilled to its essence: <strong>providing context is an act of empathy.</strong> You are putting yourself in the AI's position and asking, "What would I need to know to do this well?" Every piece of relevant context you include closes the gap between what you imagine and what the AI produces. In the next lesson, we will tackle Constraints -- the final element of RCC that sharpens output by defining clear boundaries.</p>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-2/lesson-3')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-2/lesson-3';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

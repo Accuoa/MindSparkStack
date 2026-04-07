@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Verify Certificate — MindSparkAI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a12;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .verify-container { max-width: 640px; width: 100%; text-align: center; }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .cert-card {
+      background: #111118;
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #10b981;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .cert-card-headline {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 28px;
+    }
+
+    .cert-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.9375rem;
+    }
+    .cert-detail:last-child { border-bottom: none; }
+    .cert-detail-label { color: #64748b; font-weight: 500; }
+    .cert-detail-value { color: #e2e8f0; font-weight: 600; }
+
+    .cert-id-highlight {
+      margin-top: 28px;
+      padding: 14px 20px;
+      background: rgba(124,58,237,0.08);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 10px;
+      font-size: 0.875rem;
+      color: #a78bfa;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .not-found-icon { font-size: 3rem; margin-bottom: 16px; }
+    .not-found-title { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; margin-bottom: 10px; }
+    .not-found-desc { font-size: 0.9375rem; color: #94a3b8; line-height: 1.6; margin-bottom: 28px; }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.35);
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .home-link:hover { background: rgba(124,58,237,0.25); transform: translateY(-1px); text-decoration: none; }
+
+    .loading-text { color: #94a3b8; font-size: 0.9375rem; }
+
+    .verify-footer {
+      margin-top: 40px;
+      font-size: 0.8125rem;
+      color: #475569;
+    }
+    .verify-footer a { color: #7c3aed; text-decoration: none; }
+    .verify-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .cert-card { padding: 32px 24px; }
+      .cert-card-headline { font-size: 1.375rem; }
+      .cert-detail { flex-direction: column; gap: 4px; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="verify-container">
+    <span class="logo">MindSparkAI</span>
+    <div id="content">
+      <p class="loading-text">Verifying certificate...</p>
+    </div>
+    <div class="verify-footer">
+      <a href="https://mindsparkstack.com">mindsparkstack.com</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script>
+    (function() {
+      var content = document.getElementById('content');
+
+      // Helper to create an element with className and text
+      function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text) node.appendChild(document.createTextNode(text));
+        return node;
+      }
+
+      // Helper to create a detail row
+      function detailRow(label, value) {
+        var row = el('div', 'cert-detail');
+        row.appendChild(el('span', 'cert-detail-label', label));
+        var valSpan = el('span', 'cert-detail-value');
+        valSpan.appendChild(document.createTextNode(value));
+        row.appendChild(valSpan);
+        return row;
+      }
+
+      // Parse certificate ID from URL query string
+      var params = window.location.search;
+      var certId = '';
+      if (params) {
+        var pairs = params.substring(1).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+          var kv = pairs[i].split('=');
+          if (kv[0] === 'id' && kv[1]) {
+            certId = decodeURIComponent(kv[1]);
+            break;
+          }
+        }
+      }
+
+      if (!certId) {
+        showNotFound('No certificate ID provided.');
+        return;
+      }
+
+      // Look up the certificate
+      sb.from('certificates')
+        .select('certificate_number, recipient_name, recipient_email, issued_at')
+        .eq('certificate_number', certId)
+        .single()
+        .then(function(result) {
+          if (result.error || !result.data) {
+            showNotFound('Certificate "' + certId + '" was not found in our records.');
+            return;
+          }
+
+          var cert = result.data;
+          var issuedDate = new Date(cert.issued_at).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+
+          content.textContent = '';
+
+          var card = el('div', 'cert-card');
+          card.appendChild(el('div', 'cert-badge', '\u2713 Verified Certificate'));
+          card.appendChild(el('div', 'cert-card-headline', 'Certificate of Completion'));
+
+          card.appendChild(detailRow('Recipient', cert.recipient_name || 'Course Graduate'));
+          card.appendChild(detailRow('Course', 'MindSparkAI Masterclass'));
+          card.appendChild(detailRow('Modules', '7 Modules \u00B7 33 Lessons'));
+          card.appendChild(detailRow('Issued', issuedDate));
+
+          card.appendChild(el('div', 'cert-id-highlight', 'Certificate ID: ' + cert.certificate_number));
+
+          content.appendChild(card);
+        });
+
+      function showNotFound(message) {
+        content.textContent = '';
+        var card = el('div', 'cert-card');
+        card.appendChild(el('div', 'not-found-icon', '\uD83D\uDD0D'));
+        card.appendChild(el('div', 'not-found-title', 'Certificate Not Found'));
+        card.appendChild(el('p', 'not-found-desc', message));
+
+        var link = document.createElement('a');
+        link.href = 'https://mindsparkstack.com';
+        link.className = 'home-link';
+        link.appendChild(document.createTextNode('\u2190 Back to MindSparkAI'));
+        card.appendChild(link);
+
+        content.appendChild(card);
+      }
+    })();
+  </script>
+</body>
+</html>

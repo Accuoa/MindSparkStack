@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is RCC and Why It Works - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 2: The RCC Prompting Framework</p>
+      <h1>What Is RCC and Why It Works</h1>
+
+      <p>In Module 1, you learned that the quality of your AI output depends on the quality of your input. You saw that context matters, that specificity matters, and that conversation matters. But knowing that "better input equals better output" is not the same as having a system for consistently providing better input.</p>
+
+      <p>That is what this module gives you. RCC stands for Role, Context, and Constraints — three components that, when combined, transform vague prompts into precise instructions that produce reliably excellent results. It is not a trick or a hack. It is a framework you can apply to every single AI interaction, from a quick question to a complex project.</p>
+
+      <h2>The Three Components</h2>
+
+      <p><strong>Role</strong> tells the AI who to be. When you say "act as a financial advisor" or "you are an experienced project manager," you are activating a specific set of knowledge patterns and communication styles. The AI adjusts its vocabulary, its level of detail, its assumptions, and its perspective based on the role you assign. A financial advisor gives different advice than a life coach, even when answering the same question.</p>
+
+      <p><strong>Context</strong> gives the AI the background information it needs. This is the who, what, where, when, and why of your situation. Who is the audience? What have you tried already? What is the larger project this fits into? Context answers the question: "What does the AI need to know about my situation to do this well?"</p>
+
+      <p><strong>Constraints</strong> define the boundaries of the output. How long should it be? What format should it use? What should it include or exclude? What tone is appropriate? Constraints prevent the AI from going off track and ensure the output fits your actual needs.</p>
+
+      <h2>Why a Framework Beats a Collection of Tips</h2>
+
+      <p>The internet is full of AI tips. "Use bullet points." "Tell it to think step by step." "Add examples to your prompt." These tips are not wrong, but they are disconnected. Using them feels like throwing ingredients into a pot and hoping something edible comes out.</p>
+
+      <p>A framework is different. Think about the difference between someone who collects recipes and someone who understands how to cook. The recipe collector can make exactly the dishes they have recipes for. But change one ingredient or ask them to improvise, and they are stuck. The person who understands cooking — how heat transforms food, how acids balance fats, how salt enhances flavor — can walk into any kitchen with any ingredients and create something good.</p>
+
+      <p>RCC is your cooking knowledge. Once you internalize these three components, you do not need to search for the right prompt template ever again. You can construct an effective prompt for any task, in any domain, because you understand the principles that make prompts work.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> You do not always need to explicitly label your Role, Context, and Constraints. Once you internalize the framework, it becomes natural to include all three components in your prompts without using the labels. The labels are training wheels. The skill is knowing what information the AI needs.</div>
+
+      <h2>RCC in Action: A Quick Example</h2>
+
+      <p>Let us see how adding each RCC component transforms a prompt. We will start with a common task: getting advice on improving a team meeting.</p>
+
+      <p><strong>Without RCC:</strong> "How can I make my team meetings better?"</p>
+
+      <p>The AI will give you a generic list of meeting tips pulled from every management article ever written. Fine, but not useful for your specific situation.</p>
+
+      <p><strong>Adding Role:</strong> "You are an experienced operations manager who has led teams of 10-20 people in fast-paced environments. How can I make my team meetings better?"</p>
+
+      <p>Now the advice shifts. Instead of generic tips, you get practical, action-oriented suggestions from the perspective of someone who has actually managed teams. The language becomes more direct, the suggestions more realistic.</p>
+
+      <p><strong>Adding Context:</strong> "You are an experienced operations manager who has led teams of 10-20 people in fast-paced environments. I manage a team of 12 software developers. Our weekly standup has grown from 15 minutes to 45 minutes over the past three months. People are disengaged, side conversations dominate, and action items rarely get followed up on. How can I fix this?"</p>
+
+      <p>The advice is now laser-focused on your exact problem. The AI can address the specific symptoms you described: time creep, disengagement, side conversations, and follow-up failures. It is no longer guessing what your situation might be.</p>
+
+      <p><strong>Adding Constraints:</strong> "You are an experienced operations manager who has led teams of 10-20 people in fast-paced environments. I manage a team of 12 software developers. Our weekly standup has grown from 15 minutes to 45 minutes over the past three months. People are disengaged, side conversations dominate, and action items rarely get followed up on. Give me a concrete action plan to fix this. Include exactly 5 changes I can implement starting next Monday. For each change, explain what to do, why it works, and how to handle pushback from team members who resist the change. Keep each change to 3-4 sentences."</p>
+
+      <p>Now the AI knows the format (5 numbered changes), the structure (what, why, pushback handling), the timeline (starting next Monday), and the length (3-4 sentences each). The output will be immediately actionable and organized exactly how you need it.</p>
+
+      <h2>The Science Behind It</h2>
+
+      <p>RCC works because of how large language models process information. Understanding the "why" will help you apply the framework more effectively.</p>
+
+      <p><strong>Why Role works:</strong> AI models have been trained on vast amounts of text written by people in different roles. When you assign a role, you are essentially telling the model which subset of its training to draw from. "Financial advisor" activates patterns from financial writing. "Creative director" activates patterns from marketing and design content. The role acts as a filter that dramatically narrows the space of possible responses.</p>
+
+      <p><strong>Why Context works:</strong> Without context, the AI has to guess what you mean. And when it guesses, it defaults to the most common interpretation, which is almost always too generic. Context eliminates guesswork. It tells the AI exactly which situation to address, which assumptions to make, and which details matter. More context means fewer assumptions means better output.</p>
+
+      <p><strong>Why Constraints work:</strong> AI models are designed to generate text until they run out of things to say. Without constraints, they will produce the most "average" response — medium length, medium detail, medium formality. Constraints force the model out of that default mode. They create specific requirements that the model must satisfy, which produces output that is shaped to your exact needs.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> If you are ever unsure what constraints to add, ask yourself: "How could this output go wrong?" Too long? Add a length constraint. Too vague? Request specific examples. Wrong tone? Specify the audience and formality level. Constraints are your insurance policy against common failure modes.</div>
+
+      <h2>When to Use RCC</h2>
+
+      <p>The short answer: every time. But the amount of effort you put into each component should scale with the importance and complexity of the task.</p>
+
+      <p>For a quick question ("What is the capital of France?"), you do not need RCC. The answer is a fact with no ambiguity.</p>
+
+      <p>For a simple task ("Summarize this article"), even a brief RCC makes a difference: "You are a research assistant. I need to present this article's findings to my non-technical boss. Summarize the key points in 3 bullet points, no jargon."</p>
+
+      <p>For a complex task ("Help me develop a pricing strategy"), full RCC is essential. The role shapes the expertise, the context provides your business situation, and the constraints ensure the output is in a format you can actually use.</p>
+
+      <p>The beauty of RCC is that it scales. Two seconds of thought for a simple task. Two minutes of thought for a complex one. Same framework, different depth.</p>
+
+      <h2>What This Module Covers</h2>
+
+      <p>Over the next four lessons, you will master each component of RCC:</p>
+
+      <ul>
+        <li><strong>Lesson 2: Role</strong> — How to choose and define roles that activate the right knowledge and perspective</li>
+        <li><strong>Lesson 3: Context</strong> — What context to include, how much is enough, and how to provide it efficiently</li>
+        <li><strong>Lesson 4: Constraints</strong> — The types of constraints that have the biggest impact on output quality</li>
+        <li><strong>Lesson 5: RCC in Practice</strong> — Five complete real-world scenarios where you will build and test full RCC prompts</li>
+      </ul>
+
+      <p>By the end of this module, RCC will be second nature. You will find yourself automatically thinking in terms of Role, Context, and Constraints every time you interact with AI, and the quality of your results will reflect that shift.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Open your AI tool and look at your last five interactions. For each one, identify what Role, Context, and Constraints were present — or missing. You will probably find that most of your prompts were missing at least one component, often two. Pick the weakest prompt from the bunch, rewrite it using all three RCC components, and compare the results. This exercise builds your eye for spotting gaps in prompts, which is the first step to consistently filling them.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-2/lesson-1')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-2/lesson-1';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

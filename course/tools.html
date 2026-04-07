@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tool Comparison Guide 2026 - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    /* ── Page header ── */
+    .page-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .page-header .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .page-header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      border-color: var(--violet);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--gradient);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    /* ── Results count ── */
+    .results-bar {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .results-bar span {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* ── Tool grid ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── Tool card ── */
+    .tool-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tool-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      transform: translateY(-2px);
+    }
+    .tool-card.hidden {
+      display: none;
+    }
+
+    /* card top row */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tool-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tool-category-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .badge-chatbot    { background: rgba(124,58,237,0.18); color: #a78bfa; }
+    .badge-writing    { background: rgba(6,182,212,0.15);  color: #67e8f9; }
+    .badge-coding     { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+    .badge-image      { background: rgba(245,158,11,0.15); color: #fcd34d; }
+    .badge-research   { background: rgba(239,68,68,0.15);  color: #fca5a5; }
+    .badge-productivity { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+    .badge-videoaudio { background: rgba(236,72,153,0.15); color: #f9a8d4; }
+
+    /* star rating */
+    .rating-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+    .star {
+      font-size: 0.85rem;
+      color: var(--border);
+    }
+    .star.filled { color: #f59e0b; }
+    .star.half-filled { color: #f59e0b; opacity: 0.5; }
+    .rating-num {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* pricing */
+    .card-pricing {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .pricing-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+    }
+    .pricing-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
+    }
+    .pricing-value .free-tag {
+      color: #10b981;
+    }
+
+    /* best for */
+    .best-for {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .best-for strong {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* pros / cons */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .pros, .cons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pros-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #10b981;
+    }
+    .cons-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ef4444;
+    }
+    .pro-item, .con-item {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.4;
+    }
+    .pro-item::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: 700;
+    }
+    .con-item::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+      font-weight: 700;
+    }
+
+    /* verdict chip */
+    .card-verdict {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .verdict-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--violet);
+      background: rgba(124,58,237,0.12);
+      padding: 3px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .page-header {
+        padding: 20px 18px;
+      }
+      .page-header h1 {
+        font-size: 1.4rem;
+      }
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <div class="eyebrow">Resource Guide</div>
+        <h1>AI Tool Comparison Guide 2026</h1>
+        <p>18 tools compared head-to-head with real 2026 pricing, honest ratings, and clear recommendations so you know exactly which tool to use for each job.</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" data-filter="all" onclick="filterTools('all', this)">All Tools</button>
+        <button class="filter-btn" data-filter="chatbot" onclick="filterTools('chatbot', this)">Chatbots</button>
+        <button class="filter-btn" data-filter="writing" onclick="filterTools('writing', this)">Writing</button>
+        <button class="filter-btn" data-filter="coding" onclick="filterTools('coding', this)">Coding</button>
+        <button class="filter-btn" data-filter="image" onclick="filterTools('image', this)">Image</button>
+        <button class="filter-btn" data-filter="research" onclick="filterTools('research', this)">Research</button>
+        <button class="filter-btn" data-filter="productivity" onclick="filterTools('productivity', this)">Productivity</button>
+        <button class="filter-btn" data-filter="videoaudio" onclick="filterTools('videoaudio', this)">Video / Audio</button>
+      </div>
+
+      <div class="results-bar" id="results-bar"><span id="visible-count">18</span> tools shown</div>
+
+      <!-- ── Tool Cards ── -->
+      <div class="tools-grid" id="tools-grid">
+
+        <!-- 1. ChatGPT -->
+        <div class="tool-card" data-category="chatbot">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">ChatGPT</div>
+              <span class="tool-category-badge badge-chatbot">Chatbot</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+              </div>
+              <div class="rating-num">4.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free tier</span> &nbsp;|&nbsp; Plus $20/mo &nbsp;|&nbsp; Pro $200/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> General-purpose tasks, brainstorming, drafting content, image generation (DALL-E), coding help, and everyday productivity.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Largest ecosystem of plugins & GPTs</div>
+              <div class="pro-item">Excellent at multi-step reasoning (o3)</div>
+              <div class="pro-item">Voice mode, canvas, image gen all-in-one</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Rate limits hit fast on free tier</div>
+              <div class="con-item">Pro tier expensive for casual users</div>
+              <div class="con-item">Occasionally over-cautious on edge cases</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Top Pick</span>
+            The safest default for someone starting out. Unmatched breadth.
+          </div>
+        </div>
+
+        <!-- 2. Claude -->
+        <div class="tool-card" data-category="chatbot">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Claude (Anthropic)</div>
+              <span class="tool-category-badge badge-chatbot">Chatbot</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+              </div>
+              <div class="rating-num">5.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free tier</span> &nbsp;|&nbsp; Pro $20/mo &nbsp;|&nbsp; Max $100/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Long-form writing, deep analysis, coding, working with massive documents (1M token context), and nuanced reasoning.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Best-in-class writing quality</div>
+              <div class="pro-item">1M token context window</div>
+              <div class="pro-item">Honest, calibrated responses</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">No image generation built-in</div>
+              <div class="con-item">Fewer third-party integrations than ChatGPT</div>
+              <div class="con-item">API can be pricey at scale</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Writing</span>
+            Our top recommendation for anything requiring nuance, depth, or long documents.
+          </div>
+        </div>
+
+        <!-- 3. Gemini -->
+        <div class="tool-card" data-category="chatbot">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Gemini (Google)</div>
+              <span class="tool-category-badge badge-chatbot">Chatbot</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free tier</span> &nbsp;|&nbsp; Advanced $19.99/mo (in Google One AI)</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Google Workspace users, real-time web search grounding, multimodal tasks, and tight integration with Gmail / Docs / Sheets.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Deep Google Workspace integration</div>
+              <div class="pro-item">Native web search grounding</div>
+              <div class="pro-item">Gemini 2.0 Flash very fast & cheap via API</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Writing quality lags Claude / ChatGPT</div>
+              <div class="con-item">Inconsistent reasoning on complex tasks</div>
+              <div class="con-item">Privacy concerns for Google data users</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Google Users</span>
+            Ideal if you live in Google Workspace. Otherwise, a secondary option.
+          </div>
+        </div>
+
+        <!-- 4. Perplexity -->
+        <div class="tool-card" data-category="chatbot research">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Perplexity AI</div>
+              <span class="tool-category-badge badge-research">Research</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+              </div>
+              <div class="rating-num">4.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free tier</span> &nbsp;|&nbsp; Pro $20/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Real-time research, fact-checking with sources, replacing Google for complex queries, and quick market intelligence.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Every answer cites its sources</div>
+              <div class="pro-item">Real-time web access always on</div>
+              <div class="pro-item">Excellent for fact-dense research</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Not ideal for long-form creative tasks</div>
+              <div class="con-item">Source quality varies (scrapes public web)</div>
+              <div class="con-item">Can hallucinate citation details</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Research Assistant</span>
+            The fastest way to get sourced answers. Use before ChatGPT for anything factual.
+          </div>
+        </div>
+
+        <!-- 5. Jasper -->
+        <div class="tool-card" data-category="writing">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Jasper AI</div>
+              <span class="tool-category-badge badge-writing">Writing</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">3.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value">Creator $49/mo &nbsp;|&nbsp; Pro $69/mo &nbsp;|&nbsp; Business custom</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Marketing teams producing high-volume content — ads, blogs, social posts, email campaigns — with brand voice controls.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Brand voice memory across documents</div>
+              <div class="pro-item">50+ marketing-specific templates</div>
+              <div class="pro-item">Team collaboration features</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Expensive vs. using Claude/ChatGPT directly</div>
+              <div class="con-item">Output can feel formulaic</div>
+              <div class="con-item">No free tier</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">For Marketing Teams</span>
+            Justified only for teams needing brand consistency at volume. Solo creators: use Claude.
+          </div>
+        </div>
+
+        <!-- 6. Copy.ai -->
+        <div class="tool-card" data-category="writing">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Copy.ai</div>
+              <span class="tool-category-badge badge-writing">Writing</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">3.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (2,000 words/mo) &nbsp;|&nbsp; Pro $49/mo &nbsp;|&nbsp; Team $249/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Short-form copy — product descriptions, social captions, email subject lines, and ad copy at speed.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Fast for short-form copy batches</div>
+              <div class="pro-item">Decent free tier to test</div>
+              <div class="pro-item">GTM workflows (sales + marketing automation)</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Long-form quality is mediocre</div>
+              <div class="con-item">Most features replicated by ChatGPT free</div>
+              <div class="con-item">UI feels cluttered</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Niche Use</span>
+            Hard to justify at Pro price. Better for GTM automation use cases in 2026.
+          </div>
+        </div>
+
+        <!-- 7. Grammarly -->
+        <div class="tool-card" data-category="writing productivity">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Grammarly</div>
+              <span class="tool-category-badge badge-writing">Writing</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> &nbsp;|&nbsp; Pro $12/mo &nbsp;|&nbsp; Business $15/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Inline writing refinement, tone adjustment, grammar/spelling, and polishing documents across all apps via browser extension.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Works everywhere via extension</div>
+              <div class="pro-item">Tone detection genuinely useful</div>
+              <div class="pro-item">Plagiarism detection on Pro</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Not a content generator — editing only</div>
+              <div class="con-item">Suggestions sometimes flatten your voice</div>
+              <div class="con-item">AI rewrites can be generic</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Must-Have Add-On</span>
+            Keep this running alongside your main AI tool. It catches what others miss.
+          </div>
+        </div>
+
+        <!-- 8. GitHub Copilot -->
+        <div class="tool-card" data-category="coding">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">GitHub Copilot</div>
+              <span class="tool-category-badge badge-coding">Coding</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+              </div>
+              <div class="rating-num">4.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (2,000 completions/mo) &nbsp;|&nbsp; Pro $10/mo &nbsp;|&nbsp; Business $19/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Inline autocomplete while coding in VS Code / JetBrains, quick function generation, and developers already on GitHub.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Seamless IDE integration</div>
+              <div class="pro-item">Multi-model support (GPT-4o, Claude, Gemini)</div>
+              <div class="pro-item">Great free tier for most devs</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Less powerful than Cursor for large codebases</div>
+              <div class="con-item">Agent mode still maturing</div>
+              <div class="con-item">Requires GitHub account</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Free Coding AI</span>
+            Start here if you're a developer. Upgrade to Cursor when you need full agentic coding.
+          </div>
+        </div>
+
+        <!-- 9. Cursor -->
+        <div class="tool-card" data-category="coding">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Cursor</div>
+              <span class="tool-category-badge badge-coding">Coding</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+              </div>
+              <div class="rating-num">5.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (2-week trial) &nbsp;|&nbsp; Pro $20/mo &nbsp;|&nbsp; Business $40/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Full codebase-aware AI coding, agentic code changes across multiple files, building projects from scratch with AI in the loop.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Entire codebase as context</div>
+              <div class="pro-item">Agent mode rewrites multiple files at once</div>
+              <div class="pro-item">Best-in-class for full-stack development</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">$20/mo on top of any API costs</div>
+              <div class="con-item">Overkill for simple scripts</div>
+              <div class="con-item">Learning curve for agent workflows</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Developers</span>
+            If you write code professionally, Cursor pays for itself in the first week.
+          </div>
+        </div>
+
+        <!-- 10. Replit -->
+        <div class="tool-card" data-category="coding">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Replit AI</div>
+              <span class="tool-category-badge badge-coding">Coding</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> &nbsp;|&nbsp; Core $25/mo &nbsp;|&nbsp; Teams $40/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Non-developers building apps in the browser, prototyping, learning to code, and deploying small projects without setup.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Zero local setup — runs in browser</div>
+              <div class="pro-item">AI builds & deploys apps end-to-end</div>
+              <div class="pro-item">Great for prototypes and MVPs</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Not suited for complex production codebases</div>
+              <div class="con-item">Performance limits on free tier</div>
+              <div class="con-item">Less control than local IDE</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Non-Devs</span>
+            Build real apps with no code experience. The fastest path from idea to working product.
+          </div>
+        </div>
+
+        <!-- 11. Midjourney -->
+        <div class="tool-card" data-category="image">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Midjourney</div>
+              <span class="tool-category-badge badge-image">Image</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+              </div>
+              <div class="rating-num">5.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value">Basic $10/mo &nbsp;|&nbsp; Standard $30/mo &nbsp;|&nbsp; Pro $60/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> High-quality artistic and commercial imagery — branding, concept art, marketing visuals, and anything requiring aesthetic depth.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Best visual quality of any image AI</div>
+              <div class="pro-item">Incredible style consistency</div>
+              <div class="pro-item">v7 model significantly improved realism</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">No free tier</div>
+              <div class="con-item">Struggles with accurate text in images</div>
+              <div class="con-item">Discord-based UI still clunky</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Image Quality</span>
+            The gold standard for AI art. Worth every dollar for visual content creators.
+          </div>
+        </div>
+
+        <!-- 12. DALL-E 3 -->
+        <div class="tool-card" data-category="image">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">DALL-E 3 (via ChatGPT)</div>
+              <span class="tool-category-badge badge-image">Image</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value">Included in ChatGPT Plus ($20/mo) &nbsp;|&nbsp; API from $0.04/image</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Quick image generation within ChatGPT conversations, prompt-accurate illustrations, and blog/social content without leaving your workflow.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">No extra cost if you have ChatGPT Plus</div>
+              <div class="pro-item">Excellent at following complex prompts</div>
+              <div class="pro-item">Great for diagrams and infographic-style images</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Artistic quality below Midjourney</div>
+              <div class="con-item">Heavy content restrictions</div>
+              <div class="con-item">No style locking / consistency between images</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Convenience Pick</span>
+            Use when you need images fast and already pay for ChatGPT Plus. Not for serious visual work.
+          </div>
+        </div>
+
+        <!-- 13. Stable Diffusion -->
+        <div class="tool-card" data-category="image">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Stable Diffusion (SDXL / SD3)</div>
+              <span class="tool-category-badge badge-image">Image</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (self-hosted) &nbsp;|&nbsp; Stability AI API from $0.003/image</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Developers and power users who want full control — custom fine-tunes, local generation, unlimited outputs, and zero content restrictions.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Completely free when self-hosted</div>
+              <div class="pro-item">Unlimited generation, no restrictions</div>
+              <div class="pro-item">Huge community of fine-tuned models</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Requires GPU or technical setup</div>
+              <div class="con-item">Quality inconsistent without fine-tuning</div>
+              <div class="con-item">Steep learning curve (ComfyUI etc.)</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">For Power Users</span>
+            Unmatched flexibility and cost. Only pursue this if you're comfortable with technical setup.
+          </div>
+        </div>
+
+        <!-- 14. Elicit -->
+        <div class="tool-card" data-category="research">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Elicit</div>
+              <span class="tool-category-badge badge-research">Research</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (5 queries/mo) &nbsp;|&nbsp; Plus $10/mo &nbsp;|&nbsp; Pro $42/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Academic and scientific research — finding, summarizing, and extracting data from peer-reviewed papers at scale.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Searches real academic papers (not web)</div>
+              <div class="pro-item">Structured data extraction from PDFs</div>
+              <div class="pro-item">Great for literature reviews</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Very niche — limited to academic research</div>
+              <div class="con-item">Slow on large paper sets</div>
+              <div class="con-item">Free tier barely usable</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Academic Niche</span>
+            Essential for researchers and students. Too niche for general use.
+          </div>
+        </div>
+
+        <!-- 15. Notion AI -->
+        <div class="tool-card" data-category="productivity">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Notion AI</div>
+              <span class="tool-category-badge badge-productivity">Productivity</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value">Add-on $10/user/mo &nbsp;|&nbsp; Included in Notion Business at $15/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Notion power users who want AI inside their workspace — drafting docs, summarizing pages, extracting action items from meeting notes.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">AI knows your entire Notion workspace</div>
+              <div class="pro-item">Instant doc summarization and Q&A</div>
+              <div class="pro-item">No context switching — stays in Notion</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Only useful if you already use Notion</div>
+              <div class="con-item">Writing quality below Claude</div>
+              <div class="con-item">Extra cost on top of Notion subscription</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Workspace AI</span>
+            Supercharges your Notion setup. Skip if you don't already use Notion.
+          </div>
+        </div>
+
+        <!-- 16. Otter.ai -->
+        <div class="tool-card" data-category="productivity">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Otter.ai</div>
+              <span class="tool-category-badge badge-productivity">Productivity</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </div>
+              <div class="rating-num">4.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (300 min/mo) &nbsp;|&nbsp; Pro $16.99/mo &nbsp;|&nbsp; Business $30/user/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Automatic meeting transcription, real-time captions in Zoom/Teams/Google Meet, and AI-generated meeting summaries with action items.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Auto-joins and transcribes meetings</div>
+              <div class="pro-item">Speaker identification is accurate</div>
+              <div class="pro-item">Good search across all past transcripts</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Accuracy drops with heavy accents</div>
+              <div class="con-item">AI summaries miss nuance</div>
+              <div class="con-item">Privacy concerns for sensitive meetings</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Meetings</span>
+            Eliminates manual note-taking. A no-brainer for anyone in back-to-back calls.
+          </div>
+        </div>
+
+        <!-- 17. ElevenLabs -->
+        <div class="tool-card" data-category="videoaudio">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">ElevenLabs</div>
+              <span class="tool-category-badge badge-videoaudio">Video / Audio</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+              </div>
+              <div class="rating-num">5.0 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (10,000 chars/mo) &nbsp;|&nbsp; Starter $5/mo &nbsp;|&nbsp; Creator $22/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Realistic AI voiceovers for videos, podcasts, audiobooks, and custom voice cloning with near-human quality.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Most realistic AI voices available today</div>
+              <div class="pro-item">Voice cloning from 1-minute sample</div>
+              <div class="pro-item">Supports 30+ languages</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Free tier limited for production use</div>
+              <div class="con-item">Voice cloning raises ethical questions</div>
+              <div class="con-item">Emotion control still imperfect</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Voice AI</span>
+            The clear leader for AI audio. Use for any voiceover work — it sounds genuinely human.
+          </div>
+        </div>
+
+        <!-- 18. Runway -->
+        <div class="tool-card" data-category="videoaudio">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Runway ML</div>
+              <span class="tool-category-badge badge-videoaudio">Video / Audio</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+              </div>
+              <div class="rating-num">4.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (125 credits) &nbsp;|&nbsp; Standard $15/mo &nbsp;|&nbsp; Pro $35/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> AI video generation (text-to-video, image-to-video), video editing with AI tools, background removal, and motion graphics.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Gen-3 Alpha: best text-to-video quality</div>
+              <div class="pro-item">Full suite of video editing AI tools</div>
+              <div class="pro-item">Constantly shipping new features</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Credits burn fast on video generation</div>
+              <div class="con-item">4-second clips feel short for production</div>
+              <div class="con-item">Unpredictable outputs on complex scenes</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best Video AI</span>
+            The most capable AI video tool. Essential for content creators and video editors.
+          </div>
+        </div>
+
+        <!-- 19. Descript -->
+        <div class="tool-card" data-category="videoaudio productivity">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="tool-name">Descript</div>
+              <span class="tool-category-badge badge-videoaudio">Video / Audio</span>
+            </div>
+            <div class="rating-block">
+              <div class="stars">
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star filled">&#9733;</span>
+                <span class="star half-filled">&#9733;</span>
+              </div>
+              <div class="rating-num">4.5 / 5</div>
+            </div>
+          </div>
+          <div class="card-pricing">
+            <div class="pricing-label">Pricing</div>
+            <div class="pricing-value"><span class="free-tag">Free</span> (1 hr transcription) &nbsp;|&nbsp; Hobbyist $24/mo &nbsp;|&nbsp; Creator $40/mo</div>
+          </div>
+          <div class="best-for"><strong>Best for:</strong> Podcasters and video editors who want to edit audio/video by editing a transcript — delete filler words, overdub mistakes, remove silence automatically.</div>
+          <div class="pros-cons">
+            <div class="pros">
+              <div class="pros-label">Pros</div>
+              <div class="pro-item">Edit video by editing text — genuinely magical</div>
+              <div class="pro-item">Overdub rewrites your voice with AI clone</div>
+              <div class="pro-item">Removes filler words in one click</div>
+            </div>
+            <div class="cons">
+              <div class="cons-label">Cons</div>
+              <div class="con-item">Not a full NLE (no After Effects-level tools)</div>
+              <div class="con-item">Can be slow with long files</div>
+              <div class="con-item">Overdub voice quality varies</div>
+            </div>
+          </div>
+          <div class="card-verdict">
+            <span class="verdict-tag">Best for Podcasters</span>
+            Cuts podcast editing time by 70%. A no-brainer for audio/video creators.
+          </div>
+        </div>
+
+      </div><!-- /tools-grid -->
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass','vip','core','hive','vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+
+    function filterTools(category, btn) {
+      // Update active button
+      var buttons = document.querySelectorAll('.filter-btn');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+      }
+      btn.classList.add('active');
+
+      // Show/hide cards
+      var cards = document.querySelectorAll('.tool-card');
+      var visibleCount = 0;
+      for (var j = 0; j < cards.length; j++) {
+        var cardCategories = cards[j].getAttribute('data-category');
+        if (category === 'all' || cardCategories.indexOf(category) !== -1) {
+          cards[j].classList.remove('hidden');
+          visibleCount++;
+        } else {
+          cards[j].classList.add('hidden');
+        }
+      }
+
+      // Update results bar
+      document.getElementById('visible-count').textContent = visibleCount;
+    }
+  </script>
+</body>
+</html>

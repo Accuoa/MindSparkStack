@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheet: The 5 Workflow Patterns - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .cs-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cs-header-left .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .cs-header-left h1 { font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+    .print-btn { background: var(--gradient); border: none; color: #fff; font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    .print-btn:hover { opacity: 0.85; }
+
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .cs-card-full { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .label-violet { color: var(--violet); border-color: rgba(124,58,237,0.3); }
+    .label-cyan { color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    .label-amber { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .label-green { color: #10b981; border-color: rgba(16,185,129,0.3); }
+    .label-red { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    .cs-card ul, .cs-card-full ul { list-style: none; margin: 0; padding: 0; }
+    .cs-card ul li, .cs-card-full ul li { font-size: 0.82rem; color: var(--text); padding: 4px 0 4px 16px; position: relative; line-height: 1.45; }
+    .cs-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.7rem; top: 5px; }
+    .cs-card ul li.mistake::before { content: '✕'; color: #ef4444; }
+    .cs-card ul li.action::before { content: '◆'; color: var(--violet); font-size: 0.55rem; top: 7px; }
+
+    .pattern-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: start;
+    }
+    .pattern-card:last-child { margin-bottom: 0; }
+    .pattern-num {
+      width: 30px; height: 30px; min-width: 30px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: #fff;
+    }
+    .p1 { background: var(--violet); }
+    .p2 { background: #2563eb; }
+    .p3 { background: #0891b2; }
+    .p4 { background: #059669; }
+    .p5 { background: #d97706; }
+    .pattern-body {}
+    .pattern-name { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .pattern-summary { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 4px; line-height: 1.4; }
+    .pattern-when { font-size: 0.72rem; color: var(--cyan); }
+    .pattern-when strong { color: var(--text-dim); }
+    .pattern-prompt-btn {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--text-dim); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 8px; white-space: nowrap;
+      cursor: default;
+    }
+
+    .prompt-block { background: var(--bg3); border: 1px solid rgba(6,182,212,0.2); border-left: 3px solid var(--cyan); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
+    .prompt-block:last-child { margin-bottom: 0; }
+    .prompt-label { font-size: 0.65rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .prompt-text { font-size: 0.8rem; color: var(--text); line-height: 1.5; }
+
+    .when-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 6px; }
+    .when-cell { background: var(--bg3); border-radius: 6px; padding: 8px; text-align: center; }
+    .when-cell .wc-num { font-size: 0.65rem; font-weight: 800; margin-bottom: 4px; }
+    .wc-1 { color: var(--violet); }
+    .wc-2 { color: #2563eb; }
+    .wc-3 { color: #0891b2; }
+    .wc-4 { color: #059669; }
+    .wc-5 { color: #d97706; }
+    .when-cell .wc-text { font-size: 0.68rem; color: var(--text-muted); line-height: 1.35; }
+
+    @media (max-width: 768px) { .cs-grid { grid-template-columns: 1fr; } .when-grid { grid-template-columns: 1fr 1fr; } .pattern-card { grid-template-columns: auto 1fr; } .pattern-prompt-btn { display: none; } }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; font-size: 11px; }
+      .sidebar, .mobile-menu-btn { display: none !important; }
+      .course-layout { display: block !important; }
+      .main-content { padding: 16px !important; max-width: 100% !important; }
+      .cs-header { background: #f5f5f5 !important; border-color: #ccc !important; break-inside: avoid; }
+      .cs-header-left h1 { -webkit-text-fill-color: #333 !important; color: #333 !important; }
+      .cs-card, .cs-card-full { background: #f9f9f9 !important; border-color: #ddd !important; break-inside: avoid; }
+      .pattern-card { background: #f0f0f0 !important; border-color: #ccc !important; break-inside: avoid; }
+      .print-btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="cs-header">
+        <div class="cs-header-left">
+          <div class="module-label">Module 3 — Cheat Sheet</div>
+          <h1>The 5 Workflow Patterns</h1>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print This Page</button>
+      </div>
+
+      <!-- 5 Patterns -->
+      <div class="cs-card-full">
+        <div class="section-label label-violet">The 5 Patterns at a Glance</div>
+
+        <div class="pattern-card">
+          <div class="pattern-num p1">1</div>
+          <div class="pattern-body">
+            <div class="pattern-name">Generate — Single Shot</div>
+            <div class="pattern-summary">One prompt, one output. Use when the task is self-contained and well-defined. Draft, summarize, translate, reformat.</div>
+            <div class="pattern-when"><strong>Use when:</strong> You need a first draft fast, the requirements are clear, and iteration is low-stakes.</div>
+          </div>
+          <span class="pattern-prompt-btn">Pattern 1</span>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-num p2">2</div>
+          <div class="pattern-body">
+            <div class="pattern-name">Refine — Iterative Loop</div>
+            <div class="pattern-summary">Generate, review, prompt again. Use for anything that needs polish — writing, code, strategies, plans.</div>
+            <div class="pattern-when"><strong>Use when:</strong> Quality matters more than speed, and you need the output to meet a high bar.</div>
+          </div>
+          <span class="pattern-prompt-btn">Pattern 2</span>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-num p3">3</div>
+          <div class="pattern-body">
+            <div class="pattern-name">Decompose — Break it Down</div>
+            <div class="pattern-summary">Split complex tasks into sub-tasks. Handle each part separately, then combine. Great for research, long-form writing, complex projects.</div>
+            <div class="pattern-when"><strong>Use when:</strong> The task is too big to handle in one shot or requires different expertise per section.</div>
+          </div>
+          <span class="pattern-prompt-btn">Pattern 3</span>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-num p4">4</div>
+          <div class="pattern-body">
+            <div class="pattern-name">Critique — Evaluate & Improve</div>
+            <div class="pattern-summary">Give AI existing work and ask it to critique, stress-test, or find gaps. Use on your own drafts or to review decisions.</div>
+            <div class="pattern-when"><strong>Use when:</strong> You have something and need honest feedback, not just validation.</div>
+          </div>
+          <span class="pattern-prompt-btn">Pattern 4</span>
+        </div>
+
+        <div class="pattern-card">
+          <div class="pattern-num p5">5</div>
+          <div class="pattern-body">
+            <div class="pattern-name">Automate — Chain & Repeat</div>
+            <div class="pattern-summary">Build a repeatable sequence of prompts that runs on any input. Templates, pipelines, recurring workflows. Set it up once, use it forever.</div>
+            <div class="pattern-when"><strong>Use when:</strong> You do the same type of task repeatedly and want to standardize quality and speed.</div>
+          </div>
+          <span class="pattern-prompt-btn">Pattern 5</span>
+        </div>
+      </div>
+
+      <!-- Quick Start Prompts -->
+      <div class="cs-card-full">
+        <div class="section-label label-cyan">Quick-Start Prompt for Each Pattern</div>
+        <div class="prompt-block">
+          <div class="prompt-label">Pattern 1 — Generate</div>
+          <div class="prompt-text">"Write a [format] about [topic] for [audience]. Tone: [tone]. Length: [length]. Include: [specific elements]."</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label">Pattern 2 — Refine</div>
+          <div class="prompt-text">"Here's my draft: [paste draft]. Improve it for [specific goal]. Keep [what to preserve]. Change [what to fix]. Show me the revised version only."</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label">Pattern 3 — Decompose</div>
+          <div class="prompt-text">"I need to [big task]. Before starting, break this into the key sub-tasks I should address. Then we'll tackle each one separately."</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label">Pattern 4 — Critique</div>
+          <div class="prompt-text">"Here's [my plan/draft/decision]: [paste it]. Act as a skeptical expert. What are the 3 biggest weaknesses, risks, or gaps? Be direct — no softening."</div>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label">Pattern 5 — Automate</div>
+          <div class="prompt-text">"I need a reusable template for [recurring task]. Create a prompt template I can fill in each time, with [INPUT] placeholders for the parts that change."</div>
+        </div>
+      </div>
+
+      <div class="cs-grid">
+        <!-- Mistakes -->
+        <div class="cs-card">
+          <div class="section-label label-red">Common Mistakes</div>
+          <ul>
+            <li class="mistake">Using Pattern 1 for everything — complex tasks need decomposition or iteration, not one-shots.</li>
+            <li class="mistake">Skipping Pattern 4 — most people generate but never critique. The best outputs come from generating then stress-testing.</li>
+            <li class="mistake">Building automations (Pattern 5) before you've refined the prompt manually first.</li>
+            <li class="mistake">Mixing patterns in one messy prompt instead of running them as separate, clean steps.</li>
+          </ul>
+        </div>
+
+        <!-- Action Items -->
+        <div class="cs-card">
+          <div class="section-label label-green">This Week's Action Items</div>
+          <ul>
+            <li class="action">Identify which pattern you overuse. (Most people default to Pattern 1 for everything.)</li>
+            <li class="action">Run Pattern 4 on your best piece of work this week — give it to AI for a harsh critique.</li>
+            <li class="action">Pick one recurring task and build a Pattern 5 template for it. Use it 3 times to refine it.</li>
+            <li class="action">Try Pattern 3 on your next complex project — decompose before diving in.</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+  </script>
+</body>
+</html>

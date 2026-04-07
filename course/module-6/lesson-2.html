@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging with AI: Finding and Fixing Problems Faster - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 6: AI for Technical Tasks (No Experience Required)</p>
+      <h1>Debugging with AI: Finding and Fixing Problems Faster</h1>
+
+      <p>Something broke. Maybe you followed the steps in the last lesson and got AI to write you a script, but when you ran it, you got an angry red error message full of technical jargon. Maybe a spreadsheet formula is returning "#REF!" instead of a number. Maybe a web page you built looks fine on your laptop but falls apart on your phone.</p>
+
+      <p>Welcome to debugging. It is the part of working with code that frustrates even experienced developers, and it is also the area where AI provides some of its most dramatic value. In this lesson, you will learn how to use AI to diagnose and fix problems quickly, even when you have no idea what the error message means.</p>
+
+      <h2>What Debugging Actually Is</h2>
+
+      <p>Debugging is simply the process of finding out why something is not working the way you expected and then fixing it. The term comes from the early days of computing when actual insects would get trapped in computer hardware and cause malfunctions. Today it refers to any kind of problem-solving with code or technical systems.</p>
+
+      <p>Here is the important mindset shift: errors are not failures. They are information. Every error message, no matter how cryptic it looks, is the computer telling you exactly what went wrong. The problem is that computers communicate in their own language, and that language is not intuitive to humans. AI bridges that gap by translating error messages into plain English explanations and actionable fixes.</p>
+
+      <h2>How to Share Error Messages with AI</h2>
+
+      <p>The single most important debugging skill is learning how to share error information effectively. When something goes wrong, there is usually an error message, a traceback, or some kind of output that describes the problem. How you share that with AI determines whether you get a useful fix or a generic non-answer.</p>
+
+      <p><strong>The golden rule: copy the entire error message.</strong> Do not paraphrase it. Do not screenshot it and try to describe it. Do not share just the last line. Copy the complete error output and paste it directly into your AI conversation.</p>
+
+      <p>Here is what a good debugging prompt looks like:</p>
+
+      <ol>
+        <li><strong>What you were trying to do:</strong> "I am running a Python script that reads a CSV file and calculates monthly totals."</li>
+        <li><strong>The complete error message:</strong> Paste the entire traceback or error output.</li>
+        <li><strong>The relevant code:</strong> If you have it, paste the section of code that is causing the issue.</li>
+        <li><strong>What you already tried:</strong> If you attempted any fixes, mention them so the AI does not suggest the same things.</li>
+      </ol>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> When copying error messages, include everything from the first line to the last. The top of an error traceback shows where the problem started propagating, and the bottom shows the specific line where it crashed. Both pieces of information are critical for diagnosis.</div>
+
+      <h2>Common Debugging Workflows</h2>
+
+      <h3>The "It Does Not Run at All" Scenario</h3>
+
+      <p>This is the most common situation for beginners. You have code from AI, you try to run it, and it immediately crashes with an error. The fix is almost always one of a few common issues:</p>
+
+      <ul>
+        <li><strong>Missing dependencies:</strong> The code uses a library that is not installed on your system. The error usually says something like "ModuleNotFoundError" or "No module named X." The fix is installing the missing library, and AI can tell you the exact command.</li>
+        <li><strong>File path issues:</strong> The code expects a file in a specific location and cannot find it. You will see "FileNotFoundError" or similar. The fix is either moving your file or updating the path in the code.</li>
+        <li><strong>Version mismatches:</strong> The code was written for a different version of a programming language or library. AI can usually adapt the code to your version once you tell it which version you are using.</li>
+        <li><strong>Syntax errors:</strong> A typo, missing parenthesis, or incorrect indentation. These are almost always on the exact line number mentioned in the error.</li>
+      </ul>
+
+      <h3>The "It Runs But Gives Wrong Results" Scenario</h3>
+
+      <p>This is trickier because there is no error message to work with. The code runs without crashing, but the output is not what you expected. In this case, you need to describe the discrepancy to AI:</p>
+
+      <p>"The script runs without errors, but the total in the output file shows $45,000 when I know it should be around $120,000. Here is the code [paste code] and here is a sample of my input data [paste a few rows]."</p>
+
+      <p>AI can often spot the logical error immediately. Common causes include filtering out too many rows, using the wrong column, or a mathematical operation that is not doing what you intended. When you describe both what happened and what should have happened, the AI can work backward to find the discrepancy.</p>
+
+      <h3>The "It Works Sometimes But Not Always" Scenario</h3>
+
+      <p>Intermittent problems are the hardest to debug because they seem random. But they almost never are. Usually, the code works for most inputs but fails on specific edge cases: an empty cell, a date in an unexpected format, a text value where a number was expected, a special character in a file name.</p>
+
+      <p>When this happens, share with AI: the code, an example of an input that works, and an example of an input that fails. The difference between those two inputs usually reveals the bug immediately.</p>
+
+      <h2>Reading AI Explanations of Code</h2>
+
+      <p>When AI fixes a bug, it usually explains what was wrong and what it changed. Learning to read these explanations, even if you cannot read the code itself, is a valuable skill.</p>
+
+      <p>Pay attention to phrases like:</p>
+
+      <ul>
+        <li>"The issue was that the code was comparing a string to a number" (a type mismatch)</li>
+        <li>"The loop was starting at index 1 instead of index 0, skipping the first row" (an off-by-one error)</li>
+        <li>"The function was overwriting the variable on each iteration instead of accumulating" (a logic error)</li>
+        <li>"The date parser expected YYYY-MM-DD format but the data uses MM/DD/YYYY" (a format mismatch)</li>
+      </ul>
+
+      <p>You do not need to understand the code syntax to understand these explanations. They describe logical problems in plain English. Over time, reading these explanations will give you an increasingly useful intuition for what kinds of things go wrong with code, which makes you better at preventing problems in the first place.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> After AI fixes a bug, ask it "Can you explain in simple terms what went wrong and why this fix works?" This builds your technical intuition over time without requiring you to learn programming formally.</div>
+
+      <h2>The Debugging Conversation</h2>
+
+      <p>Effective debugging with AI is rarely a single question and answer. It is a conversation. Here is what a typical debugging session looks like:</p>
+
+      <ol>
+        <li><strong>You:</strong> Share the error message and context.</li>
+        <li><strong>AI:</strong> Identifies the likely cause and suggests a fix.</li>
+        <li><strong>You:</strong> Apply the fix and report what happened (either it worked, it produced a new error, or it changed the behavior but not correctly).</li>
+        <li><strong>AI:</strong> Adjusts its approach based on your feedback.</li>
+        <li><strong>Repeat</strong> until the problem is resolved.</li>
+      </ol>
+
+      <p>This iterative process is exactly how professional developers debug, except they are having the conversation with themselves, Stack Overflow, or a colleague. You are having it with AI, which is often faster because AI has immediate access to knowledge about virtually every programming language, library, and common error pattern.</p>
+
+      <h2>When AI Debugging Helps vs When to Call a Human</h2>
+
+      <p>AI is extraordinarily good at debugging certain categories of problems and limited in others. Understanding the boundary will save you time and frustration.</p>
+
+      <p><strong>AI excels at:</strong></p>
+
+      <ul>
+        <li>Syntax errors and typos in any programming language</li>
+        <li>Common runtime errors with well-known causes</li>
+        <li>Library usage mistakes (wrong function name, wrong parameter order)</li>
+        <li>Data format mismatches and type conversion issues</li>
+        <li>Explaining what existing code does and why it might be failing</li>
+        <li>Suggesting alternative approaches when one method is not working</li>
+      </ul>
+
+      <p><strong>Call a human when:</strong></p>
+
+      <ul>
+        <li>The problem involves your specific network, server, or infrastructure configuration</li>
+        <li>The issue is related to permissions, security settings, or organizational IT policies</li>
+        <li>You have gone through three rounds of AI-suggested fixes and the problem persists (this usually means the issue is environmental, not in the code itself)</li>
+        <li>The code involves sensitive data and you are not comfortable sharing it with an AI service</li>
+        <li>The bug has real financial consequences and you need absolute certainty about the fix</li>
+      </ul>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> If AI suggests a fix and it does not work, do not just say "that did not work." Tell the AI exactly what happened: the new error message, the unexpected output, or the changed behavior. The more specific your feedback, the faster you converge on the solution.</div>
+
+      <h2>Building a Debugging Mindset</h2>
+
+      <p>The most important thing to internalize about debugging is that it is normal. Professional developers spend a significant portion of their time debugging. Code rarely works perfectly on the first try. Errors are not a sign that you did something wrong. They are a natural part of the process.</p>
+
+      <p>With AI as your debugging partner, you have something that professional developers did not have until recently: an infinitely patient assistant that has seen virtually every error pattern before and can explain problems in whatever level of detail you need. Use that advantage.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Find a piece of code, a formula, or a script that you have had trouble with in the past (or use one from the previous lesson). Intentionally break it by changing one small thing: delete a parenthesis, change a column reference, or modify a variable name. Then paste the broken version and the resulting error message into your AI tool and ask it to diagnose the problem. Compare its diagnosis to the change you actually made. This exercise builds your confidence that error messages, however intimidating they look, always point to a specific, fixable problem.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-6/lesson-2')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-6/lesson-2';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

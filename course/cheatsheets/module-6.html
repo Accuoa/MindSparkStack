@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheet: Coding &amp; Technical Work with AI - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .cs-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cs-header-left .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .cs-header-left h1 { font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+    .print-btn { background: var(--gradient); border: none; color: #fff; font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    .print-btn:hover { opacity: 0.85; }
+
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .cs-card-full { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .label-violet { color: var(--violet); border-color: rgba(124,58,237,0.3); }
+    .label-cyan { color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    .label-amber { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .label-green { color: #10b981; border-color: rgba(16,185,129,0.3); }
+    .label-red { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    .cs-card ul, .cs-card-full ul { list-style: none; margin: 0; padding: 0; }
+    .cs-card ul li, .cs-card-full ul li { font-size: 0.82rem; color: var(--text); padding: 4px 0 4px 16px; position: relative; line-height: 1.45; }
+    .cs-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.7rem; top: 5px; }
+    .cs-card ul li.check::before { content: '✓'; color: #10b981; }
+    .cs-card ul li.mistake::before { content: '✕'; color: #ef4444; }
+    .cs-card ul li.action::before { content: '◆'; color: var(--violet); font-size: 0.55rem; top: 7px; }
+
+    .code-prompt {
+      background: var(--bg3);
+      border: 1px solid rgba(6,182,212,0.15);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .code-prompt:last-child { margin-bottom: 0; }
+    .cp-label { font-size: 0.6rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+    .placeholder { color: var(--violet); font-style: italic; }
+
+    .debug-step {
+      display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border);
+    }
+    .debug-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .debug-num {
+      width: 20px; height: 20px; min-width: 20px; border-radius: 50%; background: rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.4); display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; color: var(--violet);
+    }
+    .debug-text strong { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+    .debug-text span { font-size: 0.74rem; color: var(--text-muted); line-height: 1.35; }
+
+    .nocode-card {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+    }
+    .nc-title { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .nc-desc { font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; line-height: 1.35; }
+    .nc-best { font-size: 0.68rem; color: var(--cyan); }
+
+    @media (max-width: 768px) { .cs-grid, .cs-grid-3 { grid-template-columns: 1fr; } }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; font-size: 11px; }
+      .sidebar, .mobile-menu-btn { display: none !important; }
+      .course-layout { display: block !important; }
+      .main-content { padding: 16px !important; max-width: 100% !important; }
+      .cs-header { background: #f5f5f5 !important; border-color: #ccc !important; break-inside: avoid; }
+      .cs-header-left h1 { -webkit-text-fill-color: #333 !important; color: #333 !important; }
+      .cs-card, .cs-card-full { background: #f9f9f9 !important; border-color: #ddd !important; break-inside: avoid; }
+      .code-prompt, .nocode-card { background: #f0f0f0 !important; break-inside: avoid; }
+      .print-btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="cs-header">
+        <div class="cs-header-left">
+          <div class="module-label">Module 6 — Cheat Sheet</div>
+          <h1>Coding &amp; Technical Work with AI</h1>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print This Page</button>
+      </div>
+
+      <!-- Coding Prompt Templates -->
+      <div class="cs-card-full">
+        <div class="section-label label-cyan">Coding Prompt Templates</div>
+        <div class="cs-grid">
+          <div>
+            <div class="code-prompt">
+              <div class="cp-label">Write new code</div>
+              "Write a <span class="placeholder">[language]</span> function that <span class="placeholder">[what it does]</span>. Input: <span class="placeholder">[input type/format]</span>. Output: <span class="placeholder">[output type/format]</span>. Requirements: <span class="placeholder">[any constraints, edge cases, libraries to use]</span>. Include comments explaining the logic."
+            </div>
+            <div class="code-prompt">
+              <div class="cp-label">Explain code</div>
+              "Explain this code to me like I'm a junior developer. Walk through what each section does, why it's structured this way, and any non-obvious decisions: <span class="placeholder">[paste code]</span>"
+            </div>
+            <div class="code-prompt">
+              <div class="cp-label">Refactor / improve</div>
+              "Here's working code: <span class="placeholder">[paste code]</span>. Refactor it to be cleaner and more readable. Preserve all behavior. Explain what you changed and why. Don't add new functionality."
+            </div>
+          </div>
+          <div>
+            <div class="code-prompt">
+              <div class="cp-label">Debug an error</div>
+              "I'm getting this error: <span class="placeholder">[paste exact error message]</span>. Here's the relevant code: <span class="placeholder">[paste code]</span>. Here's what I've already tried: <span class="placeholder">[attempts]</span>. Diagnose the cause and give me a fix."
+            </div>
+            <div class="code-prompt">
+              <div class="cp-label">Write tests</div>
+              "Write unit tests for this function in <span class="placeholder">[testing framework]</span>: <span class="placeholder">[paste code]</span>. Cover: happy path, edge cases, and error conditions. Each test should have a descriptive name."
+            </div>
+            <div class="code-prompt">
+              <div class="cp-label">Review code</div>
+              "Review this code for: (1) bugs, (2) security issues, (3) performance problems, (4) readability. Be specific — point to exact lines. Rate severity as High/Med/Low: <span class="placeholder">[paste code]</span>"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Debugging Checklist -->
+      <div class="cs-card-full">
+        <div class="section-label label-amber">Debugging Checklist — Before Asking AI</div>
+        <div class="cs-grid">
+          <div>
+            <div class="debug-step">
+              <div class="debug-num">1</div>
+              <div class="debug-text"><strong>Paste the exact error</strong><span>Never paraphrase error messages. Copy them verbatim — the specific wording matters.</span></div>
+            </div>
+            <div class="debug-step">
+              <div class="debug-num">2</div>
+              <div class="debug-text"><strong>Include the full stack trace</strong><span>The line number and call chain are critical context. Don't trim them.</span></div>
+            </div>
+            <div class="debug-step">
+              <div class="debug-num">3</div>
+              <div class="debug-text"><strong>Share the relevant code block</strong><span>Not the whole file — just the function or section involved. Add context on what it's supposed to do.</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="debug-step">
+              <div class="debug-num">4</div>
+              <div class="debug-text"><strong>State what you expected vs. what happened</strong><span>Expected: X. Got: Y. This frames the problem precisely.</span></div>
+            </div>
+            <div class="debug-step">
+              <div class="debug-num">5</div>
+              <div class="debug-text"><strong>List what you've already tried</strong><span>Prevents AI from suggesting things you've already ruled out.</span></div>
+            </div>
+            <div class="debug-step">
+              <div class="debug-num">6</div>
+              <div class="debug-text"><strong>Name your environment</strong><span>Language version, framework, OS, any relevant dependencies. Bugs are often version-specific.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No-Code Tools -->
+      <div class="cs-card-full">
+        <div class="section-label label-violet">No-Code Tool Recommendations</div>
+        <div class="cs-grid-3">
+          <div class="nocode-card">
+            <div class="nc-title">Cursor</div>
+            <div class="nc-desc">AI-native code editor. Understands your whole codebase. Best for developers who want AI embedded in their workflow.</div>
+            <div class="nc-best">Best for: developers + power users</div>
+          </div>
+          <div class="nocode-card">
+            <div class="nc-title">Replit (Ghostwriter)</div>
+            <div class="nc-desc">Browser-based IDE with AI assist. No local setup needed. Great for quick prototypes and learning.</div>
+            <div class="nc-best">Best for: beginners + fast prototyping</div>
+          </div>
+          <div class="nocode-card">
+            <div class="nc-title">Bubble + AI</div>
+            <div class="nc-desc">Visual no-code builder. Use Claude/ChatGPT to design logic, then implement visually. No code required.</div>
+            <div class="nc-best">Best for: non-coders building web apps</div>
+          </div>
+          <div class="nocode-card">
+            <div class="nc-title">Bolt.new</div>
+            <div class="nc-desc">Describe an app in plain text, get working code instantly. Full-stack in seconds. Best for prototyping.</div>
+            <div class="nc-best">Best for: rapid app prototyping</div>
+          </div>
+          <div class="nocode-card">
+            <div class="nc-title">v0 by Vercel</div>
+            <div class="nc-desc">Generate UI components from text descriptions. React/Tailwind output. Instant frontend scaffolding.</div>
+            <div class="nc-best">Best for: frontend UI generation</div>
+          </div>
+          <div class="nocode-card">
+            <div class="nc-title">Zapier / Make</div>
+            <div class="nc-desc">Visual automation builders. Use AI to design the workflow, then point-and-click to implement.</div>
+            <div class="nc-best">Best for: workflow automation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-grid">
+        <!-- Mistakes -->
+        <div class="cs-card">
+          <div class="section-label label-red">Common Mistakes</div>
+          <ul>
+            <li class="mistake">Pasting vague descriptions instead of actual code and error messages.</li>
+            <li class="mistake">Accepting AI code without reading it. Always understand what it does before running it.</li>
+            <li class="mistake">Asking AI to fix code without telling it what the code is supposed to do.</li>
+            <li class="mistake">Not specifying the language version or framework — AI will make assumptions that may be wrong.</li>
+          </ul>
+        </div>
+
+        <!-- Action Items -->
+        <div class="cs-card">
+          <div class="section-label label-green">This Week's Action Items</div>
+          <ul>
+            <li class="action">Use the debugging checklist the next time you hit a bug — before asking AI or Stack Overflow.</li>
+            <li class="action">Pick one script or piece of code you use regularly and ask AI to refactor it for readability.</li>
+            <li class="action">Try Cursor or Bolt.new for your next technical task — even if you don't usually code.</li>
+            <li class="action">Ask AI to review a piece of your code for security and performance issues. Act on at least one finding.</li>
+          </ul>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+  </script>
+</body>
+</html>

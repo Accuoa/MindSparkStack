@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Certificate of Completion — MindSparkAI</title>
+  <link rel="stylesheet" href="/course/shared/styles.css" />
+  <style>
+    .layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+    .mobile-menu-toggle { display: none; position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border: none; border-radius: 50%; cursor: pointer; align-items: center; justify-content: center; font-size: 1.25rem; color: #fff; box-shadow: 0 4px 20px rgba(124,58,237,0.4); z-index: 100; transition: transform 0.15s, box-shadow 0.15s; }
+    .mobile-menu-toggle:hover { transform: scale(1.05); box-shadow: 0 4px 28px rgba(124,58,237,0.6); }
+
+    /* Main content wrapper */
+    .cert-main { padding: 48px 56px; max-width: 900px; }
+
+    /* Not yet complete state */
+    .progress-card { background: #111118; border: 1px solid rgba(124,58,237,0.25); border-radius: 16px; padding: 40px 36px; text-align: center; max-width: 560px; }
+    .progress-card-icon { font-size: 3rem; margin-bottom: 16px; }
+    .progress-card-title { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; margin-bottom: 10px; }
+    .progress-card-desc { font-size: 0.9375rem; color: #94a3b8; line-height: 1.6; margin-bottom: 28px; }
+    .progress-bar-wrap { width: 100%; background: #1a1a24; border-radius: 8px; height: 10px; overflow: hidden; margin-bottom: 10px; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; transition: width 0.6s ease; }
+    .progress-bar-label { font-size: 0.8125rem; color: #64748b; margin-bottom: 28px; }
+    .back-btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 22px; border-radius: 9px; font-size: 0.9rem; font-weight: 600; background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.35); text-decoration: none; transition: background 0.15s, transform 0.1s; }
+    .back-btn:hover { background: rgba(124,58,237,0.25); transform: translateY(-1px); text-decoration: none; }
+
+    /* Certificate card wrapper */
+    .cert-wrapper { display: flex; flex-direction: column; gap: 24px; }
+    .cert-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .print-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; border-radius: 9px; font-size: 0.9375rem; font-weight: 600; background: linear-gradient(135deg, #7c3aed, #06b6d4); color: #fff; border: none; cursor: pointer; transition: opacity 0.15s, transform 0.1s; box-shadow: 0 4px 20px rgba(124,58,237,0.35); }
+    .print-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .cert-hint { font-size: 0.8125rem; color: #64748b; }
+
+    /* The certificate itself */
+    #certificate {
+      background: #fafaf9;
+      color: #1a1a2e;
+      border-radius: 16px;
+      padding: 64px 72px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(124,58,237,0.18);
+    }
+
+    /* Decorative inner border frame */
+    #certificate::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1.5px solid rgba(124,58,237,0.22);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* Top-right gradient accent */
+    #certificate::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Bottom-left gradient accent */
+    .cert-blob-bottom {
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(6,182,212,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cert-inner { position: relative; z-index: 1; text-align: center; }
+
+    /* Logo */
+    .cert-logo {
+      font-size: 1.375rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* Decorative horizontal rule */
+    .cert-rule { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .cert-rule-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(124,58,237,0.3), transparent); }
+    .cert-rule-diamond { width: 8px; height: 8px; background: linear-gradient(135deg, #7c3aed, #06b6d4); transform: rotate(45deg); border-radius: 2px; flex-shrink: 0; }
+
+    /* Certificate of Completion headline */
+    .cert-headline {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.375rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #1a1224;
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+
+    .cert-certifies { font-size: 1rem; color: #64748b; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; }
+
+    /* Recipient name */
+    .cert-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #2d1b69;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .cert-completed-text { font-size: 1rem; color: #64748b; margin-bottom: 10px; }
+
+    /* Course title */
+    .cert-course-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.625rem;
+      font-weight: 700;
+      color: #1a1224;
+      margin-bottom: 6px;
+    }
+
+    .cert-course-sub { font-size: 0.9rem; color: #94a3b8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 36px; }
+    .cert-rule-bottom { margin-bottom: 24px; }
+    .cert-date { font-size: 0.9rem; color: #94a3b8; letter-spacing: 0.02em; }
+    .cert-date strong { color: #4c1d95; font-weight: 600; }
+    .cert-number { font-size: 0.8rem; color: #94a3b8; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 18px; }
+    .cert-number strong { color: #4c1d95; font-weight: 600; }
+
+    /* Share actions */
+    .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; border-radius: 9px; font-size: 0.9375rem; font-weight: 600; background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.35); cursor: pointer; transition: background 0.15s, transform 0.1s; }
+    .share-btn:hover { background: rgba(124,58,237,0.25); transform: translateY(-1px); }
+    .copy-toast { display: none; position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); background: #1a1a24; color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); padding: 10px 22px; border-radius: 9px; font-size: 0.875rem; font-weight: 600; z-index: 200; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .mobile-menu-toggle { display: flex; }
+      .cert-main { padding: 32px 20px; max-width: 100%; }
+      #certificate { padding: 44px 32px; }
+      .cert-headline { font-size: 1.75rem; }
+      .cert-name { font-size: 1.625rem; }
+      .cert-course-title { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      #certificate { padding: 36px 24px; }
+      .cert-headline { font-size: 1.5rem; }
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .layout { display: block !important; }
+      .sidebar,
+      .mobile-menu-toggle,
+      .cert-actions,
+      .back-btn { display: none !important; }
+      .cert-main { padding: 0 !important; max-width: 100% !important; }
+      #certificate {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 60px 80px !important;
+        width: 100% !important;
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+      }
+      #certificate::before { border-color: rgba(124,58,237,0.35) !important; }
+      .cert-name { color: #2d1b69 !important; }
+      .cert-headline { color: #1a1224 !important; }
+      .cert-course-title { color: #1a1224 !important; }
+      @page { size: landscape; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="mobile-menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+
+  <div class="layout">
+    <div id="sidebar" class="sidebar"></div>
+    <div class="cert-main" id="main">
+      <p style="text-align:center;padding:4rem;color:#94a3b8;">Loading...</p>
+    </div>
+  </div>
+
+  <div class="copy-toast" id="copy-toast">Link copied to clipboard</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function makeCertRule() {
+      var rule = document.createElement('div');
+      rule.className = 'cert-rule';
+      var lineL = document.createElement('div');
+      lineL.className = 'cert-rule-line';
+      var diamond = document.createElement('div');
+      diamond.className = 'cert-rule-diamond';
+      var lineR = document.createElement('div');
+      lineR.className = 'cert-rule-line';
+      rule.appendChild(lineL);
+      rule.appendChild(diamond);
+      rule.appendChild(lineR);
+      return rule;
+    }
+
+    // Generate a unique certificate number: MSA-YYYY-XXXXX
+    function generateCertNumber() {
+      var year = new Date().getFullYear();
+      var chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      var code = '';
+      for (var i = 0; i < 5; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return 'MSA-' + year + '-' + code;
+    }
+
+    // Get or create the certificate record in the database
+    function getOrCreateCertificate(userId, displayName, email) {
+      return sb.from('certificates')
+        .select('*')
+        .eq('user_id', userId)
+        .then(function(result) {
+          if (result.data && result.data.length > 0) {
+            return result.data[0];
+          }
+          // No existing certificate — create one
+          var certNumber = generateCertNumber();
+          return sb.from('certificates')
+            .insert({
+              user_id: userId,
+              certificate_number: certNumber,
+              recipient_name: displayName,
+              recipient_email: email
+            })
+            .select()
+            .single()
+            .then(function(insertResult) {
+              if (insertResult.error) {
+                // Possible race condition — try fetching again
+                return sb.from('certificates')
+                  .select('*')
+                  .eq('user_id', userId)
+                  .single()
+                  .then(function(retry) { return retry.data; });
+              }
+              return insertResult.data;
+            });
+        });
+    }
+
+    function showCopyToast() {
+      var toast = document.getElementById('copy-toast');
+      toast.style.display = 'block';
+      setTimeout(function() { toast.style.display = 'none'; }, 2200);
+    }
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+
+      renderSidebar('sidebar', null);
+
+      getProgress().then(function(completedSlugs) {
+        var main = document.getElementById('main');
+        var completedCount = completedSlugs ? completedSlugs.length : 0;
+
+        main.textContent = '';
+
+        if (completedCount < 33) {
+          // Not yet complete — show progress card
+          var remaining = 33 - completedCount;
+          var pct = Math.round((completedCount / 33) * 100);
+
+          var card = document.createElement('div');
+          card.className = 'progress-card';
+
+          var icon = document.createElement('div');
+          icon.className = 'progress-card-icon';
+          icon.textContent = '\uD83C\uDF93';
+
+          var titleEl = document.createElement('div');
+          titleEl.className = 'progress-card-title';
+          titleEl.textContent = 'Almost there!';
+
+          var desc = document.createElement('p');
+          desc.className = 'progress-card-desc';
+          desc.appendChild(document.createTextNode(
+            "You've completed " + completedCount + " of 33 lessons. " +
+            "Finish all " + remaining + " remaining lesson" + (remaining === 1 ? '' : 's') +
+            " to unlock your certificate."
+          ));
+
+          var barWrap = document.createElement('div');
+          barWrap.className = 'progress-bar-wrap';
+          var barFill = document.createElement('div');
+          barFill.className = 'progress-bar-fill';
+          barFill.style.width = '0%';
+          barWrap.appendChild(barFill);
+
+          var barLabel = document.createElement('div');
+          barLabel.className = 'progress-bar-label';
+          barLabel.appendChild(document.createTextNode(
+            completedCount + ' of 33 lessons complete \u2014 ' + pct + '%'
+          ));
+
+          var backBtn = document.createElement('a');
+          backBtn.href = '/course/dashboard.html';
+          backBtn.className = 'back-btn';
+          backBtn.appendChild(document.createTextNode('\u2190 Back to Dashboard'));
+
+          card.appendChild(icon);
+          card.appendChild(titleEl);
+          card.appendChild(desc);
+          card.appendChild(barWrap);
+          card.appendChild(barLabel);
+          card.appendChild(backBtn);
+
+          main.appendChild(card);
+
+          setTimeout(function() { barFill.style.width = pct + '%'; }, 60);
+
+        } else {
+          // Complete — get or create certificate, then render
+          var displayName = (profile && profile.full_name && profile.full_name.trim())
+            ? profile.full_name.trim()
+            : ((user && user.email) ? user.email : 'Course Graduate');
+          var userEmail = (user && user.email) ? user.email : '';
+
+          getOrCreateCertificate(user.id, displayName, userEmail).then(function(certRecord) {
+            var certNumber = certRecord ? certRecord.certificate_number : '';
+            var issuedDate = certRecord && certRecord.issued_at
+              ? new Date(certRecord.issued_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+              : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            var verifyUrl = window.location.origin + '/course/verify.html?id=' + encodeURIComponent(certNumber);
+
+            // Wrapper
+            var wrapper = document.createElement('div');
+            wrapper.className = 'cert-wrapper';
+
+            // Actions bar
+            var actions = document.createElement('div');
+            actions.className = 'cert-actions';
+
+            var printBtn = document.createElement('button');
+            printBtn.className = 'print-btn';
+            printBtn.appendChild(document.createTextNode('\uD83D\uDCCE Print / Save as PDF'));
+            printBtn.onclick = function() { window.print(); };
+
+            var shareBtn = document.createElement('button');
+            shareBtn.className = 'share-btn';
+            shareBtn.appendChild(document.createTextNode('\uD83D\uDD17 Copy Share Link'));
+            shareBtn.onclick = function() {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(verifyUrl).then(function() { showCopyToast(); });
+              } else {
+                var ta = document.createElement('textarea');
+                ta.value = verifyUrl;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showCopyToast();
+              }
+            };
+
+            var hint = document.createElement('span');
+            hint.className = 'cert-hint';
+            hint.appendChild(document.createTextNode("Use your browser's \"Save as PDF\" option when printing."));
+
+            actions.appendChild(printBtn);
+            actions.appendChild(shareBtn);
+            actions.appendChild(hint);
+
+            // Certificate card
+            var cert = document.createElement('div');
+            cert.id = 'certificate';
+
+            // Bottom gradient blob (decorative, no content)
+            var blob = document.createElement('div');
+            blob.className = 'cert-blob-bottom';
+            cert.appendChild(blob);
+
+            // Inner content container
+            var inner = document.createElement('div');
+            inner.className = 'cert-inner';
+
+            // Logo
+            var logo = document.createElement('span');
+            logo.className = 'cert-logo';
+            logo.appendChild(document.createTextNode('MindSparkAI'));
+
+            // Top decorative rule
+            var ruleTop = makeCertRule();
+
+            // Headline
+            var headline = document.createElement('div');
+            headline.className = 'cert-headline';
+            headline.appendChild(document.createTextNode('Certificate of Completion'));
+
+            // "This certifies that"
+            var certifies = document.createElement('div');
+            certifies.className = 'cert-certifies';
+            certifies.appendChild(document.createTextNode('This certifies that'));
+
+            // Recipient name — XSS-safe via createTextNode
+            var nameEl = document.createElement('div');
+            nameEl.className = 'cert-name';
+            nameEl.appendChild(document.createTextNode(displayName));
+
+            // "has successfully completed the"
+            var completedText = document.createElement('div');
+            completedText.className = 'cert-completed-text';
+            completedText.appendChild(document.createTextNode('has successfully completed the'));
+
+            // Course title
+            var courseTitle = document.createElement('div');
+            courseTitle.className = 'cert-course-title';
+            courseTitle.appendChild(document.createTextNode('MindSparkAI Masterclass'));
+
+            // Course subtitle
+            var courseSub = document.createElement('div');
+            courseSub.className = 'cert-course-sub';
+            courseSub.appendChild(document.createTextNode('7 Modules \u00B7 33 Lessons'));
+
+            // Bottom decorative rule
+            var ruleBottom = makeCertRule();
+            ruleBottom.classList.add('cert-rule-bottom');
+
+            // Date
+            var dateEl = document.createElement('div');
+            dateEl.className = 'cert-date';
+            dateEl.appendChild(document.createTextNode('Issued on '));
+            var dateStrong = document.createElement('strong');
+            dateStrong.appendChild(document.createTextNode(issuedDate));
+            dateEl.appendChild(dateStrong);
+
+            // Certificate number
+            var numberEl = document.createElement('div');
+            numberEl.className = 'cert-number';
+            numberEl.appendChild(document.createTextNode('Certificate ID: '));
+            var numberStrong = document.createElement('strong');
+            numberStrong.appendChild(document.createTextNode(certNumber));
+            numberEl.appendChild(numberStrong);
+
+            // Assemble inner
+            inner.appendChild(logo);
+            inner.appendChild(ruleTop);
+            inner.appendChild(headline);
+            inner.appendChild(certifies);
+            inner.appendChild(nameEl);
+            inner.appendChild(completedText);
+            inner.appendChild(courseTitle);
+            inner.appendChild(courseSub);
+            inner.appendChild(ruleBottom);
+            inner.appendChild(dateEl);
+            inner.appendChild(numberEl);
+
+            cert.appendChild(inner);
+
+            wrapper.appendChild(actions);
+            wrapper.appendChild(cert);
+
+            main.appendChild(wrapper);
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

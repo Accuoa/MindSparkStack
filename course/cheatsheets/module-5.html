@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheat Sheet: Real Use Cases - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .cs-header {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cs-header-left .module-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .cs-header-left h1 { font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+    .print-btn { background: var(--gradient); border: none; color: #fff; font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+    .print-btn:hover { opacity: 0.85; }
+
+    .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .cs-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .cs-card-full { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .label-violet { color: var(--violet); border-color: rgba(124,58,237,0.3); }
+    .label-cyan { color: var(--cyan); border-color: rgba(6,182,212,0.3); }
+    .label-amber { color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .label-green { color: #10b981; border-color: rgba(16,185,129,0.3); }
+    .label-red { color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+    .cs-card ul, .cs-card-full ul { list-style: none; margin: 0; padding: 0; }
+    .cs-card ul li, .cs-card-full ul li { font-size: 0.82rem; color: var(--text); padding: 4px 0 4px 16px; position: relative; line-height: 1.45; }
+    .cs-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-size: 0.7rem; top: 5px; }
+    .cs-card ul li.mistake::before { content: '✕'; color: #ef4444; }
+    .cs-card ul li.action::before { content: '◆'; color: var(--violet); font-size: 0.55rem; top: 7px; }
+
+    .use-case-block {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .use-case-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .uc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .uc-icon {
+      width: 26px; height: 26px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: #fff; flex-shrink: 0;
+    }
+    .uc-email { background: #7C3AED; }
+    .uc-report { background: #2563eb; }
+    .uc-research { background: #0891b2; }
+    .uc-meeting { background: #059669; }
+    .uc-data { background: #d97706; }
+    .uc-title { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+
+    .copy-prompt {
+      background: var(--bg3);
+      border: 1px solid rgba(6,182,212,0.2);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+    .copy-prompt:last-child { margin-bottom: 0; }
+    .copy-label { font-size: 0.6rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .placeholder { color: var(--violet); font-style: italic; }
+
+    .use-case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    @media (max-width: 768px) { .cs-grid, .use-case-grid { grid-template-columns: 1fr; } }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; font-size: 11px; }
+      .sidebar, .mobile-menu-btn { display: none !important; }
+      .course-layout { display: block !important; }
+      .main-content { padding: 16px !important; max-width: 100% !important; }
+      .cs-header { background: #f5f5f5 !important; border-color: #ccc !important; break-inside: avoid; }
+      .cs-header-left h1 { -webkit-text-fill-color: #333 !important; color: #333 !important; }
+      .cs-card, .cs-card-full { background: #f9f9f9 !important; border-color: #ddd !important; break-inside: avoid; }
+      .copy-prompt { background: #f0f0f0 !important; break-inside: avoid; }
+      .print-btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="cs-header">
+        <div class="cs-header-left">
+          <div class="module-label">Module 5 — Cheat Sheet</div>
+          <h1>Real Use Cases</h1>
+        </div>
+        <button class="print-btn" onclick="window.print()">Print This Page</button>
+      </div>
+
+      <!-- Copy-Paste Prompts by Use Case -->
+      <div class="cs-card-full">
+        <div class="section-label label-cyan">Copy-Paste Ready Prompts by Task Type</div>
+        <div class="use-case-grid">
+
+          <div>
+            <div class="use-case-block">
+              <div class="uc-header">
+                <div class="uc-icon uc-email">@</div>
+                <div class="uc-title">Email</div>
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Write a professional email</div>
+                "Write a concise, professional email to <span class="placeholder">[recipient/role]</span> asking for <span class="placeholder">[request]</span>. Context: <span class="placeholder">[relevant background]</span>. Tone: direct and respectful. No filler phrases. End with a clear call to action."
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Respond to a difficult message</div>
+                "Here's an email I received: <span class="placeholder">[paste email]</span>. Help me respond professionally. Goal: <span class="placeholder">[what I want to achieve]</span>. Tone: calm and firm. Under 100 words."
+              </div>
+            </div>
+
+            <div class="use-case-block">
+              <div class="uc-header">
+                <div class="uc-icon uc-report">≡</div>
+                <div class="uc-title">Reports</div>
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Structure a report</div>
+                "I need to write a <span class="placeholder">[type]</span> report for <span class="placeholder">[audience]</span> covering <span class="placeholder">[topic]</span>. Create a clear structure with section headers and 2-sentence descriptions of what each section should cover."
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Executive summary from notes</div>
+                "Here are my raw notes: <span class="placeholder">[paste notes]</span>. Write a 3-paragraph executive summary. Lead with the key finding, then context, then recommended action."
+              </div>
+            </div>
+
+            <div class="use-case-block">
+              <div class="uc-header">
+                <div class="uc-icon uc-data">⊞</div>
+                <div class="uc-title">Data Analysis</div>
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Interpret data findings</div>
+                "Here is my dataset summary: <span class="placeholder">[paste data or description]</span>. Identify the 3 most significant patterns or insights. Explain what each means in plain language and suggest one action for each."
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Write a formula / query</div>
+                "Write a <span class="placeholder">[Excel/Google Sheets/SQL]</span> formula/query that does the following: <span class="placeholder">[describe what you need]</span>. The data is structured as <span class="placeholder">[columns/schema]</span>."
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="use-case-block">
+              <div class="uc-header">
+                <div class="uc-icon uc-research">?</div>
+                <div class="uc-title">Research</div>
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Research briefing</div>
+                "Give me a balanced briefing on <span class="placeholder">[topic]</span>. Cover: (1) what it is, (2) the strongest arguments for, (3) the strongest arguments against, (4) where experts disagree. Flag areas where I should verify independently."
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Competitive landscape</div>
+                "Summarize the competitive landscape for <span class="placeholder">[industry/product category]</span>. Include: key players, their positioning, notable differentiators, and any recent shifts. Output as a structured table."
+              </div>
+            </div>
+
+            <div class="use-case-block">
+              <div class="uc-header">
+                <div class="uc-icon uc-meeting">◎</div>
+                <div class="uc-title">Meetings</div>
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Meeting agenda</div>
+                "Create a tight agenda for a <span class="placeholder">[length]</span> meeting about <span class="placeholder">[topic]</span> with <span class="placeholder">[attendees/roles]</span>. Goal of the meeting: <span class="placeholder">[decision/outcome needed]</span>. Format: time-boxed bullets."
+              </div>
+              <div class="copy-prompt">
+                <div class="copy-label">Action items from notes</div>
+                "Here are my meeting notes: <span class="placeholder">[paste notes]</span>. Extract all action items as a bulleted list. Format each as: Owner — Task — Deadline. If a deadline or owner is unclear, flag it."
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-grid">
+        <!-- Key Concepts -->
+        <div class="cs-card">
+          <div class="section-label label-violet">Key Concepts</div>
+          <ul>
+            <li>The best prompts are specific to the task — avoid one-size-fits-all templates.</li>
+            <li>Always specify the audience — "write for my CEO" changes everything vs. "write for a technical team."</li>
+            <li>Include the desired format explicitly: table, email, bullet list, numbered steps.</li>
+            <li>Give AI the raw material (notes, data, draft) and let it process — don't describe what you have.</li>
+            <li>When output isn't right, add a constraint rather than rewriting from scratch.</li>
+          </ul>
+        </div>
+
+        <!-- Mistakes + Action Items -->
+        <div class="cs-card">
+          <div class="section-label label-red">Common Mistakes</div>
+          <ul>
+            <li class="mistake">Describing the task abstractly instead of pasting the actual content to work with.</li>
+            <li class="mistake">Forgetting to specify the audience — AI writes for a generic reader by default.</li>
+            <li class="mistake">Using AI to generate content you have no way to verify (stats, citations, specific facts).</li>
+            <li class="mistake">Not iterating — the first draft is not the deliverable.</li>
+          </ul>
+          <div style="margin-top:12px;">
+            <div class="section-label label-green" style="margin-top:0">This Week's Action Items</div>
+            <ul>
+              <li class="action">Copy 2 prompts from this sheet and adapt them to a real task this week.</li>
+              <li class="action">Build a personal prompt library: save your best prompts for reuse.</li>
+              <li class="action">For every output, run one follow-up prompt to tighten or refine it.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+  </script>
+</body>
+</html>

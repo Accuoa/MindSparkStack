@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Are AI Agents - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 7: Agents and Automation</p>
+      <h1>What Are AI Agents</h1>
+
+      <p>Everything you have learned in this course so far has followed the same pattern: you give AI an instruction, it produces a result, and you decide what to do next. You are the driver. AI is the engine. You tell it where to go, step by step.</p>
+
+      <p>AI agents flip that relationship. An agent is AI that can pursue a goal on its own — making decisions, taking actions, and adjusting its approach without you guiding every step. Instead of telling AI what to do moment by moment, you tell it what you want to accomplish, and it figures out the steps itself.</p>
+
+      <p>This module is about understanding this shift, knowing when to use agents, and building your first agent workflows. By the end, you will have AI working for you even when you are not actively prompting.</p>
+
+      <h2>From Tools to Agents</h2>
+
+      <p>Think about the difference between a calculator and an accountant. A calculator does exactly what you tell it: add these numbers, multiply those. It has no idea why you are calculating or what to do with the result. An accountant, on the other hand, understands your financial goals. You can say "figure out my tax situation" and they will decide which calculations to run, which records to pull, and what strategies to recommend.</p>
+
+      <p>Traditional AI interactions are like the calculator. You provide the input and the instruction. AI agents are more like the accountant. You provide the goal and the context. The agent decides how to get there.</p>
+
+      <p>This is not science fiction. AI agents are available right now, in tools you can use today. They range from simple (an email filter that categorizes and responds to messages) to complex (a research assistant that searches the web, reads documents, takes notes, and compiles a report — all from a single request).</p>
+
+      <h2>What Makes Something an Agent</h2>
+
+      <p>Not every AI feature is an agent. To qualify as an agent, an AI system needs three properties:</p>
+
+      <p><strong>1. A goal.</strong> The agent has a clear objective it is trying to achieve. "Monitor my inbox and flag urgent emails" is a goal. "Respond to this prompt" is not — it is a single task.</p>
+
+      <p><strong>2. Autonomy.</strong> The agent can make decisions about how to achieve the goal without you specifying every step. If an unexpected situation arises, the agent can adapt. If one approach does not work, it can try another.</p>
+
+      <p><strong>3. Tool use.</strong> The agent can interact with external systems — reading files, browsing the web, sending messages, running code, accessing databases. Tools are what give agents the ability to actually do things in the real world, not just generate text.</p>
+
+      <p>A chatbot that answers questions has none of these — it responds to one prompt at a time with no goal persistence, no autonomy, and no tool access. A system that monitors your calendar, identifies scheduling conflicts, drafts resolution emails, and sends them after your approval has all three.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> When evaluating any AI product that calls itself an "agent," check for these three properties. Many products use the word "agent" as marketing. If it cannot make autonomous decisions and use external tools, it is just a chatbot with a fancy name.</div>
+
+      <h2>Agents You Already Use</h2>
+
+      <p>AI agents sound futuristic, but you probably already use several without thinking of them that way:</p>
+
+      <ul>
+        <li><strong>Email spam filters:</strong> They have a goal (keep spam out of your inbox), make autonomous decisions (classify each email), and use tools (move emails to spam, block senders). You never told them which specific emails to block. They figured it out.</li>
+        <li><strong>Smart home routines:</strong> "When I leave the house, turn off the lights and lower the thermostat." The system has a goal, makes decisions based on your location, and controls multiple devices.</li>
+        <li><strong>Recommendation algorithms:</strong> Netflix, Spotify, and Amazon all use agents that have a goal (keep you engaged), make autonomous decisions (what to suggest next), and use tools (your viewing/listening/buying history).</li>
+        <li><strong>Navigation apps:</strong> Google Maps has a goal (get you to your destination), makes autonomous decisions (rerouting around traffic), and uses tools (real-time traffic data, road conditions).</li>
+      </ul>
+
+      <p>These examples help build intuition. AI agents are not a new concept — they are a more powerful version of automation you already trust.</p>
+
+      <h2>The New Generation of AI Agents</h2>
+
+      <p>What has changed recently is that AI agents are now smart enough to handle complex, open-ended tasks. The new generation includes:</p>
+
+      <p><strong>Research agents:</strong> Give them a topic, and they will search the web, read multiple sources, take notes, identify key themes, and compile a structured report. What used to take a research assistant hours takes an agent minutes.</p>
+
+      <p><strong>Coding agents:</strong> Describe what you want built, and they will write the code, test it, fix errors, and iterate until it works. Tools like GitHub Copilot, Claude Code, and Cursor operate as coding agents.</p>
+
+      <p><strong>Workflow agents:</strong> Connect them to your business tools (email, calendar, CRM, project management), and they can automate multi-step processes: when a new lead comes in, research their company, draft a personalized outreach email, schedule it for the optimal time, and log the activity in your CRM.</p>
+
+      <p><strong>Personal assistants:</strong> Custom GPTs, Claude Projects, and similar features let you create specialized agents with persistent memory and specific instructions. A "meeting prep agent" that always knows your meeting style and preferences. A "writing agent" that knows your brand voice.</p>
+
+      <h2>What Agents Can and Cannot Do Today</h2>
+
+      <p>It is important to have realistic expectations. Here is an honest assessment of where AI agents are in 2026:</p>
+
+      <p><strong>What agents do well:</strong></p>
+      <ul>
+        <li>Repetitive tasks with clear rules (email sorting, data entry, form filling)</li>
+        <li>Research and information gathering across multiple sources</li>
+        <li>Multi-step workflows with well-defined steps</li>
+        <li>Monitoring and alerting (watching for specific conditions and notifying you)</li>
+        <li>Draft creation and content generation within established patterns</li>
+      </ul>
+
+      <p><strong>What agents struggle with:</strong></p>
+      <ul>
+        <li>Tasks requiring deep judgment or ethical reasoning</li>
+        <li>Situations with ambiguous or conflicting goals</li>
+        <li>Creative work that requires genuine originality (they are great at variations, less great at true invention)</li>
+        <li>Tasks where errors have serious consequences and cannot be easily reversed</li>
+        <li>Long-running tasks that require maintaining context over days or weeks</li>
+      </ul>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> The best use of agents today is not full autonomy — it is what experts call "human-in-the-loop" automation. The agent does 80-90% of the work, then presents the result for your review before taking any irreversible action. You get the speed benefit of automation with the safety net of human judgment.</div>
+
+      <h2>The Trust Spectrum</h2>
+
+      <p>Not every task deserves the same level of AI autonomy. Think of a spectrum from fully manual to fully autonomous:</p>
+
+      <ol>
+        <li><strong>Fully manual:</strong> You do everything yourself. AI is not involved.</li>
+        <li><strong>AI-assisted:</strong> You drive, AI helps. You write the prompt, review the output, make the decision. This is where you have been operating throughout this course.</li>
+        <li><strong>AI-drafted, human-approved:</strong> The agent does the work and presents it for your approval before any action is taken. Good for email drafts, report generation, and meeting prep.</li>
+        <li><strong>AI-autonomous with monitoring:</strong> The agent acts on its own, but you review its actions periodically. Good for email sorting, data organization, and routine notifications.</li>
+        <li><strong>Fully autonomous:</strong> The agent acts without any human oversight. Only appropriate for very low-risk, highly repetitive tasks where errors are easily reversible.</li>
+      </ol>
+
+      <p>When deciding where on this spectrum to place a task, consider: What is the cost of a mistake? How easily can a mistake be corrected? How consistent is the task (same every time, or lots of variation)? Start lower on the spectrum and move up as trust builds.</p>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> List five tasks from your daily work routine. For each one, place it on the trust spectrum above. Which tasks could you safely move one level higher on the spectrum right now? Which ones should stay where they are? For the tasks you would move up, what would need to be true for you to trust an AI agent with that level of autonomy? Write down your answers — you will use them in the next lesson when you build your first agent workflow.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-7/lesson-1')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-7/lesson-1';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

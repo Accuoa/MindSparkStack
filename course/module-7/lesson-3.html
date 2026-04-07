@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Automations - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:4px">Module 7: Agents and Automation</p>
+      <h1>Multi-Step Automations</h1>
+
+      <p>In the previous lesson, you built your first agent workflow — a single trigger leading to a focused task. That is the foundation. Now we are going to build on it by chaining multiple agent actions together into workflows that handle complex, multi-step processes automatically.</p>
+
+      <p>If single-step agents are like having an assistant who does one task well, multi-step automations are like having an assistant who manages an entire process. The email is not just summarized — it is categorized, the urgent items are escalated, a response draft is created, and the action items are added to your task list. All from one trigger.</p>
+
+      <h2>Chaining Agent Actions</h2>
+
+      <p>You already learned the Automation Chain pattern back in Module 3, where you manually chained AI tasks by copying outputs between prompts. Multi-step agent automations take the same concept and make it hands-free. Instead of you manually passing output from step to step, the automation platform handles the handoffs.</p>
+
+      <p>The principle is the same: each step has a focused job, and the output of one step feeds into the next. The difference is that the entire chain runs on its own, triggered by an event, with no copy-pasting required.</p>
+
+      <p>A multi-step automation has three layers:</p>
+
+      <ul>
+        <li><strong>The trigger layer:</strong> What starts the workflow (a new email, a form submission, a scheduled time, a webhook from another tool)</li>
+        <li><strong>The processing layer:</strong> One or more AI-powered steps that analyze, transform, or generate content</li>
+        <li><strong>The action layer:</strong> Steps that do something in the real world (send an email, update a spreadsheet, post a message, create a task)</li>
+      </ul>
+
+      <h2>Example: Content Publishing Pipeline</h2>
+
+      <p>Let us build a multi-step automation for content publishing. The goal: turn a rough content idea into a published piece across multiple platforms with minimal manual effort.</p>
+
+      <p><strong>Step 1 — Trigger:</strong> You add a new row to a Google Sheet called "Content Ideas" with a topic and a target audience.</p>
+
+      <p><strong>Step 2 — Research:</strong> AI researches the topic, identifies the top 5 questions people ask about it, and finds relevant statistics or examples.</p>
+
+      <p><strong>Step 3 — Draft:</strong> AI writes a 1,000-word blog post using the research, your brand voice guidelines (stored as reference material), and the target audience you specified.</p>
+
+      <p><strong>Step 4 — Multiply:</strong> AI creates a LinkedIn post, three Twitter/X posts, and an email newsletter excerpt from the blog post (using the Content Multiplier pattern from Module 3).</p>
+
+      <p><strong>Step 5 — Review gate:</strong> All drafts are sent to your email or Slack for review. You approve, request changes, or reject. This is the human-in-the-loop checkpoint.</p>
+
+      <p><strong>Step 6 — Publish:</strong> Once approved, the blog post is published to your CMS, the social posts are scheduled in your social media tool, and the newsletter excerpt is added to your next email draft.</p>
+
+      <p>Six steps. One trigger. You go from "I have an idea for a blog post" to "content is published across four channels" with only one manual checkpoint (the review in Step 5).</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> Always include a review gate before any step that is visible to the public. Automated drafting is powerful, but automated publishing without human review is dangerous. One bad post can damage your brand in ways that take months to repair.</div>
+
+      <h2>Example: Customer Inquiry Handler</h2>
+
+      <p>Here is a multi-step automation for handling customer inquiries that come through a contact form:</p>
+
+      <p><strong>Step 1 — Trigger:</strong> A new form submission arrives on your website.</p>
+
+      <p><strong>Step 2 — Classify:</strong> AI reads the inquiry and classifies it into categories: Sales Question, Support Issue, Partnership Inquiry, General Feedback, or Spam. It also assigns a priority: High, Medium, or Low.</p>
+
+      <p><strong>Step 3 — Route:</strong> Based on the classification, the inquiry is routed to the right place. Sales questions go to your CRM with a lead score. Support issues create a ticket in your help desk. Partnership inquiries go to a specific email. Spam is archived.</p>
+
+      <p><strong>Step 4 — Draft response:</strong> AI drafts an initial response appropriate to the category. A sales question gets a helpful response with a link to book a demo. A support issue gets an acknowledgment with an estimated response time. A partnership inquiry gets a brief reply asking for more details.</p>
+
+      <p><strong>Step 5 — Review and send:</strong> The draft response is sent to the appropriate team member for review. They can edit, approve, or replace the draft before it goes to the customer.</p>
+
+      <p>This workflow ensures that no inquiry falls through the cracks, every customer gets a fast initial response, and your team spends their time on thoughtful replies rather than sorting and categorizing.</p>
+
+      <h2>Handling Failures Gracefully</h2>
+
+      <p>In single-step automations, failure is simple: the step works or it does not. In multi-step automations, failure is more nuanced. Step 3 might fail while steps 1 and 2 succeeded. Step 4 might produce a bad result that is not technically an error but is clearly wrong.</p>
+
+      <p>Here are strategies for handling failures in multi-step automations:</p>
+
+      <p><strong>Build in checkpoints.</strong> After critical steps, add a validation check. "Did the AI classify this inquiry into one of the five expected categories? If the classification is 'Other' or empty, route to a human for manual classification instead of proceeding automatically."</p>
+
+      <p><strong>Use fallback paths.</strong> If a step fails, define what happens instead of the whole workflow crashing. "If the AI cannot draft a response (maybe the inquiry is in a language it does not handle well), send it directly to a team member with a note: 'Automated response could not be generated — please handle manually.'"</p>
+
+      <p><strong>Log everything.</strong> Every step should record what it did, what input it received, and what output it produced. When something goes wrong, these logs let you trace the failure back to its source and fix the specific step rather than guessing.</p>
+
+      <p><strong>Set up alerts for anomalies.</strong> If the customer inquiry handler suddenly classifies 90% of inquiries as spam (maybe a prompt change caused a regression), you want to know immediately, not three days later when customers complain about not hearing back.</p>
+
+      <div class="callout callout-tip"><strong>Pro Tip:</strong> Test your failure paths as carefully as you test your success paths. Deliberately send the automation inputs that should trigger each fallback, and verify that the fallback works correctly. A failure path that does not work is worse than no failure path at all, because it creates false confidence.</div>
+
+      <h2>The Human-in-the-Loop Pattern</h2>
+
+      <p>The human-in-the-loop pattern is the most important design principle for multi-step automations. It means inserting a human review point at the moment where the automation transitions from low-risk internal processing to high-risk external action.</p>
+
+      <p>The pattern works like this: the automation does all the prep work (gathering data, analyzing, drafting, formatting), then pauses and presents its work to a human for approval. The human reviews, makes any needed changes, and gives the green light. The automation then handles the execution (sending, publishing, filing).</p>
+
+      <p>This pattern gives you the best of both worlds: the speed and consistency of automation for the tedious prep work, and the judgment and accountability of a human for the decisions that matter.</p>
+
+      <p>Where to place the human checkpoint depends on the risk level:</p>
+
+      <ul>
+        <li><strong>Before any external communication:</strong> Emails to customers, social media posts, messages to partners</li>
+        <li><strong>Before any financial action:</strong> Invoices, refunds, budget allocations, purchase orders</li>
+        <li><strong>Before any permanent data change:</strong> Deleting records, merging accounts, updating production databases</li>
+        <li><strong>After classification steps with ambiguous cases:</strong> When the AI is less than confident about its categorization</li>
+      </ul>
+
+      <h2>Scaling Up Responsibly</h2>
+
+      <p>The temptation with multi-step automations is to build everything at once — a massive workflow that handles every possible scenario. Resist this temptation. Complex automations break in complex ways, and debugging a 15-step workflow is exponentially harder than debugging a 4-step workflow.</p>
+
+      <p>Instead, follow the expansion pattern:</p>
+
+      <ol>
+        <li><strong>Start with the core path.</strong> Build the simplest version that handles the most common scenario. Get it working reliably.</li>
+        <li><strong>Add one branch at a time.</strong> Once the core path is stable, add handling for the next most common scenario. Test it. Stabilize it.</li>
+        <li><strong>Monitor before expanding.</strong> Run each expansion for at least a week before adding the next one. This gives you time to catch edge cases and fix issues.</li>
+        <li><strong>Document what each step does.</strong> Future-you (or a colleague who inherits the workflow) will thank present-you for clear documentation of each step's purpose, expected input, and expected output.</li>
+      </ol>
+
+      <div class="callout callout-exercise"><strong>Exercise:</strong> Choose one of the two examples from this lesson (content publishing pipeline or customer inquiry handler) or design your own multi-step automation based on a real workflow from your work. Map out 4-6 steps including at least one human-in-the-loop checkpoint. For each step, define: the input it receives, what it does, the output it produces, and what happens if it fails. You do not need to build the full automation yet — the blueprint is the exercise. If you want to go further, build the first 2-3 steps and test them with real data.</div>
+
+      <div style="margin-top:40px">
+        <button class="btn btn-complete" id="complete-btn" onclick="markComplete('module-7/lesson-3')">
+          Mark as Complete
+        </button>
+      </div>
+      <div id="lesson-nav"></div>
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    var LESSON_SLUG = 'module-7/lesson-3';
+
+    function onAuthReady(user, profile) {
+      if (['masterclass', 'vip', 'vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', LESSON_SLUG);
+      document.getElementById('lesson-nav').innerHTML = getLessonNav(LESSON_SLUG);
+      initProgress(LESSON_SLUG);
+    }
+  </script>
+</body>
+</html>

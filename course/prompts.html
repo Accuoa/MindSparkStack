@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Library - MindSparkAI</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/course/shared/styles.css">
+  <style>
+    .page-header {
+      margin-bottom: 28px;
+    }
+    .page-header .breadcrumb {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .page-header .breadcrumb a { color: var(--text-muted); }
+    .page-header .breadcrumb a:hover { color: var(--cyan); }
+    .page-header h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 600px;
+    }
+
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 24px;
+    }
+    .tier-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+
+    /* ---- Filter Bar ---- */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      font-family: inherit;
+    }
+    .filter-btn:hover {
+      border-color: rgba(124,58,237,0.4);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.5);
+      color: var(--violet);
+      font-weight: 600;
+    }
+
+    /* ---- Stats bar ---- */
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .stats-count {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .stats-count strong {
+      color: var(--text-muted);
+    }
+
+    /* ---- Prompt Grid ---- */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .prompt-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .prompt-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .prompt-card:hover {
+      border-color: rgba(124,58,237,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .prompt-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Category color theming */
+    .prompt-card[data-cat="Email"]::before        { background: linear-gradient(90deg, #7C3AED, #06B6D4); }
+    .prompt-card[data-cat="Research"]::before     { background: linear-gradient(90deg, #06B6D4, #3B82F6); }
+    .prompt-card[data-cat="Writing"]::before      { background: linear-gradient(90deg, #8B5CF6, #EC4899); }
+    .prompt-card[data-cat="Coding"]::before       { background: linear-gradient(90deg, #10B981, #06B6D4); }
+    .prompt-card[data-cat="Analysis"]::before     { background: linear-gradient(90deg, #F59E0B, #EF4444); }
+    .prompt-card[data-cat="Creative"]::before     { background: linear-gradient(90deg, #EC4899, #8B5CF6); }
+    .prompt-card[data-cat="Productivity"]::before { background: linear-gradient(90deg, #7C3AED, #10B981); }
+    .prompt-card[data-cat="Marketing"]::before    { background: linear-gradient(90deg, #F59E0B, #7C3AED); }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cat-tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .cat-tag.Email        { background: rgba(124,58,237,0.15); color: #a78bfa; }
+    .cat-tag.Research     { background: rgba(6,182,212,0.12); color: #67e8f9; }
+    .cat-tag.Writing      { background: rgba(236,72,153,0.12); color: #f9a8d4; }
+    .cat-tag.Coding       { background: rgba(16,185,129,0.12); color: #6ee7b7; }
+    .cat-tag.Analysis     { background: rgba(245,158,11,0.12); color: #fcd34d; }
+    .cat-tag.Creative     { background: rgba(139,92,246,0.12); color: #c4b5fd; }
+    .cat-tag.Productivity { background: rgba(124,58,237,0.1); color: #a78bfa; }
+    .cat-tag.Marketing    { background: rgba(245,158,11,0.1); color: #fbbf24; }
+
+    .prompt-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+      flex: 1;
+    }
+
+    .prompt-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      flex: 1;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+      max-height: 200px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .prompt-text::-webkit-scrollbar { width: 3px; }
+    .prompt-text::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--violet);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+    .copy-btn:hover {
+      background: rgba(124,58,237,0.22);
+      border-color: rgba(124,58,237,0.5);
+      color: #a78bfa;
+    }
+    .copy-btn.copied {
+      background: rgba(16,185,129,0.12);
+      border-color: rgba(16,185,129,0.35);
+      color: #6ee7b7;
+    }
+    .copy-btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ---- No results ---- */
+    .no-results {
+      display: none;
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+    .no-results strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 760px) {
+      .prompt-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-bar {
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="course-layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="main-content">
+
+      <div class="page-header">
+        <div class="breadcrumb"><a href="/course/dashboard.html">Dashboard</a> / Prompt Library</div>
+        <h1>Prompt Library</h1>
+        <p>50+ ready-to-use prompts built with the RCC framework. Click "Copy" to grab any prompt instantly, then paste and customize for your situation.</p>
+      </div>
+
+      <div class="tier-badge">
+        <span class="dot"></span>
+        All tiers — Masterclass, VIP, Core, Hive &amp; Vanguard
+      </div>
+
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" data-filter="all" onclick="filterPrompts('all', this)">All</button>
+        <button class="filter-btn" data-filter="Email" onclick="filterPrompts('Email', this)">Email</button>
+        <button class="filter-btn" data-filter="Research" onclick="filterPrompts('Research', this)">Research</button>
+        <button class="filter-btn" data-filter="Writing" onclick="filterPrompts('Writing', this)">Writing</button>
+        <button class="filter-btn" data-filter="Coding" onclick="filterPrompts('Coding', this)">Coding</button>
+        <button class="filter-btn" data-filter="Analysis" onclick="filterPrompts('Analysis', this)">Analysis</button>
+        <button class="filter-btn" data-filter="Creative" onclick="filterPrompts('Creative', this)">Creative</button>
+        <button class="filter-btn" data-filter="Productivity" onclick="filterPrompts('Productivity', this)">Productivity</button>
+        <button class="filter-btn" data-filter="Marketing" onclick="filterPrompts('Marketing', this)">Marketing</button>
+      </div>
+
+      <div class="stats-bar">
+        <span class="stats-count" id="visible-count"><strong>55</strong> prompts shown</span>
+      </div>
+
+      <div class="prompt-grid" id="prompt-grid">
+
+        <!-- ==================== EMAIL ==================== -->
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Cold Outreach That Gets Replies</span>
+          </div>
+          <div class="prompt-text">You are an expert sales copywriter who specializes in B2B cold email. I need to write a cold outreach email to [TARGET ROLE] at [COMPANY TYPE] companies.
+
+Context: My product/service is [DESCRIPTION]. The main pain point I solve is [PAIN POINT]. My most relevant proof point is [CASE STUDY OR METRIC].
+
+Constraints:
+- Subject line under 8 words, no clickbait
+- Body under 120 words
+- One specific, low-friction CTA (not "schedule a call")
+- Conversational tone, no buzzwords like "synergy" or "leverage"
+- End with a question that invites a yes/no reply
+
+Write 3 variations with different angles.</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Difficult Conversation Email</span>
+          </div>
+          <div class="prompt-text">You are a professional communication coach with expertise in workplace conflict resolution. Help me write an email about a sensitive situation.
+
+Context: I need to address [ISSUE — e.g. missed deadline, poor work quality, interpersonal conflict] with [RECIPIENT — e.g. a direct report, a peer, a client]. The relationship context is [DESCRIBE RELATIONSHIP AND HISTORY]. My desired outcome is [WHAT YOU WANT TO HAPPEN].
+
+Constraints:
+- Factual and non-accusatory tone
+- Acknowledge the other perspective
+- Propose a clear next step
+- Under 200 words
+- No passive-aggressive language
+
+Write the email, then briefly explain the reasoning behind the tone choices.</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Follow-Up After No Response</span>
+          </div>
+          <div class="prompt-text">You are a relationship-focused sales professional who never comes across as pushy. Write a follow-up email sequence for someone who has not responded to my initial outreach.
+
+Context: I sent the original email on [DATE] about [TOPIC]. The recipient is [ROLE/NAME]. We [have/have not] met before. The value I'm offering is [VALUE PROP].
+
+Constraints:
+- Write 3 follow-ups: Day 3, Day 8, Day 15 ("breakup" email)
+- Each email must be under 80 words
+- Add new value or a different angle in each one
+- Never guilt-trip or pressure
+- The Day 15 email should be warm, leave the door open, and include a light-touch reason to reply</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Executive Summary Email</span>
+          </div>
+          <div class="prompt-text">You are a senior business analyst who excels at communicating complex information to C-suite executives. I need to turn a detailed report into an executive summary email.
+
+Context: Here is the full report / key findings: [PASTE CONTENT]
+
+The recipient is [ROLE — e.g. CEO, Board Member] who cares most about [TOP PRIORITY — e.g. revenue impact, risk, timeline].
+
+Constraints:
+- Email structure: one-sentence headline, 3 bullet key findings, one recommendation, one clear ask
+- Under 150 words total
+- Lead with impact, not process
+- Avoid jargon; spell out any acronyms
+- Attach the full report, referenced at the end</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Request Raise or Promotion</span>
+          </div>
+          <div class="prompt-text">You are a career coach who has helped hundreds of professionals successfully negotiate raises. Help me write an email to my manager requesting a salary review / promotion.
+
+Context: My current role is [ROLE]. I've been in this position for [DURATION]. Key wins I've delivered: [LIST 2-3 ACHIEVEMENTS WITH METRICS]. My market research shows the range for this role is [SALARY RANGE]. I'm asking for [TARGET].
+
+Constraints:
+- Confident but collaborative tone
+- Lead with value I've delivered, not personal need
+- Reference market data naturally
+- Propose a meeting to discuss, not a demand
+- Under 200 words
+- Avoid ultimatums or emotional language</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Client Onboarding Welcome</span>
+          </div>
+          <div class="prompt-text">You are a customer success manager who writes warm, professional onboarding emails that reduce early churn. Write a welcome email for a new client.
+
+Context: The client is [COMPANY/NAME]. They purchased [PRODUCT/SERVICE]. Their main goal is [GOAL]. Their dedicated contact at my company is [NAME]. Key first steps they need to take are [STEPS].
+
+Constraints:
+- Warm but professional tone
+- Make them feel confident in their decision
+- Under 200 words
+- Numbered list for next steps (max 3)
+- Include one specific "quick win" they can get in the first 24 hours
+- Clear who to contact if they have questions</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== RESEARCH ==================== -->
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Competitive Landscape Analysis</span>
+          </div>
+          <div class="prompt-text">You are a strategic market analyst with deep experience in competitive intelligence. Conduct a structured competitive analysis of the market I'm entering.
+
+Context: My product/service is [DESCRIPTION]. Target market: [MARKET]. Known competitors include [LIST ANY YOU KNOW — or say "unknown"].
+
+Constraints:
+- Identify 5-8 direct and indirect competitors
+- For each: positioning, pricing model, key strengths, notable weaknesses
+- Identify the 2-3 biggest white space opportunities my offering could own
+- Highlight any competitor claims I should fact-check before using in positioning
+- Format as a structured table plus a short narrative summary
+- Note your confidence level for each fact</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Deep-Dive on Any Topic</span>
+          </div>
+          <div class="prompt-text">You are a senior research analyst producing a briefing document for a time-pressed executive. Research and explain [TOPIC] for me.
+
+Context: My background in this topic is [BEGINNER / INTERMEDIATE / EXPERT]. I need to understand it in order to [PURPOSE — e.g. make a business decision, write an article, have an informed meeting].
+
+Constraints:
+- Structure: Overview → Key concepts (plain language) → Current state / latest developments → Debates or open questions → Practical implications
+- Flag anything I should verify with a primary source
+- Use analogies where helpful
+- Include 3 recommended next-step resources (books, papers, or credible sites)
+- Avoid hedging every sentence — give me your best analysis</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Industry Trend Report</span>
+          </div>
+          <div class="prompt-text">You are an industry analyst writing a concise trend briefing for a business leader. Analyze the major trends shaping [INDUSTRY] right now.
+
+Context: The audience is [ROLE — e.g. a startup founder, a sales team, a board]. Their biggest concern is [CONCERN — e.g. staying competitive, finding investment opportunities, anticipating disruption].
+
+Constraints:
+- Identify 5 trends with: trend name, what's driving it, where it's headed in 2-3 years, and one action implication
+- Order by impact, not recency
+- Be specific — "AI adoption is growing" is not useful; cite directions and proof points
+- Include one "contrarian view" at the end: what trend do most people over-rate?</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Pre-Meeting Research Brief</span>
+          </div>
+          <div class="prompt-text">You are a research assistant who prepares executives for high-stakes meetings. Prepare a pre-meeting brief for me.
+
+Context: I have a meeting with [PERSON/COMPANY] on [DATE]. The meeting purpose is [PURPOSE — e.g. sales call, partnership discussion, investor pitch, job interview]. What I know about them so far: [NOTES].
+
+Constraints:
+- Cover: company overview, recent news, likely priorities and pain points, potential objections I'll face, 3 sharp questions I should ask
+- Keep the whole brief under one page (scannable bullets)
+- Include a "things to avoid" section — topics, assumptions, or mistakes that could derail the meeting
+- End with one sentence on my strongest opening hook</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Pros &amp; Cons Decision Analysis</span>
+          </div>
+          <div class="prompt-text">You are a decision-making coach trained in structured thinking frameworks. Help me think through a decision I'm facing.
+
+Context: The decision is: [DESCRIBE THE DECISION]. My options are: [LIST OPTIONS, or say "help me identify options"]. Key constraints I'm working within: [BUDGET / TIME / RESOURCES / RELATIONSHIPS]. What matters most to me: [VALUES OR GOALS].
+
+Constraints:
+- Use a weighted decision matrix — identify the 4-6 most important criteria, score each option
+- Call out any assumptions I'm making that could be wrong
+- Identify what additional information would most change your recommendation
+- Give a clear recommendation at the end — don't hedge
+- Note any reversibility: which decisions are easy to undo vs. hard to undo?</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== WRITING ==================== -->
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">LinkedIn Post That Gets Engagement</span>
+          </div>
+          <div class="prompt-text">You are a LinkedIn content strategist who has grown multiple accounts past 50k followers. Write a high-engagement LinkedIn post for me.
+
+Context: The topic or story I want to share is [TOPIC/STORY]. My audience is primarily [AUDIENCE — e.g. marketing professionals, startup founders, HR leaders]. My goal with this post is [GOAL — e.g. build credibility, drive profile visits, start a conversation].
+
+Constraints:
+- Open with a single-line hook that stops the scroll (not a question, not "I'm excited to share")
+- Use short paragraphs (1-2 lines max)
+- Include one concrete, counterintuitive insight
+- End with a CTA that invites comments, not likes
+- Under 250 words
+- Write 2 variations: one personal story angle, one hot take angle</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Blog Post Outline &amp; Draft</span>
+          </div>
+          <div class="prompt-text">You are a content strategist and SEO-informed writer who creates articles that rank and convert. Help me create a blog post.
+
+Context: Target keyword/topic: [TOPIC]. Intended audience: [AUDIENCE]. Goal of the post: [INFORM / CONVERT / BUILD AUTHORITY]. My brand voice is [DESCRIBE — e.g. direct and no-fluff, warm and approachable, data-driven and analytical].
+
+Constraints:
+- First, provide a full outline with H2s and H3s
+- Include a "Why this matters now" angle to add timeliness
+- Suggest a primary keyword and 3 secondary keywords to weave in naturally
+- Propose 3 different headline options (different angles)
+- After I approve the outline, I'll ask you to draft each section
+- Target length: [WORD COUNT]</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Edit and Improve Any Text</span>
+          </div>
+          <div class="prompt-text">You are a senior editor at a top-tier publication. Your job is to make writing clearer, stronger, and more compelling without changing the author's voice.
+
+Context: Here is the text I want you to edit: [PASTE TEXT]
+
+The intended audience is [AUDIENCE]. The purpose of this piece is [PURPOSE].
+
+Constraints:
+- Do not change my tone or voice — improve it, don't replace it
+- Cut any word or sentence that doesn't earn its place
+- Flag passive voice, weasel words, and vague claims
+- If any claim needs a source, mark it [VERIFY]
+- After the edited version, give me a bulleted list of the 5 most impactful changes you made and why</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Case Study Write-Up</span>
+          </div>
+          <div class="prompt-text">You are a B2B content writer who specializes in writing client success stories that generate pipeline. Write a case study based on my notes.
+
+Context: Client: [CLIENT NAME / TYPE]. Challenge they faced: [CHALLENGE]. What we did: [SOLUTION — process, timeline, team]. Results achieved: [METRICS AND OUTCOMES].
+
+Constraints:
+- Structure: Challenge → Solution → Results → Quote
+- Lead with the result in the headline, not the company name
+- Use before/after framing to make the transformation vivid
+- Include a pull-quote placeholder: [CLIENT QUOTE GOES HERE]
+- 400-600 words
+- End with a subtle CTA pointing to our service or a related resource</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Repurpose Content Across Formats</span>
+          </div>
+          <div class="prompt-text">You are a content repurposing strategist who extracts maximum value from every piece of content. Take the following content and repurpose it.
+
+Context: Source content: [PASTE CONTENT OR DESCRIBE IT]. Original format: [BLOG POST / PODCAST / VIDEO / REPORT / etc.]. My audience across channels: [DESCRIBE].
+
+Constraints:
+- Repurpose into all of the following:
+  1. LinkedIn post (hook + insight + CTA)
+  2. Twitter/X thread (8 tweets)
+  3. Email newsletter section (150 words)
+  4. 3 short-form video script ideas (talking points only)
+  5. One quote graphic caption
+- Preserve the core insight across all formats
+- Adapt tone for each platform — LinkedIn is professional, X is punchy, email is personal</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Personal Bio for Any Context</span>
+          </div>
+          <div class="prompt-text">You are a personal branding expert who writes bios that make people memorable. Write a professional bio for me.
+
+Context: My name: [NAME]. Current role and company: [ROLE @ COMPANY]. Career background summary: [2-3 SENTENCES]. Key achievements: [LIST]. What I'm known for or want to be known for: [POSITIONING]. Personality notes (how I want to come across): [E.g. approachable, authoritative, creative].
+
+Constraints:
+- Write 3 versions: 50 words (social media), 100 words (website), 200 words (speaker page)
+- Write in third person
+- Lead with the most interesting or unique thing about me, not my job title
+- Avoid clichés like "passionate about" or "results-driven"
+- The 200-word version should include one personal detail that humanizes me</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== CODING ==================== -->
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Debug This Code</span>
+          </div>
+          <div class="prompt-text">You are a senior software engineer and patient debugging partner. Help me fix a bug in my code.
+
+Context: Language / framework: [LANGUAGE + VERSION]. Here is the code: [PASTE CODE]. Here is the error message: [PASTE ERROR]. What the code is supposed to do: [DESCRIBE INTENDED BEHAVIOR]. What it's actually doing: [DESCRIBE ACTUAL BEHAVIOR].
+
+Constraints:
+- First, identify the root cause — don't just fix the symptom
+- Explain the fix in plain English before showing the code
+- Show the corrected code with the changed lines clearly marked
+- If there are other bugs or code quality issues you spot, list them separately under "Other issues found" — don't fix them without asking
+- Tell me how to prevent this class of bug in the future</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Build a Feature From Scratch</span>
+          </div>
+          <div class="prompt-text">You are a senior full-stack developer who writes clean, production-ready code with good comments. Build the following feature for me.
+
+Context: Stack: [FRONTEND / BACKEND / DATABASE]. Feature description: [DESCRIBE WHAT YOU WANT IT TO DO]. Existing code context: [PASTE RELEVANT EXISTING CODE OR DESCRIBE ARCHITECTURE].
+
+Constraints:
+- Write complete, runnable code — no "fill in the rest" placeholders
+- Add comments explaining non-obvious logic
+- Handle the most common error cases gracefully
+- Follow [LANGUAGE] best practices and conventions
+- After the code, list: assumptions you made, any edge cases not handled, and suggested tests to write
+- If you'd approach this differently in production, say so</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Code Review &amp; Refactor</span>
+          </div>
+          <div class="prompt-text">You are a principal engineer conducting a thoughtful code review. Review my code and suggest improvements.
+
+Context: Language: [LANGUAGE]. Here is the code: [PASTE CODE]. The purpose of this code: [WHAT IT DOES]. Performance sensitivity: [HIGH / MEDIUM / LOW — describe if relevant].
+
+Constraints:
+- Evaluate on: readability, maintainability, performance, security, and test coverage
+- Rate each dimension 1-5 with a brief justification
+- List specific refactoring suggestions, ordered by impact
+- Rewrite the most important section to show the improvement (not the whole thing)
+- Point out any potential security vulnerabilities, even minor ones
+- Distinguish between "must fix," "should fix," and "nice to have"</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Explain Code Simply</span>
+          </div>
+          <div class="prompt-text">You are a developer educator who specializes in making complex code understandable to non-experts. Explain the following code to me.
+
+Context: Here is the code: [PASTE CODE]. My technical background: [BEGINNER / INTERMEDIATE / SENIOR DEVELOPER IN DIFFERENT LANGUAGE]. Why I need to understand it: [REASON — e.g. I'm inheriting this codebase, I need to modify one section, I'm learning].
+
+Constraints:
+- Start with a one-paragraph plain-English summary of what the code does overall
+- Then walk through the most important sections, explaining the "why" not just the "what"
+- Use analogies from everyday life where helpful
+- Identify any "clever" or non-obvious tricks the original author used
+- If there's anything that looks like it could be a bug or bad practice, flag it</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Write a SQL Query</span>
+          </div>
+          <div class="prompt-text">You are a senior data engineer who writes efficient, well-documented SQL. Help me write a SQL query.
+
+Context: Database type: [PostgreSQL / MySQL / BigQuery / SQLite / etc.]. The question I want to answer with data: [PLAIN-ENGLISH QUESTION]. My table schema: [PASTE SCHEMA OR DESCRIBE TABLES AND KEY COLUMNS]. Approximate table size: [ROW COUNT — for performance context].
+
+Constraints:
+- Write the query with comments explaining each major section
+- If the query needs a CTE or subquery, explain why you structured it that way
+- Check for: NULL handling, correct JOIN types, potential performance issues at scale
+- After the query, show a sample of what the output rows would look like
+- If there's a more efficient way to get the same answer, mention it</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Write Regex Pattern</span>
+          </div>
+          <div class="prompt-text">You are an expert in regular expressions and text parsing. Write a regex pattern for my use case.
+
+Context: Language/tool where I'll use it: [Python / JavaScript / grep / VS Code / etc.]. What I want to match: [DESCRIBE PATTERN — e.g. all email addresses, dates in MM/DD/YYYY format, URLs without query strings]. Example strings that SHOULD match: [EXAMPLES]. Example strings that SHOULD NOT match: [EXAMPLES].
+
+Constraints:
+- Provide the final regex pattern
+- Break it down piece by piece in plain English (e.g., "The ^ anchors to start of line...")
+- Show test examples of matches and non-matches
+- Note any known edge cases where the pattern might fail
+- If there's a simpler approach than regex for my use case, say so</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== ANALYSIS ==================== -->
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Analyze Data &amp; Surface Insights</span>
+          </div>
+          <div class="prompt-text">You are a data analyst who turns raw numbers into actionable recommendations. Analyze the data I'm sharing and tell me what it means.
+
+Context: Here is the data: [PASTE CSV, TABLE, OR DESCRIBE THE DATA]. What I'm trying to understand: [BUSINESS QUESTION]. Decisions this will inform: [DECISION CONTEXT].
+
+Constraints:
+- Identify the top 3-5 most important patterns or anomalies
+- Distinguish between correlation and causation — flag where you're inferring
+- Translate every finding into a "so what" business implication
+- Identify what's missing from this data that would strengthen the analysis
+- Suggest one visualization type for each key finding
+- Give a confidence level for each insight (high / medium / low)</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">SWOT Analysis</span>
+          </div>
+          <div class="prompt-text">You are a strategic business consultant who has run hundreds of SWOT analyses. Help me run a rigorous SWOT for my situation.
+
+Context: The subject of the analysis: [COMPANY / PRODUCT / STRATEGY / CAREER DECISION]. Relevant background: [KEY FACTS, METRICS, OR CONTEXT]. The decision or strategy this will inform: [GOAL].
+
+Constraints:
+- Go beyond the obvious — I can do obvious myself. Give me the non-obvious insights.
+- For each SWOT quadrant: 4-6 well-reasoned points
+- After the matrix, add: top 3 SO strategies (strengths + opportunities), top 2 ST strategies (strengths + threats), top 2 most urgent WT vulnerabilities to address
+- Be honest about weaknesses — flag ones that are commonly understated
+- Suggest which quadrant deserves the most attention right now and why</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Financial Model Review</span>
+          </div>
+          <div class="prompt-text">You are a CFO-level advisor who reviews financial models before they go to investors or leadership. Review my financial projections.
+
+Context: Here are the key assumptions and numbers from my model: [PASTE SUMMARY — revenue projections, cost structure, growth rates, margins, headcount plan, etc.]. This model is for: [INTERNAL PLANNING / INVESTOR PITCH / BUDGET REQUEST].
+
+Constraints:
+- Identify the top 3 assumptions that would most change the outcome if wrong
+- Flag any numbers that look inconsistent or implausible (vs. industry benchmarks)
+- Stress test the model: what happens if revenue is 30% lower than projected?
+- Point out any costs that are typically underestimated by first-time operators
+- Give the model a blunt "credibility score" (1-10) and what it would need to score higher</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Customer Feedback Synthesis</span>
+          </div>
+          <div class="prompt-text">You are a UX researcher and product analyst who synthesizes qualitative feedback into prioritized product decisions. Analyze the following customer feedback.
+
+Context: Here is the feedback data: [PASTE REVIEWS, SURVEY RESPONSES, SUPPORT TICKETS, OR INTERVIEW NOTES]. Product/service being evaluated: [DESCRIPTION]. What I'm trying to decide: [E.g. what to build next, what to fix, what's working].
+
+Constraints:
+- Group feedback into themes — name each theme and give it a frequency estimate
+- Separate "bugs / broken things" from "missing features" from "UX frustrations" from "praise"
+- Identify the top 3 highest-impact changes based on frequency and sentiment
+- Surface any surprising or unexpected feedback that's easy to miss in bulk
+- Recommend one quick win (under 1 week to implement) and one strategic investment (1-3 months)</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Risk Assessment</span>
+          </div>
+          <div class="prompt-text">You are a risk analyst with experience in [INDUSTRY] who thinks in probabilities, not vague warnings. Conduct a risk assessment for my project or plan.
+
+Context: The plan or project: [DESCRIPTION]. Timeline: [DURATION]. Key dependencies: [PEOPLE / SYSTEMS / VENDORS / APPROVALS]. Biggest known concerns so far: [LIST].
+
+Constraints:
+- Identify 8-12 risks across categories: operational, financial, technical, people, market, regulatory
+- For each risk: likelihood (1-5), impact (1-5), risk score, mitigation strategy
+- Sort by risk score (likelihood x impact)
+- Flag the top 3 "unknown unknowns" — risks that are often overlooked in this type of project
+- Give a single overall risk verdict: green / yellow / red with your reasoning</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== CREATIVE ==================== -->
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Brainstorm Ideas (Quantity Mode)</span>
+          </div>
+          <div class="prompt-text">You are a creative director who has run thousands of brainstorming sessions. Your job in this mode is quantity and originality, not quality filtering.
+
+Context: I need ideas for: [TOPIC — e.g. product names, campaign concepts, business ideas, ways to solve X problem]. Key constraints or context: [ANY RELEVANT CONSTRAINTS].
+
+Constraints:
+- Generate 25 ideas minimum — prioritize range over refinement
+- Group them loosely by type or angle (e.g. "safe ideas," "wild ideas," "analogy-based ideas")
+- Include at least 5 ideas that are deliberately unconventional or unexpected
+- Do NOT explain or defend any idea — just list them
+- After the list, call out your 3 personal favorites and say why in one sentence each</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Name a Product or Company</span>
+          </div>
+          <div class="prompt-text">You are a brand naming expert and linguist who has named dozens of successful products. Help me name [PRODUCT / COMPANY / FEATURE].
+
+Context: What it does: [DESCRIPTION]. Target customer: [AUDIENCE]. Brand personality I want the name to convey: [E.g. trustworthy, bold, playful, premium, technical]. Names I've already considered and why I rejected them: [LIST IF ANY]. Must-avoid words or associations: [LIST].
+
+Constraints:
+- Generate 30 name options across these categories: descriptive, abstract, metaphorical, invented/portmanteau, single-word, two-word compound
+- For each name: note the tone, any risk of negative association, and availability likelihood
+- Flag names that are likely already trademarked or hard to get as .com
+- Final recommendation: top 3 names with full rationale</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Presentation Narrative Arc</span>
+          </div>
+          <div class="prompt-text">You are a presentation coach who has helped TED speakers and Fortune 500 executives craft compelling talks. Help me structure a presentation.
+
+Context: Topic: [TOPIC]. Audience: [WHO — their role, what they care about, their current attitude toward this topic]. Goal: [WHAT I WANT THEM TO THINK / FEEL / DO AFTER]. Time limit: [DURATION]. Key points I definitely want to include: [LIST].
+
+Constraints:
+- Build a narrative arc — not a list of bullets but a story with tension and resolution
+- Suggest a specific opening hook (not "Today I'm going to talk about...")
+- Identify the one central "big idea" the whole talk should orbit
+- Outline the structure slide by slide (or section by section)
+- Suggest where to place data, stories, and pauses for effect
+- Write the closing statement word-for-word</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Tagline &amp; Positioning Statement</span>
+          </div>
+          <div class="prompt-text">You are a brand strategist and copywriter who creates taglines that stick. Create positioning language for my brand.
+
+Context: What I do: [DESCRIPTION]. Who I serve: [TARGET CUSTOMER — be specific]. Primary pain I solve: [PAIN]. The transformation I deliver: [OUTCOME]. Competitors I need to differentiate from: [NAMES OR DESCRIPTIONS]. Brand tone: [E.g. bold, empathetic, witty, authoritative].
+
+Constraints:
+- Write 10 tagline options (under 7 words each)
+- Write a full positioning statement: "For [WHO] who [PROBLEM], [BRAND] is the [CATEGORY] that [BENEFIT]. Unlike [ALTERNATIVE], we [DIFFERENTIATOR]."
+- Explain the strategic logic behind your top 3 taglines
+- Flag which taglines risk being generic and why
+- Suggest one tagline that breaks conventions for this category</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Video Script (Short-Form)</span>
+          </div>
+          <div class="prompt-text">You are a short-form video scriptwriter who has written viral YouTube Shorts, TikToks, and Instagram Reels. Write a short-form video script.
+
+Context: Topic/message: [WHAT THE VIDEO IS ABOUT]. Platform: [TIKTOK / REELS / SHORTS]. Target audience: [WHO]. Goal: [EDUCATE / ENTERTAIN / SELL / BUILD TRUST]. My on-camera style: [E.g. direct and informative, casual and funny, storytelling].
+
+Constraints:
+- Total length: under [30 / 60 / 90] seconds when spoken at a normal pace
+- Hook must land in the first 3 seconds — no "Hey guys welcome back"
+- Include B-roll suggestions in [brackets]
+- Use a pattern interrupt at the midpoint to maintain attention
+- End with a clear, single CTA
+- Write it exactly how it would be spoken — contractions, punchy sentences, pauses marked with "..."</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== PRODUCTIVITY ==================== -->
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Meeting Agenda Builder</span>
+          </div>
+          <div class="prompt-text">You are a facilitator who designs meetings that end with clear decisions, not just discussion. Build an agenda for my meeting.
+
+Context: Meeting type: [E.g. weekly team sync, project kickoff, quarterly review, 1-on-1, retrospective]. Duration: [TIME]. Attendees and their roles: [LIST]. Top 2-3 outcomes this meeting must produce: [OUTCOMES]. Known tension or conflict to navigate: [IF ANY].
+
+Constraints:
+- Write a timed agenda — every item gets a clock
+- Assign an owner to each agenda item
+- Include a "pre-read" section (what should be sent 24 hours before)
+- Mark each item: Decision needed / Update / Discussion / FYI
+- Include a 5-minute buffer at the end for "action items + owners + deadlines"
+- Add one icebreaker or energizer if meeting is over 60 minutes</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Project Plan in Minutes</span>
+          </div>
+          <div class="prompt-text">You are a project manager with PMP certification and startup experience. Build a lightweight project plan for my initiative.
+
+Context: Project: [DESCRIPTION AND GOAL]. Deadline: [DATE]. Team: [NUMBER OF PEOPLE AND ROLES]. Key deliverables: [LIST]. Known constraints: [BUDGET / RESOURCE / TECHNICAL / DEPENDENCIES].
+
+Constraints:
+- Structure: phases with milestones, not a task-dump
+- Each phase: name, duration, owner, key deliverable, definition of "done"
+- Identify the critical path — what absolutely cannot slip?
+- Flag the top 3 risks to the timeline and suggest mitigation for each
+- Include a "Week 1 priorities" section — what must happen in the first 5 days to set the project up for success?
+- Keep it under 1 page — link to details, don't include them</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Summarize a Long Document</span>
+          </div>
+          <div class="prompt-text">You are a senior analyst who reads everything so your clients don't have to. Summarize the following document for me.
+
+Context: Here is the document: [PASTE CONTENT OR KEY SECTIONS]. The type of document: [REPORT / ARTICLE / CONTRACT / BOOK CHAPTER / TRANSCRIPT / etc.]. What I need to get out of it: [MY SPECIFIC QUESTION OR GOAL].
+
+Constraints:
+- Lead with the 3 most important takeaways (what would I most regret missing?)
+- Then: a structured summary by section (3-4 sentences each)
+- Pull out any numbers, dates, commitments, or action items and list them separately
+- Flag anything that seems uncertain, contradictory, or worth questioning
+- End with: "If I had to act on this document today, I would..."</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Weekly Review &amp; Planning</span>
+          </div>
+          <div class="prompt-text">You are a productivity coach trained in GTD, OKRs, and time-blocking. Run my weekly review with me.
+
+Context: My main goals right now are: [LIST 2-3 GOALS]. Last week I worked on: [QUICK SUMMARY]. Things I didn't finish: [LIST]. What's on my plate this coming week: [ROUGH TASK LIST]. My biggest bottleneck right now is: [CONSTRAINT].
+
+Constraints:
+- Start with a 3-question reflection on last week (wins, misses, lessons)
+- Identify: what should I STOP, START, and CONTINUE?
+- Help me prioritize next week: given my goals, what are the 3 highest-leverage tasks?
+- Build a suggested daily MIT (Most Important Task) for Mon-Fri
+- Ask me one clarifying question that would make this plan sharper</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">SOP / Process Documentation</span>
+          </div>
+          <div class="prompt-text">You are a process engineer and technical writer who creates SOPs that teams actually follow. Help me document a process.
+
+Context: Process name: [NAME]. Who performs this process: [ROLE]. How often: [FREQUENCY]. Tools used: [SYSTEMS / SOFTWARE]. Here's how I currently do it (rough notes): [DESCRIPTION OR BRAIN DUMP].
+
+Constraints:
+- Format: numbered steps, each step actionable and specific enough that a new hire could follow it
+- Include: purpose, trigger (what kicks this off), inputs required, outputs produced
+- Add a "Common mistakes" section at the end
+- Where steps are judgment calls, note the decision criteria
+- Flag any steps that should have a checklist or verification step
+- Keep it under 1 page — link to longer references, don't embed them</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Job Description Writer</span>
+          </div>
+          <div class="prompt-text">You are a talent acquisition specialist and HR writer who creates job descriptions that attract high-quality applicants and deter poor fits. Write a job description for my open role.
+
+Context: Role title: [TITLE]. Team and reporting structure: [CONTEXT]. What this person will actually do day-to-day: [RESPONSIBILITIES]. Must-have requirements: [HARD REQUIREMENTS]. Nice-to-have: [PREFERENCES]. Compensation range: [IF SHARING]. Company culture in 3 words: [WORDS].
+
+Constraints:
+- Lead with impact, not tasks ("You'll own X and drive Y" not "Responsibilities include...")
+- Requirements: max 6 must-haves — no laundry list
+- Include a "Why this role is exciting" section that's honest, not fluffy
+- Avoid biased language (check for gendered words, unnecessary degree requirements)
+- Under 450 words total</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== MARKETING ==================== -->
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Landing Page Copy</span>
+          </div>
+          <div class="prompt-text">You are a direct-response copywriter who has written landing pages generating millions in revenue. Write conversion copy for my landing page.
+
+Context: Product/service: [DESCRIPTION]. Target audience: [WHO]. Primary pain or desire: [PAIN / DESIRE]. Main offer/CTA: [WHAT I'M ASKING THEM TO DO]. Key proof points: [TESTIMONIALS, STATS, CREDENTIALS]. Tone: [PROFESSIONAL / CONVERSATIONAL / URGENT / etc.].
+
+Constraints:
+- Structure: Headline → Sub-headline → Problem agitation → Solution reveal → Features as benefits → Social proof → Objection handling → CTA
+- Write 3 headline variants (different angles: pain, curiosity, outcome)
+- Benefits section: lead with outcome, not feature (not "24/7 support" but "Help when you need it, night or day")
+- Include a risk-reversal element (guarantee, free trial framing, etc.)
+- Under 600 words for the main body</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Email Campaign Sequence</span>
+          </div>
+          <div class="prompt-text">You are an email marketing strategist who builds automated sequences that nurture leads into paying customers. Write an email nurture sequence.
+
+Context: Product/service: [DESCRIPTION]. Audience: leads who [ACTION — e.g. downloaded a lead magnet, signed up for a free trial, attended a webinar]. Sequence goal: [CONVERSION GOAL — e.g. book a demo, upgrade to paid, purchase by end of week]. Sequence length: [5 / 7 / 10 emails].
+
+Constraints:
+- Map the emotional journey: awareness → interest → desire → action
+- Each email: subject line, preview text, body (under 200 words), CTA
+- Vary the content type: education, story, social proof, objection handling, urgency
+- Include send timing recommendations (Day 1, Day 3, etc.)
+- Flag the "make or break" email in the sequence and explain why</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Ad Copy (Meta / Google)</span>
+          </div>
+          <div class="prompt-text">You are a performance marketing copywriter who writes paid ad copy that maximizes click-through and conversion rates. Write ad copy for my campaign.
+
+Context: Platform: [META / GOOGLE / LINKEDIN / etc.]. Product/service: [DESCRIPTION]. Target audience: [DEMOGRAPHICS + PSYCHOGRAPHICS]. Campaign goal: [CLICKS / LEADS / PURCHASES]. Unique selling point: [USP]. Budget signal: [TESTING NEW AUDIENCE / SCALING PROVEN ANGLE].
+
+Constraints:
+- Write 5 ad variations using different angles: urgency, social proof, curiosity, direct benefit, fear of missing out
+- For each: headline (30 chars max), primary text (125 chars max for feed), CTA button label
+- Include 2 longer-form variations for in-feed placements
+- Note which audience segment each variation is best suited for
+- Flag any claims that could trigger platform policy restrictions</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Content Calendar (1 Month)</span>
+          </div>
+          <div class="prompt-text">You are a content strategist who builds content calendars that grow audiences and generate leads. Build a one-month content calendar for me.
+
+Context: Brand/business: [DESCRIPTION]. Primary platform(s): [CHANNELS]. Posting frequency: [HOW OFTEN PER PLATFORM]. Content pillars / topics I want to own: [LIST 3-5]. Upcoming events or launches this month: [LIST IF ANY]. Goal this month: [FOLLOWER GROWTH / ENGAGEMENT / LEAD GEN / etc.].
+
+Constraints:
+- Map out 4 weeks with specific post ideas (not vague categories — give me real titles/angles)
+- Label each post: content type (educational, story, promotional, engagement bait, social proof)
+- Follow the 80/20 rule: 80% value-first, 20% promotional
+- Include 2 "reactive" content slots per week for trending topics
+- Suggest one "cornerstone" piece per month that all other content can point back to</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Ideal Customer Profile (ICP)</span>
+          </div>
+          <div class="prompt-text">You are a go-to-market strategist who builds ICPs that sales and marketing teams actually use. Help me define my ideal customer profile.
+
+Context: My product/service: [DESCRIPTION]. Current customers (describe your best ones if you have them): [DESCRIPTION OR EXAMPLES]. Who I think I should be targeting: [HYPOTHESIS]. Revenue goal and sales motion: [E.g. SMB self-serve, mid-market via SDRs, enterprise sales-led].
+
+Constraints:
+- Cover: firmographic profile, technographic signals, psychographic traits, triggering events (what makes them buy now?), and disqualifying signals (who's NOT a fit)
+- Identify the "hair on fire" moment — the specific situation where my product goes from nice-to-have to must-have
+- Name the buying committee: who initiates, who influences, who decides, who blocks
+- Include a one-paragraph "day in the life" narrative for the primary buyer persona
+- Suggest 3 channels where this ICP spends professional time</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">Product Launch Announcement</span>
+          </div>
+          <div class="prompt-text">You are a product marketing manager at a high-growth startup. Write a product launch announcement.
+
+Context: What we're launching: [PRODUCT / FEATURE / UPDATE]. Who it's for: [AUDIENCE]. The core problem it solves: [PROBLEM]. Key capabilities (top 3): [FEATURES AS BENEFITS]. Launch date: [DATE]. Channel this is for: [EMAIL / BLOG / PRESS RELEASE / SOCIAL / ALL].
+
+Constraints:
+- Lead with customer impact, not product features
+- Write one version optimized for each channel (email, tweet/post, blog headline)
+- Include a "quote" from a beta user or internal stakeholder [placeholder if needed]
+- Avoid: "We're excited to announce," "game-changing," "revolutionary"
+- Create a sense of momentum without manufactured urgency
+- Include one specific, concrete use case that makes the value tangible</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== EXTRA (mixed) ==================== -->
+
+        <div class="prompt-card" data-cat="Email">
+          <div class="card-header">
+            <span class="cat-tag Email">Email</span>
+            <span class="prompt-title">Decline a Request Gracefully</span>
+          </div>
+          <div class="prompt-text">You are a professional communications coach who helps people say no without burning bridges. Write an email declining a request.
+
+Context: The request I'm declining: [DESCRIBE — e.g. a partnership proposal, a speaking invite, a candidate for a role, a vendor pitch]. Who I'm responding to: [RELATIONSHIP CONTEXT]. My reason for declining (honest): [REASON]. Whether I want to leave the door open: [YES / NO / MAYBE].
+
+Constraints:
+- Be warm but clear — don't leave ambiguity about the answer
+- Thank them genuinely for one specific thing
+- Give a real reason (not "we're going in a different direction") if possible
+- If leaving the door open: be specific about when/what would change the answer
+- Under 120 words
+- End with a genuine well-wish, not a platitude</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Research">
+          <div class="card-header">
+            <span class="cat-tag Research">Research</span>
+            <span class="prompt-title">Summarize a Person's Work</span>
+          </div>
+          <div class="prompt-text">You are a research assistant who helps busy professionals quickly get up to speed on influential thinkers. Summarize the key ideas of [PERSON — author, researcher, entrepreneur, investor].
+
+Context: I'm reading/listening to them because: [REASON]. My background level with their work: [NONE / SOME / SUBSTANTIAL]. I specifically want to understand their views on: [TOPIC IF SPECIFIC].
+
+Constraints:
+- Cover: their background/credibility, their central thesis or worldview, their 3-5 most influential ideas, their most famous work(s), their critics' strongest objections
+- Use their own terminology and explain it plainly
+- Note any ideas that have been updated or walked back since they were published
+- Recommend the single best starting point if I want to go deeper (one book, essay, or talk)
+- Flag areas where their work is contested or should be taken with skepticism</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Writing">
+          <div class="card-header">
+            <span class="cat-tag Writing">Writing</span>
+            <span class="prompt-title">Write a Strong Cover Letter</span>
+          </div>
+          <div class="prompt-text">You are a career coach who reviews hundreds of cover letters a year and knows exactly what hiring managers actually read. Write a cover letter for a job I'm applying to.
+
+Context: The job title and company: [JOB / COMPANY]. Key requirements from the job posting: [PASTE 3-5 REQUIREMENTS]. My most relevant experience and achievements: [SUMMARY]. What excites me about this specific role/company: [GENUINE REASON — be specific].
+
+Constraints:
+- Under 300 words
+- First sentence must hook — not "I'm applying for..."
+- Match one specific company initiative or value to my experience
+- Use metrics wherever possible (increased X by Y%, managed a team of Z)
+- Avoid: "I'm a quick learner," "I'm passionate," "I would be a great fit"
+- Tone: confident but not arrogant
+- End with a specific ask (30-minute call) not "I look forward to hearing from you"</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Coding">
+          <div class="card-header">
+            <span class="cat-tag Coding">Coding</span>
+            <span class="prompt-title">Write Unit Tests</span>
+          </div>
+          <div class="prompt-text">You are a test-driven development expert who writes thorough, readable tests. Write unit tests for the following code.
+
+Context: Language and testing framework: [E.g. Python + pytest, JavaScript + Jest, Go + testing]. Here is the code to test: [PASTE FUNCTION OR CLASS]. Known edge cases I care about: [LIST IF ANY].
+
+Constraints:
+- Cover: happy path, edge cases, error/exception cases
+- Each test should have a descriptive name that explains what it's testing
+- Group tests logically with comments
+- Include at least one test for each public method or function
+- Use mocks/stubs only where necessary — prefer testing real behavior
+- After the tests, list any scenarios you deliberately skipped and why
+- If the code is hard to test, note what refactoring would make it more testable</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Build a Business Case</span>
+          </div>
+          <div class="prompt-text">You are a management consultant who builds business cases that get approved. Help me build a business case for [INITIATIVE].
+
+Context: What I want to do: [DESCRIPTION]. Who I need to convince: [DECISION-MAKER AND THEIR PRIORITIES]. Cost to implement: [ESTIMATE]. Expected benefit: [DESCRIBE]. Timeline to ROI: [ESTIMATE]. Alternatives I've considered: [LIST].
+
+Constraints:
+- Structure: Problem statement → Proposed solution → Financial case (costs, benefits, ROI, payback period) → Risks → Recommendation
+- Quantify the cost of inaction — what happens if we don't do this?
+- Include a sensitivity analysis: what if costs are 25% higher or benefits are 25% lower?
+- Anticipate the top 3 objections and address them proactively
+- Close with a clear "ask" — specific decision, budget, or approval needed
+- One page maximum for the summary; flag what goes in the appendix</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Turn Notes Into Action Items</span>
+          </div>
+          <div class="prompt-text">You are an executive assistant and chief of staff who transforms raw meeting notes into clean, actionable outputs. Process my meeting notes.
+
+Context: Meeting type: [TYPE]. Date: [DATE]. Attendees: [NAMES AND ROLES]. Here are my raw notes: [PASTE NOTES — messy is fine].
+
+Constraints:
+- Output 1: A clean 3-5 bullet meeting summary (what was discussed, what was decided)
+- Output 2: Action items table with columns: Task | Owner | Deadline | Priority (High/Med/Low)
+- Output 3: Any open questions or decisions that were deferred — flagged for follow-up
+- Output 4: One-paragraph email I can send to attendees to confirm alignment
+- If any action items are ambiguous, note what clarification is needed before work can begin</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Marketing">
+          <div class="card-header">
+            <span class="cat-tag Marketing">Marketing</span>
+            <span class="prompt-title">SEO Article Brief</span>
+          </div>
+          <div class="prompt-text">You are an SEO content strategist who builds briefs that writers can turn into first-page rankings. Create a comprehensive SEO brief.
+
+Context: Target keyword: [PRIMARY KEYWORD]. Secondary keywords to include: [LIST IF KNOWN]. Target audience: [WHO IS SEARCHING THIS]. Search intent: [INFORMATIONAL / COMMERCIAL / NAVIGATIONAL / TRANSACTIONAL]. Competitors currently ranking: [LIST TOP 3 URLS IF KNOWN].
+
+Constraints:
+- Recommended title tag (under 60 chars) and meta description (under 155 chars)
+- Suggested H1, H2s, and H3s that cover the topic comprehensively
+- Word count recommendation based on SERP analysis
+- "Must include" elements: definitions, FAQs, comparisons, statistics
+- Internal linking suggestions (placeholder anchors)
+- One unique angle or hook that differentiates this article from existing rankings
+- Questions from "People Also Ask" to address in the article</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Creative">
+          <div class="card-header">
+            <span class="cat-tag Creative">Creative</span>
+            <span class="prompt-title">Workshop or Course Curriculum</span>
+          </div>
+          <div class="prompt-text">You are a curriculum designer and instructional design expert who builds learning experiences people actually complete. Design a curriculum for me.
+
+Context: Topic: [WHAT THE COURSE TEACHES]. Target student: [WHO — their current skill level and goal]. Format: [LIVE WORKSHOP / SELF-PACED / COHORT / etc.]. Duration: [TOTAL HOURS OR WEEKS]. End outcome: [WHAT STUDENTS SHOULD BE ABLE TO DO WHEN FINISHED].
+
+Constraints:
+- Structure: learning objectives first, then modules, then lessons within each module
+- Each module: name, objective, key concepts, activities/exercises, and success criteria
+- Build in retrieval practice, not just passive consumption
+- Sequence content from foundation → application → mastery
+- Flag where real-world projects or case studies would deepen retention
+- Suggest the one exercise that would deliver the biggest "aha moment" for students</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Analysis">
+          <div class="card-header">
+            <span class="cat-tag Analysis">Analysis</span>
+            <span class="prompt-title">Interview Question Prep</span>
+          </div>
+          <div class="prompt-text">You are an executive interview coach who has helped candidates land roles at top-tier companies. Help me prepare for a job interview.
+
+Context: Role I'm interviewing for: [ROLE AND COMPANY]. My background: [BRIEF SUMMARY]. The interview stage: [SCREENING / HIRING MANAGER / PANEL / CASE / FINAL]. What I know about the interviewers: [IF ANYTHING].
+
+Constraints:
+- Generate 15 likely interview questions tailored to this specific role and company
+- For each question: the underlying concern the interviewer is probing for
+- Write a STAR-method answer framework for the 5 most important questions, leaving blanks for my specific examples
+- Include 5 sharp questions I should ask them (that demonstrate strategic thinking, not just curiosity)
+- Flag the question I'm most likely to fumble and how to handle it gracefully
+- One sentence on the most important thing to convey across all answers</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="prompt-card" data-cat="Productivity">
+          <div class="card-header">
+            <span class="cat-tag Productivity">Productivity</span>
+            <span class="prompt-title">Delegation Brief</span>
+          </div>
+          <div class="prompt-text">You are an operations leader who has built high-trust delegation systems. Help me write a delegation brief for a task I'm handing off.
+
+Context: The task or project I'm delegating: [DESCRIPTION]. Who I'm delegating to: [ROLE / EXPERIENCE LEVEL]. My expected outcome: [WHAT DONE LOOKS LIKE]. Deadline: [DATE]. Resources they can use: [TOOLS / BUDGET / PEOPLE]. My availability for questions: [HOW / HOW OFTEN].
+
+Constraints:
+- Clarify the "what" and "why" but leave the "how" to them
+- Define success criteria concretely — what does a great outcome look like?
+- Identify the 2-3 decisions they should make themselves vs. escalate to me
+- Note any constraints, non-negotiables, or landmines they should know about
+- Include a check-in schedule (brief, not a burden)
+- End with: "I trust you to handle this. Here's how I can support you..."</div>
+          <div class="card-footer">
+            <button class="copy-btn" onclick="copyPrompt(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- ---- No results fallback ---- -->
+        <div class="no-results" id="no-results">
+          <strong>No prompts found</strong>
+          Try a different filter or select "All"
+        </div>
+
+      </div><!-- /prompt-grid -->
+
+    </main>
+  </div>
+
+  <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">=</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/course/shared/supabase-config.js"></script>
+  <script src="/course/shared/auth-guard.js"></script>
+  <script src="/course/shared/progress.js"></script>
+  <script src="/course/shared/course-nav.js"></script>
+  <script>
+    function onAuthReady(user, profile) {
+      if (['masterclass','vip','core','hive','vanguard'].indexOf(profile.tier) === -1) {
+        window.location.href = '/course/dashboard.html';
+        return;
+      }
+      renderSidebar('sidebar', null);
+    }
+
+    function filterPrompts(category, btn) {
+      // Update active button
+      var buttons = document.querySelectorAll('.filter-btn');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+      }
+      btn.classList.add('active');
+
+      // Show / hide cards
+      var cards = document.querySelectorAll('.prompt-card');
+      var visible = 0;
+      for (var j = 0; j < cards.length; j++) {
+        var card = cards[j];
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      }
+
+      // Update count
+      var countEl = document.getElementById('visible-count');
+      countEl.innerHTML = '<strong>' + visible + '</strong> prompt' + (visible === 1 ? '' : 's') + ' shown';
+
+      // Show no-results if empty
+      var noResults = document.getElementById('no-results');
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    function copyPrompt(btn) {
+      var card = btn.closest('.prompt-card');
+      var promptText = card.querySelector('.prompt-text').innerText;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(promptText).then(function() {
+          showCopied(btn);
+        }).catch(function() {
+          fallbackCopy(promptText, btn);
+        });
+      } else {
+        fallbackCopy(promptText, btn);
+      }
+    }
+
+    function fallbackCopy(text, btn) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showCopied(btn);
+      } catch (e) {
+        // silently fail
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showCopied(btn) {
+      var original = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
