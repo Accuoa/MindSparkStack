@@ -1,0 +1,39 @@
+# Secrets & credentials
+.env
+.env.*
+credentials.json
+token.json
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Temporary & build artifacts
+.tmp/
+temporary screenshots/
+
+# Debug screenshots in root (allow in subdirectories)
+/*.png
+
+# IDE
+.vscode/
+.idea/
+
+# Playwright MCP
+.playwright-mcp/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Windows shortcuts
+*.url
+
+# Logs
+*.log
