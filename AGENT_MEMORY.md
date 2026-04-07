@@ -87,8 +87,8 @@
 
 ## Email Setup
 - **Active business email:** `aiden@mindsparkstack.com` (Turbify/Yahoo — invite pending activation)
-- **Forwarding fallback:** hello@mindsparkstack.com → aidenbolin09@gmail.com (ForwardEmail.net)
-- **Gmail connected:** aidenbolin09@gmail.com (MCP: read + draft)
+- **Forwarding fallback:** hello@mindsparkstack.com → [see .env ALERT_EMAIL] (ForwardEmail.net)
+- **Gmail connected:** [see .env ALERT_EMAIL] (MCP: read + draft)
 - **Turbify mail server:** imap.mail.yahoo.com:993 / smtp.bizmail.yahoo.com:465
 
 ## Social Media Accounts

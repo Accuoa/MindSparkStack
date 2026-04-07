@@ -13,7 +13,7 @@ Options:
   --body TEXT        Plain text body
   --body-file PATH   HTML body from file
   --dry-run          Print what would be sent, don't actually send
-  --test             Send only to Aiden's email (aidenbolin09@gmail.com)
+  --test             Send only to ALERT_EMAIL from .env
   --from-name NAME   Sender name (default: MindSparkAI)
 
 Reads RESEND_API_KEY and SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY from .env.
@@ -29,7 +29,7 @@ from urllib.error import URLError, HTTPError
 
 RESEND_API_URL = "https://api.resend.com/emails"
 FROM_EMAIL_TEMPLATE = "{name} <onboarding@resend.dev>"
-AIDEN_EMAIL = "aidenbolin09@gmail.com"
+AIDEN_EMAIL = os.getenv("ALERT_EMAIL", "")
 
 # ---------------------------------------------------------------------------
 # .env loader
@@ -134,6 +134,13 @@ def main():
     api_key = env.get("RESEND_API_KEY")
     if not api_key:
         print("[ERROR] Missing RESEND_API_KEY in .env")
+        sys.exit(1)
+
+    # Set AIDEN_EMAIL from .env
+    global AIDEN_EMAIL
+    AIDEN_EMAIL = env.get("ALERT_EMAIL", AIDEN_EMAIL)
+    if not AIDEN_EMAIL:
+        print("[ERROR] Missing ALERT_EMAIL in .env")
         sys.exit(1)
 
     args = sys.argv[1:]

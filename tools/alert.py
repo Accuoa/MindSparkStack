@@ -20,7 +20,7 @@ from urllib.error import URLError, HTTPError
 
 RESEND_API_URL = "https://api.resend.com/emails"
 FROM_EMAIL = "MindSparkAI Alerts <onboarding@resend.dev>"
-TO_EMAIL = "aidenbolin09@gmail.com"
+TO_EMAIL = os.getenv("ALERT_EMAIL", "")
 
 # ---------------------------------------------------------------------------
 # .env loader
@@ -109,6 +109,13 @@ def main():
     api_key = env.get("RESEND_API_KEY")
     if not api_key:
         print("[ERROR] Missing RESEND_API_KEY in .env")
+        sys.exit(1)
+
+    # Set TO_EMAIL from .env
+    global TO_EMAIL
+    TO_EMAIL = env.get("ALERT_EMAIL", TO_EMAIL)
+    if not TO_EMAIL:
+        print("[ERROR] Missing ALERT_EMAIL in .env")
         sys.exit(1)
 
     args = sys.argv[1:]

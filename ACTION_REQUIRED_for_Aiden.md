@@ -77,7 +77,7 @@ Your launch post is written and ready to copy-paste:
 | Thank-you / course delivery page | ✅ Live at /thank-you.html |
 | Payment buttons redirect to thank-you page | ✅ Confirmed in Stripe |
 | VIP page shows onboarding section | ✅ Auto-shows on ?vip=1 |
-| Email: hello@mindsparkstack.com | ✅ Forwards to aidenbolin09@gmail.com |
+| Email: hello@mindsparkstack.com | ✅ Forwards to [see .env ALERT_EMAIL] |
 | Stripe products + prices | ✅ Created |
 | Legal pages (Privacy, Terms, Refund) | ✅ Live |
 | SEO meta tags + Schema markup | ✅ Added |
