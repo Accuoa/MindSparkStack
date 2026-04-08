@@ -3,35 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindSparkAI — Learn AI. Use AI. Lead with AI.</title>
-    <meta name="description" content="Master AI tools, build autonomous business agents, and future-proof your career with the MindSparkAI Masterclass. 7 modules. Lifetime access. $97.">
+    <meta name="description" content="Learn to use AI tools to automate your work, boost productivity, and future-proof your career. No tech background required. MindSparkAI Masterclass — $27, lifetime access.">
+    <meta name="keywords" content="AI course, learn AI, ChatGPT course, AI productivity, AI tools, artificial intelligence training, AI for beginners, online AI course">
+    <meta name="author" content="MindSparkAI">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://mindsparkstack.com/">
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MindSparkAI — Learn AI. Use AI. Lead with AI.">
-    <meta property="og:description" content="Master AI tools, build autonomous business agents, and future-proof your career with the MindSparkAI Masterclass.">
     <meta property="og:url" content="https://mindsparkstack.com/">
+    <meta property="og:title" content="MindSparkAI — Learn AI. Use AI. Lead with AI.">
+    <meta property="og:description" content="The most practical AI course for everyday professionals. Master ChatGPT, Claude, Gemini, and automation tools. Lifetime access for $27.">
+    <meta property="og:image" content="https://mindsparkstack.com/og-image.png">
     <meta property="og:site_name" content="MindSparkAI">
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@mindsparkai">
     <meta name="twitter:title" content="MindSparkAI — Learn AI. Use AI. Lead with AI.">
-    <meta name="twitter:description" content="Master AI tools, build autonomous business agents, and future-proof your career.">
+    <meta name="twitter:description" content="The most practical AI course for everyday professionals. Lifetime access for $27.">
+    <meta name="twitter:image" content="https://mindsparkstack.com/og-image.png">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"MindSparkAI Masterclass","description":"Learn to use AI agents to automate work, boost productivity, and future-proof your career.","provider":{"@type":"Organization","name":"MindSparkAI","url":"https://mindsparkstack.com"},"offers":{"@type":"Offer","price":"27","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/3cIcN70Fl8mYgvk0RCcV20a"}}</script>
+    <title>MindSparkAI — Learn AI. Use AI. Lead with AI.</title>
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"Course","name":"MindSparkAI Masterclass","description":"Learn AI tools, boost productivity, and future-proof your career with hands-on AI training across 7 comprehensive modules.","provider":{"@type":"Organization","name":"MindSparkAI","url":"https://mindsparkstack.com"},"offers":{"@type":"Offer","price":"97","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206"}}
-    </script>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -48,9 +44,13 @@
                     colors: {
                         brandLime: '#D4FF00',
                         brandCyan: '#00D0FF',
+                        brandRed: '#FF3366',
                         obsidian: '#04070D',
-                        ash: '#0F1115',
                         ivory: '#F4F7F9',
+                        surface: '#FFFFFF',
+                    },
+                    letterSpacing: {
+                        'serial': '0.2em',
                     }
                 }
             }
@@ -58,7 +58,7 @@
     </script>
 
     <style>
-        :root { --mx: 50%; --my: 50%; }
+        :root { --global-x: 50%; --global-y: 50%; --mx: 50%; --my: 50%; }
 
         body {
             background-color: #04070D;
@@ -67,47 +67,38 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Film Grain */
+        /* CINEMATIC TEXTURE */
         #grain {
             position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
-            opacity: 0.03; mix-blend-mode: overlay;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png");
+            opacity: 0.05; mix-blend-mode: overlay;
         }
 
-        /* Aurora Volumes */
+        /* AURORA VOLUMES */
         .aurora-container { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
         .aurora-lime {
             position: absolute; top: -15%; left: -20%; width: 70vw; height: 70vw;
-            background: radial-gradient(circle, rgba(212, 255, 0, 0.2) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(212, 255, 0, 0.25) 0%, transparent 60%);
             filter: blur(140px); will-change: transform;
             animation: drift 20s infinite alternate ease-in-out;
         }
         .aurora-cyan {
             position: absolute; top: 20%; right: -20%; width: 80vw; height: 80vw;
-            background: radial-gradient(circle, rgba(0, 208, 255, 0.12) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(0, 208, 255, 0.18) 0%, transparent 60%);
             filter: blur(160px); will-change: transform;
             animation: drift-reverse 25s infinite alternate ease-in-out;
         }
         @keyframes drift {
-            0% { transform: translate3d(0, 0, 0) scale(1); }
-            100% { transform: translate3d(5%, 10%, 0) scale(1.1); }
+            0% { transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
+            100% { transform: translate3d(5%, 10%, 0) scale3d(1.1, 1.1, 1); }
         }
         @keyframes drift-reverse {
-            0% { transform: translate3d(0, 0, 0) scale(1.1); }
-            100% { transform: translate3d(-5%, -10%, 0) scale(1); }
+            0% { transform: translate3d(0, 0, 0) scale3d(1.1, 1.1, 1); }
+            100% { transform: translate3d(-5%, -10%, 0) scale3d(1, 1, 1); }
         }
 
-        /* Cursor Glow */
-        #cursor-glow {
-            position: fixed; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(212, 255, 0, 0.04) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none; z-index: 0;
-            transform: translate(-50%, -50%);
-            transition: none;
-        }
-
-        /* Typography */
-        .h-display {
+        /* SYNE TYPOGRAPHY */
+        .h-echelon {
             font-family: 'Syne', sans-serif;
             font-size: clamp(3rem, 9vw, 8.5rem);
             line-height: 0.85; font-weight: 800;
@@ -119,43 +110,24 @@
             line-height: 0.9; font-weight: 800;
             letter-spacing: -0.04em; text-transform: uppercase;
         }
-        .hero-mask { overflow: hidden; display: block; padding-bottom: 6px; }
-        .hero-line { display: block; transform: translateY(110%); will-change: transform; }
 
-        /* Titanium Text Sheen */
+        .hero-mask { overflow: hidden; display: block; padding-bottom: 6px; }
+        .hero-line { display: block; transform: translateY(100%); will-change: transform; }
+
         .text-sheen {
             background: linear-gradient(170deg, #FFFFFF 0%, #A1A1AA 35%, #F4F4F5 50%, #71717A 65%, #FFFFFF 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: sheen 6s linear infinite;
+            animation: titanium-flow 6s linear infinite;
         }
-        @keyframes sheen { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes titanium-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* CTA Button */
-        .btn-lime {
-            background: #D4FF00; color: #04070D; font-family: 'Syne', sans-serif; font-weight: 800;
-            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.1em;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
-            box-shadow: 0 4px 15px rgba(212,255,0,0.2), inset 0 1px 1px rgba(255,255,255,0.6);
-            will-change: transform; cursor: pointer; border: none;
-        }
-        .btn-lime:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212,255,0,0.4), inset 0 1px 1px rgba(255,255,255,0.8); }
-        .btn-lime:active { transform: scale(0.97) translateY(-1px); transition: transform 0.1s ease; }
-        .btn-lime:focus-visible { outline: 2px solid #D4FF00; outline-offset: 4px; }
-
-        .btn-outline {
-            border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: 'Syne', sans-serif; font-weight: 800;
-            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.1em; background: transparent;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer;
-        }
-        .btn-outline:hover { border-color: #D4FF00; color: #D4FF00; box-shadow: 0 0 20px rgba(212,255,0,0.1); }
-        .btn-outline:focus-visible { outline: 2px solid #D4FF00; outline-offset: 4px; }
-
-        /* Chamfered Cards (Legacy vs Sovereign) */
+        /* CHAMFERED TAB CARDS */
         .tab-card-wrapper {
             position: relative; padding: 2px; border-radius: 1.5rem;
             background: rgba(255,255,255,0.05);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
             clip-path: polygon(0 0, 65% 0, 70% 20px, 100% 20px, 100% 100%, 0 100%);
+            will-change: transform;
         }
         .tab-card-inner {
             background: rgba(10, 15, 25, 0.6); backdrop-filter: blur(30px);
@@ -167,551 +139,833 @@
         .tab-card-lime { background: linear-gradient(135deg, rgba(212, 255, 0, 0.6), transparent 50%); }
         .tab-card-lime:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(212, 255, 0, 0.2); }
 
-        /* Ivory Cards (Light Section) */
-        .bento-group:hover .ivory-card:not(:hover),
-        .bento-group:hover .lime-card:not(:hover) {
-            opacity: 0.5; filter: grayscale(50%) blur(1px);
+        /* IVORY BENTO CARDS */
+        .bento-group:hover .ivory-card:not(:hover), .bento-group:hover .lime-card:not(:hover) {
+            opacity: 0.5; filter: grayscale(50%) blur(2px);
         }
         .ivory-card {
             background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.04); border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255,255,255,0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.04);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease, opacity 0.5s ease, filter 0.5s ease;
-            position: relative; overflow: hidden;
+            position: relative; overflow: hidden; will-change: transform, opacity, filter;
         }
-        .ivory-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08); }
-
+        .ivory-card:hover {
+            transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), inset 0 2px 4px rgba(255,255,255,1);
+        }
         .lime-card {
             background: linear-gradient(145deg, #D4FF00, #bfe600);
             border-radius: 1.5rem; position: relative; overflow: hidden;
             box-shadow: 0 20px 40px rgba(212, 255, 0, 0.3), inset 0 2px 8px rgba(255,255,255,0.6);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, filter 0.5s ease;
+            will-change: transform, opacity, filter;
         }
         .lime-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(212, 255, 0, 0.5); }
 
-        /* Terminal Block */
-        .terminal-block {
-            background: #0A0A0A; border-radius: 1rem; position: relative; overflow: hidden;
+        /* ECHELON GLASS CARDS */
+        .echelon-card {
+            background: rgba(255, 255, 255, 0.012); backdrop-filter: blur(35px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.03); border-top: 1px solid rgba(255, 255, 255, 0.12); border-radius: 2rem;
+            box-shadow: inset 0 2px 3px rgba(255,255,255,0.08), inset 0 -2px 5px rgba(0,0,0,0.6), 0 20px 40px rgba(0,0,0,0.3);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s ease, box-shadow 0.6s ease;
+            position: relative; overflow: hidden;
         }
-        .terminal-block::after {
-            content: ""; position: absolute; inset: -100% 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
-            pointer-events: none; z-index: 2; animation: scanline 8s linear infinite;
-        }
-        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .cursor-blink { display: inline-block; animation: blink 1s step-end infinite; }
+        .echelon-card:hover { transform: translateY(-4px); border-top-color: rgba(212, 255, 0, 0.3); }
 
-        /* PCB Circuit Background */
-        .circuit-bg {
-            background-color: #F4F7F9;
-            background-image:
-                radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-                radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
+        /* BUTTONS */
+        .btn-lime {
+            background: #D4FF00; color: #010307; font-family: 'Syne'; font-weight: 800;
+            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.1em;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+            box-shadow: 0 4px 15px rgba(212,255,0,0.2), inset 0 1px 1px rgba(255,255,255,0.6);
+            will-change: transform; border: none; cursor: pointer;
+        }
+        .btn-lime:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212,255,0,0.4); }
+        .btn-lime:active:not(:disabled) { transform: scale(0.97) translateY(-1px); transition: transform 0.1s ease; }
+        .btn-lime:disabled { opacity: 0.7; cursor: not-allowed; filter: grayscale(50%); }
+
+        .btn-glass-glow {
+            background: linear-gradient(135deg, rgba(212, 255, 0, 0.5) 0%, rgba(212, 255, 0, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 255, 0, 0.6);
+            box-shadow: 0 0 50px rgba(212, 255, 0, 0.3), inset 0 0 20px rgba(212, 255, 0, 0.2);
+            color: #010307; font-family: 'Syne', sans-serif; font-weight: 800;
+            border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+            position: relative; overflow: hidden; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none;
+        }
+        .btn-glass-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 70px rgba(212, 255, 0, 0.4), inset 0 0 30px rgba(212, 255, 0, 0.3);
         }
 
-        /* Dynamic Nav Theming */
+        /* DYNAMIC NAV */
         #nav-pill {
             transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px); will-change: background, color;
         }
         #nav-pill.theme-dark { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.05); color: #F1F5F9; }
-        #nav-pill.theme-dark .nav-link { color: rgba(255,255,255,0.5); }
+        #nav-pill.theme-dark .nav-link { color: rgba(255,255,255,0.6); }
         #nav-pill.theme-dark .nav-link:hover { color: #fff; }
-        #nav-pill.theme-light { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); color: #04070D; }
+
+        #nav-pill.theme-light { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); color: #010307; }
         #nav-pill.theme-light .nav-link { color: rgba(0,0,0,0.5); }
         #nav-pill.theme-light .nav-link:hover { color: #000; }
 
-        /* Pricing Card Glow */
-        .pricing-glow {
-            background: rgba(255,255,255,0.015);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-top: 2px solid #D4FF00;
-            border-radius: 2rem;
-            position: relative;
+        /* TERMINAL */
+        .terminal-block { background: #0A0A0A; border-radius: 1rem; position: relative; overflow: hidden; }
+        @keyframes scanline-drift { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        .terminal-block::after {
+            content: " "; position: absolute; inset: -100% 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+            pointer-events: none; z-index: 2; animation: scanline-drift 8s linear infinite;
+        }
+        @keyframes step-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .terminal-cursor { display: inline-block; animation: step-blink 1s step-end infinite; }
+
+        /* CIRCUIT WATERMARK */
+        .circuit-bg {
+            background-color: #F4F7F9;
+            background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px), radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px; background-position: 0 0, 20px 20px;
         }
 
-        /* Social Proof Ticker */
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .ticker-track { animation: ticker 30s linear infinite; }
-
-        /* Initial load states */
-        .initial-fade { opacity: 0; transform: translateY(20px); }
-
-        /* Scrollbar */
+        /* SCROLLBAR */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(212,255,0,0.2); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(212,255,0,0.5); }
+
+        /* FAQ */
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+        .faq-item.open .faq-answer { padding-bottom: 1.5rem; }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+        /* MOBILE MENU */
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(4, 7, 13, 0.97); z-index: 100; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; backdrop-filter: blur(20px); }
+        .mobile-overlay.open { display: flex; }
+
+        /* COUNTDOWN */
+        .countdown-num {
+            font-family: 'Syne', sans-serif; font-weight: 800;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: linear-gradient(135deg, #D4FF00, #00D0FF);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
     </style>
 </head>
-<body class="antialiased font-sans text-ivory">
+<body class="antialiased">
 
     <div id="grain"></div>
-    <div id="cursor-glow"></div>
 
-    <!-- ====== NAVIGATION ====== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 sm:p-6 lg:p-8" aria-label="Main navigation">
-        <div id="nav-pill" class="theme-dark flex items-center justify-between w-full max-w-7xl px-6 sm:px-10 py-4 sm:py-5 rounded-[2rem]">
-            <a href="/" class="flex items-center gap-3 font-syne text-lg sm:text-xl tracking-tighter uppercase font-black no-underline" style="color: inherit; text-decoration: none;">
-                <i data-lucide="activity" class="text-brandLime size-5 sm:size-6 drop-shadow-[0_0_10px_rgba(212,255,0,0.5)]"></i>
-                MindSpark
+    <!-- MOBILE MENU -->
+    <div class="mobile-overlay" id="mobileMenu">
+        <button onclick="closeMobile()" class="absolute top-8 right-8 text-white/60 hover:text-white" aria-label="Close menu">
+            <i data-lucide="x" class="size-8"></i>
+        </button>
+        <a href="#modules" onclick="closeMobile()" class="font-syne text-2xl font-bold text-white uppercase tracking-tight hover:text-brandLime transition-colors">Courses</a>
+        <a href="#pricing" onclick="closeMobile()" class="font-syne text-2xl font-bold text-white uppercase tracking-tight hover:text-brandLime transition-colors">Pricing</a>
+        <a href="#testimonials" onclick="closeMobile()" class="font-syne text-2xl font-bold text-white uppercase tracking-tight hover:text-brandLime transition-colors">Reviews</a>
+        <a href="#faq" onclick="closeMobile()" class="font-syne text-2xl font-bold text-white uppercase tracking-tight hover:text-brandLime transition-colors">FAQ</a>
+        <a href="/course/login.html" class="font-syne text-2xl font-bold text-white uppercase tracking-tight hover:text-brandLime transition-colors">Student Login</a>
+        <a href="#pricing" onclick="closeMobile()" class="btn-lime px-10 py-4 text-sm tracking-serial mt-4">Enroll Now</a>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center p-6 sm:p-8">
+        <div id="nav-pill" class="theme-dark flex items-center justify-between w-full max-w-7xl px-8 sm:px-10 py-4 rounded-[2rem]">
+            <a href="#" class="flex items-center gap-3 font-syne text-xl tracking-tighter uppercase font-black no-underline" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+                <i data-lucide="activity" class="text-brandLime size-6 drop-shadow-[0_0_10px_rgba(212,255,0,0.5)]"></i> MindSpark
             </a>
-            <div class="hidden lg:flex gap-8 xl:gap-10 text-[10px] font-bold uppercase tracking-[0.2em]">
-                <a href="#curriculum" class="nav-link transition-colors no-underline">Syllabus</a>
-                <a href="#pricing" class="nav-link transition-colors no-underline">Investment</a>
-                <a href="#results" class="nav-link transition-colors no-underline">Results</a>
-                <a href="blog.html" class="nav-link transition-colors no-underline">Blog</a>
-                <a href="contact.html" class="nav-link transition-colors no-underline">Contact</a>
+            <div class="hidden lg:flex gap-10 text-[10px] font-bold uppercase tracking-serial">
+                <a href="#modules" class="nav-link transition-colors no-underline">Courses</a>
+                <a href="#pricing" class="nav-link transition-colors no-underline">Pricing</a>
+                <a href="#testimonials" class="nav-link transition-colors no-underline">Reviews</a>
+                <a href="#faq" class="nav-link transition-colors no-underline">FAQ</a>
             </div>
-            <div class="flex items-center gap-4 sm:gap-8">
-                <a href="course/login.html" class="hidden md:block text-[10px] font-bold uppercase tracking-[0.2em] nav-link transition-colors no-underline">Sign In</a>
-                <a href="#pricing" class="px-6 sm:px-8 py-3 btn-lime text-[10px] sm:text-[11px] font-black tracking-[0.2em] no-underline inline-block">Enroll</a>
+            <div class="flex items-center gap-6">
+                <a href="/course/login.html" class="hidden md:block text-[10px] font-bold uppercase tracking-serial nav-link transition-colors no-underline">Student Login</a>
+                <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})" class="px-8 py-2.5 btn-lime text-[10px] tracking-serial shadow-[0_0_20px_rgba(212,255,0,0.2)]">Enroll</button>
+                <button class="lg:hidden text-white/60 hover:text-white" id="hamburger" aria-label="Menu">
+                    <i data-lucide="menu" class="size-6"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- ====== DARK ZONE: HERO + TRANSFORMATION ====== -->
-    <div id="dark-zone" class="relative">
+    <!-- ========================================== -->
+    <!-- DARK ZONE: HERO, PROBLEM, AI DEMO          -->
+    <!-- ========================================== -->
+    <div id="dark-zone" class="relative text-[#F1F5F9]">
         <div class="aurora-container">
             <div class="aurora-lime"></div>
             <div class="aurora-cyan"></div>
         </div>
+        <div id="canvas-sentinel" class="absolute inset-0 z-0 opacity-50 pointer-events-none"></div>
 
         <!-- HERO -->
-        <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-8 z-10 pt-24">
-            <div class="mb-10 initial-fade">
-                <div class="inline-flex items-center justify-center border border-white/10 bg-white/[0.03] text-white text-[10px] font-mono tracking-widest px-5 py-2.5 rounded-full backdrop-blur-md">
+        <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-8 z-10 pt-32 pb-20">
+            <div class="mb-10 initial-fade" style="opacity:0">
+                <div class="inline-flex items-center justify-center border border-white/10 bg-white/[0.03] text-white text-[10px] font-mono tracking-widest px-5 py-2.5 rounded-full backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                     <span class="w-2 h-2 rounded-full bg-brandLime animate-pulse mr-3 shadow-[0_0_10px_#D4FF00]"></span>
-                    7 MODULES &middot; LIFETIME ACCESS &middot; BUILD REAL AGENTS
+                    FOUNDING MEMBER PRICING ACTIVE
                 </div>
             </div>
 
-            <h1 class="h-display mb-8 text-white">
-                <span class="hero-mask"><span class="hero-line">Learn AI.</span></span>
-                <span class="hero-mask"><span class="hero-line">Use AI.</span></span>
-                <span class="hero-mask"><span class="hero-line text-brandLime drop-shadow-[0_0_30px_rgba(212,255,0,0.2)]">Lead With AI.</span></span>
+            <h1 class="h-echelon mb-8 text-white drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+                <span class="hero-mask"><span class="hero-line">Stop Getting</span></span>
+                <span class="hero-mask"><span class="hero-line text-brandLime drop-shadow-[0_0_30px_rgba(212,255,0,0.2)]">Left Behind.</span></span>
             </h1>
 
-            <p class="text-lg sm:text-xl md:text-2xl text-white/50 max-w-2xl mx-auto mb-16 font-light leading-relaxed initial-fade">
-                Master AI tools, architect autonomous business agents, and future-proof your career. Not another "prompt tips" course&mdash;this is <span class="text-white italic">operational intelligence.</span>
+            <p class="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto mb-16 font-light leading-relaxed parallax-layer initial-fade" style="opacity:0">
+                MindSparkAI teaches everyday people how to use AI agents to automate work, boost productivity, and future-proof their careers — <span class="text-white italic">no tech background required.</span>
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-6 items-center initial-fade">
-                <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime px-10 sm:px-12 py-5 sm:py-6 text-[12px] sm:text-[13px] tracking-[0.2em] shadow-[0_0_40px_rgba(212,255,0,0.3)] no-underline inline-block">
-                    Get the Masterclass &mdash; $97
-                </a>
-                <a href="#pricing" class="btn-outline px-8 py-5 text-[11px] tracking-[0.15em] no-underline inline-flex items-center gap-3">
-                    See All Plans <i data-lucide="arrow-down" class="size-4"></i>
-                </a>
+            <div class="flex flex-col sm:flex-row gap-6 items-center parallax-layer initial-fade" style="opacity:0">
+                <a href="https://buy.stripe.com/3cIcN70Fl8mYgvk0RCcV20a" target="_blank" class="btn-glass-glow px-12 py-5 text-[11px] shadow-[0_0_40px_rgba(212,255,0,0.3)]">Activate Masterclass — $27</a>
+                <button class="flex items-center gap-3 text-white/40 font-black text-[10px] uppercase tracking-serial hover:text-white transition-colors" onclick="document.getElementById('modules').scrollIntoView({behavior:'smooth'})">
+                    See the Syllabus <i data-lucide="arrow-down" class="size-4"></i>
+                </button>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/20 initial-fade">
-                <span class="text-[9px] font-bold uppercase tracking-[0.3em]">Scroll</span>
-                <div class="w-px h-10 bg-gradient-to-b from-white/20 to-transparent"></div>
+            <!-- PROOF STATS -->
+            <div class="flex flex-wrap gap-12 justify-center mt-20 initial-fade" style="opacity:0">
+                <div class="text-center">
+                    <div class="font-syne text-3xl font-bold text-brandLime">4.9<span class="text-lg text-white/40">&#9733;</span></div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-1">Average Rating</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-syne text-3xl font-bold text-white">30+</div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-1">Video Lessons</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-syne text-3xl font-bold text-white">100%</div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-1">Beginner Friendly</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-syne text-3xl font-bold text-brandCyan">24/7</div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-1">Community Access</div>
+                </div>
             </div>
         </section>
 
-        <!-- THE SHIFT: Legacy vs Sovereign -->
-        <section id="problem" class="py-24 sm:py-32 relative z-10 px-4 sm:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-20 reveal-fold">
-                <span class="text-white/40 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">The Transformation</span>
-                <h2 class="h-section text-sheen mb-6">Legacy vs Sovereign</h2>
-                <p class="text-white/30 text-base font-light max-w-xl mx-auto leading-relaxed">The modern professional drowns in "digital housework." We provide the escape velocity.</p>
+        <!-- THE PROBLEM -->
+        <section id="problem" class="py-32 relative z-10 px-6 sm:px-8 max-w-6xl mx-auto">
+            <div class="text-center mb-24 reveal-fold">
+                <span class="text-white/40 font-bold uppercase tracking-serial text-[10px] mb-6 block">The Problem</span>
+                <h2 class="h-section text-sheen mb-6">AI Is Changing Everything</h2>
+                <p class="text-white/40 text-lg font-light max-w-xl mx-auto leading-relaxed">Your colleagues are using AI to work 3x faster. Are you keeping up?</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 lg:gap-14">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="echelon-card p-10 reveal-fold">
+                    <div class="w-14 h-14 rounded-2xl bg-brandLime/10 flex items-center justify-center mb-6">
+                        <i data-lucide="rocket" class="text-brandLime size-7"></i>
+                    </div>
+                    <h3 class="font-syne text-xl font-bold text-white mb-3 uppercase tracking-tight">Getting Left Behind</h3>
+                    <p class="text-white/40 text-sm leading-relaxed font-light">Your colleagues are using AI to work 3x faster, get promoted, and take on bigger projects — while you're still doing things the old way.</p>
+                </div>
+                <div class="echelon-card p-10 reveal-fold">
+                    <div class="w-14 h-14 rounded-2xl bg-brandCyan/10 flex items-center justify-center mb-6">
+                        <i data-lucide="clock" class="text-brandCyan size-7"></i>
+                    </div>
+                    <h3 class="font-syne text-xl font-bold text-white mb-3 uppercase tracking-tight">Wasting Hours</h3>
+                    <p class="text-white/40 text-sm leading-relaxed font-light">You're spending hours on tasks that AI could automate in minutes — email, research, writing, scheduling. That time is gone forever.</p>
+                </div>
+                <div class="echelon-card p-10 reveal-fold">
+                    <div class="w-14 h-14 rounded-2xl bg-brandRed/10 flex items-center justify-center mb-6">
+                        <i data-lucide="target" class="text-brandRed size-7"></i>
+                    </div>
+                    <h3 class="font-syne text-xl font-bold text-white mb-3 uppercase tracking-tight">Overwhelmed</h3>
+                    <p class="text-white/40 text-sm leading-relaxed font-light">There's an ocean of AI tools, tutorials, and hype — and no clear roadmap for how to actually use any of it to move forward.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE SHIFT -->
+        <section class="py-32 relative z-10 px-6 sm:px-8 max-w-5xl mx-auto">
+            <div class="text-center mb-20 reveal-fold">
+                <span class="text-white/40 font-bold uppercase tracking-serial text-[10px] mb-6 block">The Transformation</span>
+                <h2 class="h-section text-sheen mb-6">Legacy vs Sovereign</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
                 <div class="tab-card-wrapper tab-card-red reveal-fold mt-6">
-                    <div class="tab-card-inner flex flex-col justify-between min-h-[240px]">
+                    <div class="tab-card-inner flex flex-col justify-between min-h-[220px]">
                         <span class="absolute -top-7 left-8 text-[9px] font-mono text-white/30 uppercase tracking-widest">Traditional Path</span>
                         <div>
-                            <h3 class="font-syne text-3xl sm:text-4xl font-bold text-white mb-4 uppercase">Manual Triage</h3>
-                            <p class="text-white/40 text-sm leading-relaxed font-light">Triaging inboxes, manual data entry, and decision fatigue on repetitive tasks that eat your best hours.</p>
-                        </div>
-                        <div class="flex items-center gap-3 mt-6 text-red-400/60 text-[10px] font-bold uppercase tracking-widest">
-                            <i data-lucide="x-circle" class="size-4"></i> Time Lost Daily: 4+ Hours
+                            <h3 class="font-syne text-4xl font-bold text-white mb-4 uppercase">Manual<br>Triage</h3>
+                            <p class="text-white/40 text-sm leading-relaxed font-light">Triaging inboxes, manual data entry, and decision fatigue on repetitive tasks. Hours lost every single day.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-card-wrapper tab-card-lime reveal-fold mt-6">
-                    <div class="tab-card-inner flex flex-col justify-between min-h-[240px] relative">
+                    <div class="tab-card-inner flex flex-col justify-between relative min-h-[220px]">
                         <span class="absolute -top-7 left-8 text-[9px] font-mono text-brandLime uppercase tracking-widest drop-shadow-[0_0_5px_#D4FF00]">Agentic Path</span>
-                        <div class="absolute top-6 right-6 border border-brandLime/30 text-brandLime px-3 py-1 rounded text-[8px] font-bold tracking-widest uppercase bg-brandLime/10 backdrop-blur-md">You After This</div>
+                        <div class="absolute top-6 right-6 border border-brandLime/30 text-brandLime px-3 py-1 rounded text-[8px] font-bold tracking-widest uppercase bg-brandLime/10 backdrop-blur-md">Alpha State</div>
                         <div>
-                            <h3 class="font-syne text-3xl sm:text-4xl font-bold text-brandLime mb-4 uppercase drop-shadow-[0_0_15px_rgba(212,255,0,0.3)]">Autonomous Flow</h3>
-                            <p class="text-white/70 text-sm leading-relaxed font-light">Agents that observe, learn, and execute your operations with zero prompt overhead. You focus on strategy.</p>
-                        </div>
-                        <div class="flex items-center gap-3 mt-6 text-brandLime/60 text-[10px] font-bold uppercase tracking-widest">
-                            <i data-lucide="check-circle" class="size-4"></i> Time Reclaimed: 20+ Hrs/Week
+                            <h3 class="font-syne text-4xl font-bold text-brandLime mb-4 uppercase drop-shadow-[0_0_15px_rgba(212,255,0,0.3)]">Autonomous<br>Flow</h3>
+                            <p class="text-white/70 text-sm leading-relaxed font-light">Agents that observe, learn, and execute your operations with zero prompt overhead. You focus on what matters.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SOCIAL PROOF TICKER -->
-        <section class="py-16 relative z-10 overflow-hidden border-y border-white/5">
-            <div class="ticker-track flex gap-16 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-white/20" style="width: max-content;">
-                <span>7 Comprehensive Modules</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>35+ Hands-On Lessons</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Prompt Library Included</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>AI Tools Reference Deck</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Certificate of Completion</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Lifetime Updates</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <!-- Duplicate for seamless loop -->
-                <span>7 Comprehensive Modules</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>35+ Hands-On Lessons</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Prompt Library Included</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>AI Tools Reference Deck</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Certificate of Completion</span>
-                <span class="text-brandLime/40">&bull;</span>
-                <span>Lifetime Updates</span>
-                <span class="text-brandLime/40">&bull;</span>
+        <!-- AI DEMO -->
+        <section id="demo" class="py-32 relative z-10 px-6 sm:px-8 max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal-fold">
+                <span class="text-brandCyan font-bold uppercase tracking-serial text-[10px] mb-6 block">Interactive Intelligence</span>
+                <h2 class="h-section text-white mb-6">Live Architecture Gen.</h2>
+                <p class="text-white/40 text-base font-light leading-relaxed max-w-2xl mx-auto">Input a manual business bottleneck. Our Sovereign LLM will instantly engineer a multi-agent blueprint to automate it.</p>
+            </div>
+
+            <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-[2rem] p-8 md:p-12 reveal-fold grid md:grid-cols-2 gap-10 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                <div class="flex flex-col gap-6">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brandLime">Manual Process Context</label>
+                    <textarea id="blueprint-input" rows="5" class="w-full bg-black/40 border border-white/10 rounded-xl p-5 text-white text-sm font-light focus:outline-none focus:border-brandLime/50 transition-colors resize-none placeholder-white/20" placeholder="e.g., I spend 3 hours a day copying leads from LinkedIn Sales Navigator into our Airtable CRM and sending welcome emails..."></textarea>
+                    <button id="generate-blueprint-btn" class="btn-lime w-full py-5 text-sm flex items-center justify-center gap-3">
+                        Engineer Blueprint
+                    </button>
+                </div>
+                <div class="terminal-block p-6 md:p-8 font-mono text-[10px] md:text-xs leading-relaxed text-brandCyan/80 shadow-inner h-full min-h-[280px] relative border border-white/5">
+                    <div id="blueprint-output" class="h-full overflow-y-auto pr-3 relative z-10">
+                        <p class="text-white/40">> WAITING_FOR_INPUT...</p>
+                        <p class="text-white/40">> SYSTEM_IDLE <span class="terminal-cursor">_</span></p>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
-    <!-- ====== LIGHT ZONE: CURRICULUM + PRICING ====== -->
-    <div id="light-zone" class="relative circuit-bg text-obsidian pb-0">
+    <!-- ========================================== -->
+    <!-- LIGHT ZONE: CURRICULUM, PRICING, ETC       -->
+    <!-- ========================================== -->
+    <div id="light-zone" class="relative bg-[#F4F7F9] text-obsidian circuit-bg">
         <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#04070D] to-transparent z-10 pointer-events-none"></div>
 
-        <!-- CURRICULUM BENTO GRID -->
-        <section id="curriculum" class="pt-48 sm:pt-60 pb-32 sm:pb-40 relative z-10 px-4 sm:px-8">
+        <!-- CURRICULUM -->
+        <section id="modules" class="pt-60 pb-32 relative z-10 px-6 sm:px-8">
             <div class="max-w-6xl mx-auto">
-                <div class="mb-20 sm:mb-24 reveal-fold">
-                    <h2 class="h-display text-obsidian leading-none">Curriculum.</h2>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4 sm:gap-6 mt-4 border-b border-obsidian/10 pb-4">
-                        <p class="text-obsidian font-bold text-[11px] uppercase tracking-[0.2em]">7 Modules &middot; 35+ Lessons</p>
-                        <div class="h-1 w-32 sm:w-48 bg-brandLime"></div>
+                <div class="mb-24 reveal-fold">
+                    <h2 class="h-echelon text-obsidian leading-none">Curriculum.</h2>
+                    <div class="flex items-center justify-end gap-6 mt-4 border-b border-obsidian/10 pb-4">
+                        <p class="text-obsidian font-bold text-[11px] uppercase tracking-serial">6 Modules / 30+ Lessons</p>
+                        <div class="h-1 w-48 bg-brandLime"></div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 xl:gap-6 auto-rows-[300px] sm:auto-rows-[340px] bento-group">
-                    <!-- Module 1 -->
-                    <div class="ivory-card p-8 sm:p-10 flex flex-col justify-between reveal-fold">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 bento-group">
+                    <div class="ivory-card p-10 flex flex-col justify-between min-h-[320px] reveal-fold">
                         <div>
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">01 / Foundation</span>
-                            <h3 class="font-syne text-xl sm:text-2xl font-bold text-obsidian mb-2 uppercase">AI Mindset</h3>
-                            <p class="text-obsidian/60 text-sm leading-relaxed font-light mt-3">Break the "chatbot" habit. Learn to think in systems, workflows, and autonomous loops.</p>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-serial mb-4 block">01 /</span>
+                            <h3 class="font-syne text-2xl font-bold text-obsidian mb-2 uppercase tracking-tighter">What Are AI Agents?</h3>
+                            <p class="text-obsidian/70 text-sm leading-relaxed font-light mt-3">Foundations, mindset, and why AI agents are the most important technology shift of our lifetime. No jargon, no confusion.</p>
                         </div>
                         <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
-                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/40">5 Lessons</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/50">4 Lessons</span>
                             <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
                         </div>
                     </div>
 
-                    <!-- Master Project Card -->
-                    <div class="lime-card p-8 sm:p-10 md:p-12 md:col-span-2 flex flex-col justify-between reveal-fold group">
+                    <div class="lime-card p-10 md:p-12 md:col-span-2 flex flex-col justify-between min-h-[320px] reveal-fold group">
                         <div class="flex justify-between items-start">
                             <div>
-                                <span class="text-obsidian/60 font-bold text-[10px] uppercase tracking-[0.2em] mb-3 block">Capstone</span>
-                                <h3 class="font-syne text-4xl sm:text-5xl font-bold text-obsidian uppercase leading-none tracking-tighter">Master Project</h3>
+                                <span class="text-obsidian/60 font-bold text-[10px] uppercase tracking-serial mb-3 block">02 / First Workflow</span>
+                                <h3 class="font-syne text-4xl md:text-5xl font-bold text-obsidian uppercase leading-none tracking-tighter">Your First<br>AI Workflow</h3>
                             </div>
                             <span class="w-4 h-4 bg-white rounded-full shadow-[0_0_20px_#fff] animate-pulse"></span>
                         </div>
-                        <div class="terminal-block p-5 sm:p-6 mt-6 sm:mt-8 font-mono text-[10px] leading-loose text-brandLime border border-obsidian/20">
+                        <div class="terminal-block p-6 mt-8 font-mono text-[10px] leading-loose text-brandLime border border-obsidian/20">
                             <p class="text-white/90">> BOOT_SEQUENCE: AUTHENTICATED</p>
                             <p class="text-white/70">> ANALYZING_PIPELINE... <span class="text-brandLime">[DONE]</span></p>
                             <p class="text-white/70">> BOTTLENECK_FOUND: MANUAL_ENTRY</p>
-                            <p class="text-brandLime drop-shadow-[0_0_8px_#D4FF00]">> DEPLOYING_FIX_AGENT... <span class="text-white">[ACTIVE]</span> <span class="cursor-blink">_</span></p>
+                            <p class="text-brandLime drop-shadow-[0_0_8px_#D4FF00]">> DEPLOYING_FIX_AGENT... <span class="text-white">[ACTIVE]</span></p>
                         </div>
                     </div>
 
-                    <!-- Module 2 -->
-                    <div class="ivory-card p-8 sm:p-10 flex flex-col justify-between reveal-fold">
+                    <div class="ivory-card p-10 flex flex-col justify-between min-h-[280px] reveal-fold">
                         <div>
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">02 / Tools</span>
-                            <h3 class="font-syne text-xl sm:text-2xl font-bold text-obsidian mb-2 uppercase">Prompt Craft</h3>
-                            <p class="text-obsidian/60 text-sm leading-relaxed font-light mt-3">Master prompt engineering, chain-of-thought, and tool-use patterns.</p>
-                        </div>
-                    </div>
-
-                    <!-- Module 3+4 -->
-                    <div class="ivory-card p-8 sm:p-10 md:col-span-2 flex flex-col justify-between reveal-fold">
-                        <div>
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">03-04 / Automation</span>
-                            <h3 class="font-syne text-2xl sm:text-3xl font-bold text-obsidian mb-4 uppercase">Workflows &amp; Agents</h3>
-                            <p class="text-obsidian/60 text-sm leading-relaxed font-light max-w-md">Build real automation pipelines. Connect AI to your tools. Deploy agents that work while you sleep.</p>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-serial mb-4 block">03 /</span>
+                            <h3 class="font-syne text-2xl font-bold text-obsidian mb-2 uppercase tracking-tighter">AI for Productivity</h3>
+                            <p class="text-obsidian/70 text-sm leading-relaxed font-light mt-3">Master email, research, writing, scheduling, and communication. Reclaim hours every single week.</p>
                         </div>
                         <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
-                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/40">10 Lessons Combined</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/50">5 Lessons</span>
                             <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
                         </div>
                     </div>
 
-                    <!-- Modules 5-7 -->
-                    <div class="ivory-card p-8 sm:p-10 md:col-span-3 flex flex-col sm:flex-row gap-8 reveal-fold">
-                        <div class="flex-1">
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">05 / Content</span>
-                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">AI Content Engine</h3>
-                            <p class="text-obsidian/50 text-sm font-light mt-2">Generate, repurpose, and distribute content at scale.</p>
+                    <div class="ivory-card p-10 md:col-span-2 flex flex-col justify-between min-h-[280px] reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-serial mb-4 block">04 /</span>
+                            <h3 class="font-syne text-3xl font-bold text-obsidian mb-4 uppercase tracking-tighter">Business &amp; Side Hustles</h3>
+                            <p class="text-obsidian/70 text-sm leading-relaxed font-light max-w-md">Automate content creation, customer service, and marketing. Build income streams powered by AI — even solo.</p>
                         </div>
-                        <div class="w-px bg-black/10 hidden sm:block"></div>
-                        <div class="flex-1">
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">06 / Revenue</span>
-                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">Monetization</h3>
-                            <p class="text-obsidian/50 text-sm font-light mt-2">Turn AI skills into income streams and business value.</p>
+                        <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/50">5 Lessons</span>
+                            <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
                         </div>
-                        <div class="w-px bg-black/10 hidden sm:block"></div>
-                        <div class="flex-1">
-                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">07 / Future</span>
-                            <h3 class="font-syne text-xl font-bold text-obsidian uppercase">AI Leadership</h3>
-                            <p class="text-obsidian/50 text-sm font-light mt-2">Stay ahead of the curve. Lead teams and orgs into the AI era.</p>
+                    </div>
+
+                    <div class="ivory-card p-10 md:col-span-2 flex flex-col justify-between min-h-[280px] reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-serial mb-4 block">05 /</span>
+                            <h3 class="font-syne text-3xl font-bold text-obsidian mb-4 uppercase tracking-tighter">Building Custom AI Agents</h3>
+                            <p class="text-obsidian/70 text-sm leading-relaxed font-light max-w-md">No-code and low-code tools to build your own AI agents. Automate entire workflows without writing a single line of code.</p>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/50">5 Lessons</span>
+                            <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
+                        </div>
+                    </div>
+
+                    <div class="ivory-card p-10 flex flex-col justify-between min-h-[280px] reveal-fold">
+                        <div>
+                            <span class="text-obsidian font-bold text-[10px] uppercase tracking-serial mb-4 block">06 /</span>
+                            <h3 class="font-syne text-2xl font-bold text-obsidian mb-2 uppercase tracking-tighter">The Future of AI</h3>
+                            <p class="text-obsidian/70 text-sm leading-relaxed font-light mt-3">How to keep learning, stay current, and position yourself as an AI-forward professional in any industry.</p>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-black/10 pt-4 mt-4">
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-obsidian/50">4 Lessons</span>
+                            <i data-lucide="arrow-right" class="size-4 text-obsidian/30"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- WHAT'S INCLUDED -->
-        <section class="py-20 relative z-10 px-4 sm:px-8 bg-white/50">
+        <!-- PRICING -->
+        <section id="pricing" class="py-32 relative z-10 px-6 sm:px-8">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16 reveal-fold">
-                    <span class="text-obsidian/40 font-bold uppercase tracking-[0.2em] text-[10px] mb-4 block">Everything You Get</span>
-                    <h2 class="font-syne text-3xl sm:text-4xl font-bold text-obsidian uppercase tracking-tighter">Included With Every Plan</h2>
+                <div class="text-center mb-20 reveal-fold">
+                    <h2 class="h-echelon text-obsidian leading-none mb-6">Invest.</h2>
+                    <p class="text-obsidian/60 text-lg font-light">Simple, transparent pricing. Start free. Upgrade when you're ready.</p>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 reveal-fold">
-                    <div class="ivory-card p-6 sm:p-8 text-center">
-                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
-                            <i data-lucide="book-open" class="size-5 text-obsidian"></i>
-                        </div>
-                        <h4 class="font-syne text-sm font-bold uppercase mb-1">7 Modules</h4>
-                        <p class="text-obsidian/50 text-xs font-light">35+ in-depth lessons</p>
+
+                <div class="grid lg:grid-cols-3 gap-8 items-start">
+                    <div class="ivory-card p-10 reveal-fold">
+                        <span class="text-obsidian/40 font-bold text-[10px] uppercase tracking-serial mb-4 block">Starter</span>
+                        <div class="font-syne text-5xl font-bold tracking-tighter text-obsidian mb-2">$0</div>
+                        <p class="text-obsidian/50 text-xs font-medium mb-8">Forever free. No credit card.</p>
+                        <ul class="space-y-4 text-sm text-obsidian/80 mb-10">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> AI Starter Toolkit PDF</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Top 10 AI tools guide</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Prompt template library</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Weekly AI tips newsletter</li>
+                        </ul>
+                        <button onclick="document.getElementById('lead-magnet').scrollIntoView({behavior:'smooth'})" class="w-full py-4 rounded-xl border-2 border-obsidian/10 text-obsidian font-syne font-bold text-xs uppercase tracking-serial hover:border-brandLime hover:bg-brandLime/5 transition-all cursor-pointer">Get Free Toolkit</button>
                     </div>
-                    <div class="ivory-card p-6 sm:p-8 text-center">
-                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
-                            <i data-lucide="file-text" class="size-5 text-obsidian"></i>
-                        </div>
-                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Cheatsheets</h4>
-                        <p class="text-obsidian/50 text-xs font-light">Quick-reference guides</p>
+
+                    <div class="ivory-card p-10 reveal-fold ring-2 ring-brandLime shadow-[0_30px_60px_rgba(212,255,0,0.15)] relative">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brandLime text-obsidian px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest font-syne shadow-lg whitespace-nowrap">Most Popular</div>
+                        <span class="text-brandLime font-bold text-[10px] uppercase tracking-serial mb-4 block mt-2">Masterclass</span>
+                        <div class="font-syne text-6xl font-bold tracking-tighter text-obsidian mb-2">$27</div>
+                        <p class="text-obsidian/50 text-xs font-medium mb-8">One-time payment. Lifetime access.</p>
+                        <ul class="space-y-4 text-sm text-obsidian/80 mb-10">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> All 6 modules (30+ lessons)</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Downloadable cheat sheets</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Quizzes &amp; assignments</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Certificate of completion</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Private community access</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> AI tool discount directory</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> 30-day money-back guarantee</li>
+                        </ul>
+                        <a href="https://buy.stripe.com/3cIcN70Fl8mYgvk0RCcV20a" target="_blank" class="w-full btn-lime py-5 flex justify-center items-center text-sm tracking-serial rounded-xl no-underline">
+                            Enroll Now — $27
+                        </a>
                     </div>
-                    <div class="ivory-card p-6 sm:p-8 text-center">
-                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
-                            <i data-lucide="terminal" class="size-5 text-obsidian"></i>
-                        </div>
-                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Prompt Library</h4>
-                        <p class="text-obsidian/50 text-xs font-light">Copy-paste templates</p>
+
+                    <div class="ivory-card p-10 reveal-fold">
+                        <span class="text-obsidian/40 font-bold text-[10px] uppercase tracking-serial mb-4 block">VIP Experience</span>
+                        <div class="font-syne text-5xl font-bold tracking-tighter text-obsidian mb-2">$97</div>
+                        <p class="text-obsidian/50 text-xs font-medium mb-8">Everything in Masterclass + hands-on support.</p>
+                        <ul class="space-y-4 text-sm text-obsidian/80 mb-10">
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Everything in Masterclass</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Monthly live Q&amp;A calls</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> 1:1 onboarding session</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Priority support (1hr response)</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Early access to new modules</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> VIP community channel</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> 30-day money-back guarantee</li>
+                        </ul>
+                        <a href="https://buy.stripe.com/3cIeVf5ZF8mY2EudEocV20b" target="_blank" class="w-full py-4 rounded-xl border-2 border-obsidian/10 text-obsidian font-syne font-bold text-xs uppercase tracking-serial hover:border-brandLime hover:bg-brandLime/5 transition-all flex justify-center items-center no-underline">
+                            Go VIP — $97
+                        </a>
                     </div>
-                    <div class="ivory-card p-6 sm:p-8 text-center">
-                        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-brandLime/20 flex items-center justify-center">
-                            <i data-lucide="award" class="size-5 text-obsidian"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section id="testimonials" class="py-32 relative z-10 px-6 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20 reveal-fold">
+                    <span class="text-obsidian/40 font-bold uppercase tracking-serial text-[10px] mb-6 block">Student Results</span>
+                    <h2 class="h-section text-obsidian">Real Results.</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="ivory-card p-10 reveal-fold">
+                        <div class="flex gap-1 text-brandLime mb-6">
+                            <i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i>
                         </div>
-                        <h4 class="font-syne text-sm font-bold uppercase mb-1">Certificate</h4>
-                        <p class="text-obsidian/50 text-xs font-light">Verifiable completion</p>
+                        <p class="text-obsidian/70 text-sm leading-relaxed mb-8 italic">"I went from spending 3 hours on reports to 20 minutes. MindSparkAI didn't just teach me AI — it changed how I work entirely. My manager noticed within two weeks."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandLime to-brandCyan flex items-center justify-center font-syne font-bold text-obsidian text-sm">SR</div>
+                            <div><div class="font-bold text-obsidian text-sm">Sarah R.</div><div class="text-obsidian/50 text-xs">Marketing Manager</div></div>
+                        </div>
+                    </div>
+                    <div class="ivory-card p-10 reveal-fold">
+                        <div class="flex gap-1 text-brandLime mb-6">
+                            <i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i>
+                        </div>
+                        <p class="text-obsidian/70 text-sm leading-relaxed mb-8 italic">"I was skeptical — I'm not technical at all. But Module 2 had me building my own AI workflows in one afternoon. I've automated 5 parts of my business already."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandCyan to-brandLime flex items-center justify-center font-syne font-bold text-obsidian text-sm">JM</div>
+                            <div><div class="font-bold text-obsidian text-sm">James M.</div><div class="text-obsidian/50 text-xs">Small Business Owner</div></div>
+                        </div>
+                    </div>
+                    <div class="ivory-card p-10 reveal-fold">
+                        <div class="flex gap-1 text-brandLime mb-6">
+                            <i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i><i data-lucide="star" class="size-4 fill-brandLime"></i>
+                        </div>
+                        <p class="text-obsidian/70 text-sm leading-relaxed mb-8 italic">"The community alone is worth it. I asked a question at 11pm and had three answers by midnight. This is what learning AI actually looks like — practical, fast, and real."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandLime to-brandCyan flex items-center justify-center font-syne font-bold text-obsidian text-sm">AL</div>
+                            <div><div class="font-bold text-obsidian text-sm">Aisha L.</div><div class="text-obsidian/50 text-xs">Freelance Designer</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEAD MAGNET -->
+        <section class="py-20 relative z-10 px-6 sm:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div id="lead-magnet" class="ivory-card p-12 md:p-16 text-center reveal-fold shadow-[0_30px_60px_rgba(0,0,0,0.08)]">
+                    <span class="text-brandLime font-bold text-[10px] uppercase tracking-serial mb-6 block">Free Resource</span>
+                    <h2 class="font-syne text-3xl md:text-4xl font-bold text-obsidian mb-4 uppercase tracking-tighter">Get the Free AI Starter Toolkit</h2>
+                    <p class="text-obsidian/60 text-sm mb-8">Everything you need to start using AI today — no credit card, no catch.</p>
+                    <div class="flex flex-wrap gap-4 justify-center mb-10">
+                        <span class="inline-flex items-center gap-2 bg-brandLime/10 border border-brandLime/20 rounded-full px-4 py-2 text-xs font-bold text-obsidian"><i data-lucide="wrench" class="size-3"></i> Top 10 AI Tools</span>
+                        <span class="inline-flex items-center gap-2 bg-brandLime/10 border border-brandLime/20 rounded-full px-4 py-2 text-xs font-bold text-obsidian"><i data-lucide="file-text" class="size-3"></i> Prompt Templates</span>
+                        <span class="inline-flex items-center gap-2 bg-brandLime/10 border border-brandLime/20 rounded-full px-4 py-2 text-xs font-bold text-obsidian"><i data-lucide="zap" class="size-3"></i> Workflow Cheat Sheet</span>
+                    </div>
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" id="optForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_KEY">
+                        <input type="hidden" name="subject" value="New MindSparkAI Lead — Free Toolkit Request">
+                        <input type="hidden" name="from_name" value="MindSparkAI Website">
+                        <input type="hidden" name="redirect" value="https://mindsparkstack.com/thank-you.html">
+                        <input type="text" placeholder="Your first name" name="name" class="flex-1 px-5 py-3 bg-white border border-obsidian/10 rounded-xl text-sm text-obsidian focus:outline-none focus:border-brandLime transition-colors">
+                        <input type="email" placeholder="Your email" name="email" required class="flex-1 px-5 py-3 bg-white border border-obsidian/10 rounded-xl text-sm text-obsidian focus:outline-none focus:border-brandLime transition-colors">
+                        <button type="submit" class="btn-lime px-8 py-3 text-xs tracking-serial whitespace-nowrap">Send Toolkit</button>
+                    </form>
+                    <div class="hidden text-brandLime font-bold mt-4 text-sm" id="successMsg">Check your inbox! Your toolkit is on its way.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="py-32 relative z-10 px-6 sm:px-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16 reveal-fold">
+                    <h2 class="font-syne text-4xl md:text-5xl font-bold text-obsidian uppercase tracking-tighter">Got Questions?</h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">Do I need any technical experience?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">Zero. MindSparkAI is specifically designed for people with no technical background. If you can send an email and browse the web, you have everything you need to start.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">How long does the course take to complete?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">Most students complete the core modules in 2-3 weeks at a comfortable pace (about 30-60 minutes per day). You can go faster or slower — lifetime access means no pressure.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">What AI tools will I learn?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">ChatGPT, Claude, Gemini, Perplexity, Make, Zapier, Notion AI, and more. We focus on the tools that are most useful for real-world work, not just the popular ones.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">Is there a money-back guarantee?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">Absolutely. We offer a full 30-day money-back guarantee, no questions asked. If you don't feel the course was worth every penny, just email us and we'll refund you immediately.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">Can I access the course forever?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">Yes — once you enroll, you have lifetime access including all future updates. AI moves fast, and we update the course regularly. You'll never pay again.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">What if I fall behind or get stuck?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">You won't be alone. The private community is active and supportive, and you can post questions anytime. VIP members also get priority support with responses within 1 hour.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">Is this for businesses or individuals?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">Both. We have students ranging from solopreneurs to employees at Fortune 500 companies. The skills apply whether you're growing a business or advancing your career.</p></div>
+                    </div>
+                    <div class="faq-item ivory-card overflow-hidden reveal-fold">
+                        <button class="faq-trigger w-full text-left px-8 py-6 flex justify-between items-center gap-4 cursor-pointer" aria-expanded="false">
+                            <span class="font-bold text-obsidian text-sm">How is this different from free YouTube tutorials?</span>
+                            <i data-lucide="chevron-down" class="faq-chevron size-5 text-obsidian/40 transition-transform flex-shrink-0"></i>
+                        </button>
+                        <div class="faq-answer px-8"><p class="text-obsidian/60 text-sm leading-relaxed pb-2">YouTube gives you disconnected pieces. MindSparkAI gives you a complete, structured system — plus accountability, community, real assignments, and a certificate that proves your skills.</p></div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- ====== DARK ZONE: PRICING + FOOTER ====== -->
-    <div id="pricing-zone" class="relative bg-obsidian text-ivory">
-        <div class="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#F4F7F9] to-transparent z-10 pointer-events-none"></div>
+    <!-- ========================================== -->
+    <!-- FINAL CTA (Back to Dark)                   -->
+    <!-- ========================================== -->
+    <div id="final-dark" class="relative bg-obsidian text-white overflow-hidden">
+        <div class="aurora-container">
+            <div class="aurora-lime" style="top: -30%; left: 10%;"></div>
+            <div class="aurora-cyan" style="top: 0; right: -30%;"></div>
+        </div>
 
-        <section id="pricing" class="pt-48 sm:pt-60 pb-32 sm:pb-40 relative z-10 px-4 sm:px-8">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20 sm:mb-24 reveal-fold">
-                    <span class="text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">Investment</span>
-                    <h2 class="h-section text-white">Secure Your Access.</h2>
-                </div>
+        <section class="py-32 relative z-10 px-6 sm:px-8 text-center">
+            <div class="max-w-3xl mx-auto reveal-fold">
+                <span class="text-brandLime font-bold text-[10px] uppercase tracking-serial mb-6 block">Limited Time Offer</span>
+                <h2 class="h-echelon text-white mb-8">Your AI Journey<br><span class="text-brandLime">Starts Today.</span></h2>
+                <p class="text-white/40 text-lg font-light mb-12 max-w-md mx-auto">Introductory pricing ends soon. Lock in $27 before it goes to $97.</p>
 
-                <div class="grid md:grid-cols-2 gap-6 lg:gap-10 max-w-5xl mx-auto">
-                    <!-- Masterclass $97 -->
-                    <div class="pricing-glow p-8 sm:p-12 flex flex-col justify-between reveal-fold">
-                        <div>
-                            <div class="flex items-center justify-between mb-8">
-                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Masterclass</span>
-                                <span class="px-3 py-1 rounded-full bg-brandLime/10 text-brandLime text-[9px] font-bold uppercase tracking-widest border border-brandLime/20">Most Popular</span>
-                            </div>
-                            <div class="font-syne text-6xl sm:text-7xl font-bold tracking-tighter text-white mb-2">$97</div>
-                            <p class="text-white/40 text-xs font-medium mb-10">One-time. Lifetime access. All 7 modules.</p>
-
-                            <ul class="space-y-4 text-[11px] font-medium text-white/60 mb-10">
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Full 7-Module Curriculum</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Prompt Library &amp; Cheatsheets</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> AI Tools Reference Deck</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Certificate of Completion</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandLime size-4 flex-shrink-0"></i> Lifetime Updates</li>
-                            </ul>
-                        </div>
-                        <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime w-full py-5 text-center text-sm tracking-[0.15em] no-underline block">
-                            Get the Masterclass
-                        </a>
+                <div class="flex gap-6 justify-center flex-wrap mb-16">
+                    <div class="echelon-card px-8 py-6 text-center min-w-[100px]">
+                        <div class="countdown-num" id="cd-h">00</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Hours</div>
                     </div>
-
-                    <!-- VIP $297 -->
-                    <div class="pricing-glow p-8 sm:p-12 flex flex-col justify-between reveal-fold border-t-brandCyan" style="border-top-color: #00D0FF;">
-                        <div>
-                            <div class="flex items-center justify-between mb-8">
-                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">VIP Experience</span>
-                                <span class="px-3 py-1 rounded-full bg-brandCyan/10 text-brandCyan text-[9px] font-bold uppercase tracking-widest border border-brandCyan/20">Premium</span>
-                            </div>
-                            <div class="font-syne text-6xl sm:text-7xl font-bold tracking-tighter text-white mb-2">$297</div>
-                            <p class="text-white/40 text-xs font-medium mb-10">One-time. Everything in Masterclass, plus:</p>
-
-                            <ul class="space-y-4 text-[11px] font-medium text-white/60 mb-10">
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Everything in Masterclass</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Priority Support Access</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Exclusive Agent Blueprints</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Advanced Automation Templates</li>
-                                <li class="flex items-center gap-4"><i data-lucide="check" class="text-brandCyan size-4 flex-shrink-0"></i> Future Module Early Access</li>
-                            </ul>
-                        </div>
-                        <a href="https://buy.stripe.com/7sY00l9bRgTu5QGbwgcV207" target="_blank" class="btn-lime w-full py-5 text-center text-sm tracking-[0.15em] no-underline block" style="background: #00D0FF; box-shadow: 0 4px 15px rgba(0,208,255,0.2);">
-                            Get VIP Access
-                        </a>
+                    <div class="echelon-card px-8 py-6 text-center min-w-[100px]">
+                        <div class="countdown-num" id="cd-m">00</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Minutes</div>
+                    </div>
+                    <div class="echelon-card px-8 py-6 text-center min-w-[100px]">
+                        <div class="countdown-num" id="cd-s">00</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-white/30 mt-2">Seconds</div>
                     </div>
                 </div>
 
-                <!-- Money-Back Guarantee -->
-                <div class="text-center mt-16 reveal-fold">
-                    <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] text-white/40 text-[10px] font-bold uppercase tracking-widest">
-                        <i data-lucide="shield-check" class="size-4 text-brandLime"></i>
-                        30-Day Money-Back Guarantee &mdash; No Questions Asked
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- RESULTS / TESTIMONIAL -->
-        <section id="results" class="py-20 sm:py-32 relative z-10 px-4 sm:px-8 border-t border-white/5">
-            <div class="max-w-4xl mx-auto text-center reveal-fold">
-                <span class="text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">What Students Say</span>
-                <blockquote class="font-syne text-2xl sm:text-4xl text-white font-bold leading-tight mb-8 tracking-tight">
-                    "This course didn't just teach me about AI&mdash;it changed how I think about my entire workflow. I automated 15 hours of weekly tasks in the first month."
-                </blockquote>
-                <p class="text-white/30 text-sm font-medium">&mdash; Early Access Student</p>
-            </div>
-        </section>
-
-        <!-- FINAL CTA -->
-        <section class="py-20 sm:py-32 relative z-10 px-4 sm:px-8">
-            <div class="max-w-3xl mx-auto text-center reveal-fold">
-                <h2 class="font-syne text-4xl sm:text-6xl text-white font-bold uppercase tracking-tighter mb-8">Ready to Lead?</h2>
-                <p class="text-white/40 text-base font-light mb-12 max-w-lg mx-auto leading-relaxed">AI is moving fast. The gap between those who use it and those who don't is growing every day. Pick your side.</p>
-                <a href="https://buy.stripe.com/6oU8wRbjZ46I3IyeIscV206" target="_blank" class="btn-lime px-12 py-6 text-[13px] tracking-[0.2em] shadow-[0_0_40px_rgba(212,255,0,0.3)] no-underline inline-block">
-                    Start Now &mdash; $97
+                <a href="https://buy.stripe.com/3cIcN70Fl8mYgvk0RCcV20a" target="_blank" class="btn-glass-glow px-14 py-6 text-sm shadow-[0_0_60px_rgba(212,255,0,0.3)]">
+                    Enroll Now for $27
                 </a>
             </div>
         </section>
-
-        <!-- FOOTER -->
-        <footer class="py-12 sm:py-16 border-t border-white/5 relative z-10 px-4 sm:px-8">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                    <a href="/" class="font-syne font-black text-white text-xl tracking-widest uppercase no-underline flex items-center gap-3">
-                        <i data-lucide="activity" class="text-brandLime size-5"></i>
-                        MindSparkAI
-                    </a>
-                    <div class="flex flex-wrap justify-center gap-6 sm:gap-8 text-[10px] font-bold uppercase tracking-[0.15em] text-white/30">
-                        <a href="blog.html" class="hover:text-white transition-colors no-underline">Blog</a>
-                        <a href="contact.html" class="hover:text-white transition-colors no-underline">Contact</a>
-                        <a href="affiliates.html" class="hover:text-white transition-colors no-underline">Affiliates</a>
-                        <a href="privacy.html" class="hover:text-white transition-colors no-underline">Privacy</a>
-                        <a href="terms.html" class="hover:text-white transition-colors no-underline">Terms</a>
-                        <a href="refund.html" class="hover:text-white transition-colors no-underline">Refund Policy</a>
-                    </div>
-                </div>
-                <div class="mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/20 font-medium tracking-widest uppercase">
-                    &copy; 2026 MindSparkAI. All rights reserved.
-                </div>
-            </div>
-        </footer>
     </div>
 
+    <!-- FOOTER -->
+    <footer class="py-16 bg-obsidian border-t border-white/5 relative z-10 px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-3 font-syne text-xl tracking-tighter uppercase font-black text-white mb-4">
+                        <i data-lucide="activity" class="text-brandLime size-5"></i> MindSpark
+                    </div>
+                    <p class="text-white/40 text-sm leading-relaxed max-w-[260px]">Learn AI. Use AI. Lead with AI. The platform for ambitious people who want to stay ahead in the age of artificial intelligence.</p>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-bold uppercase tracking-serial text-white/60 mb-6">Platform</h4>
+                    <ul class="space-y-3 list-none p-0 m-0">
+                        <li><a href="#modules" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Masterclass</a></li>
+                        <li><a href="#pricing" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Pricing</a></li>
+                        <li><a href="#lead-magnet" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Free Toolkit</a></li>
+                        <li><a href="#lead-magnet" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Community</a></li>
+                        <li><a href="/course/login.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Student Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-bold uppercase tracking-serial text-white/60 mb-6">Company</h4>
+                    <ul class="space-y-3 list-none p-0 m-0">
+                        <li><a href="/contact.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">About</a></li>
+                        <li><a href="/blog.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Blog</a></li>
+                        <li><a href="/affiliates.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Affiliates</a></li>
+                        <li><a href="mailto:aiden@mindsparkstack.com" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-bold uppercase tracking-serial text-white/60 mb-6">Legal</h4>
+                    <ul class="space-y-3 list-none p-0 m-0">
+                        <li><a href="/privacy-policy.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Terms of Service</a></li>
+                        <li><a href="/refund-policy.html" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Refund Policy</a></li>
+                        <li><a href="/privacy-policy.html#cookies" class="text-white/40 text-sm hover:text-white transition-colors no-underline">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-white/30 text-xs">&copy; 2026 MindSparkAI. All rights reserved.</div>
+                <div class="flex gap-6">
+                    <a href="https://tiktok.com/@accuoa" target="_blank" rel="noopener" aria-label="TikTok" class="text-white/30 hover:text-brandLime transition-colors text-xs font-bold uppercase tracking-widest no-underline">TikTok</a>
+                    <a href="https://youtube.com/@Accuoa" target="_blank" rel="noopener" aria-label="YouTube" class="text-white/30 hover:text-brandLime transition-colors text-xs font-bold uppercase tracking-widest no-underline">YouTube</a>
+                    <a href="https://x.com/AccuoaAgent" target="_blank" rel="noopener" aria-label="X" class="text-white/30 hover:text-brandLime transition-colors text-xs font-bold uppercase tracking-widest no-underline">X</a>
+                    <a href="https://linkedin.com/in/aiden-bolin-90813435b" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-white/30 hover:text-brandLime transition-colors text-xs font-bold uppercase tracking-widest no-underline">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // GSAP + ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
-
         // 1. HERO LOAD SEQUENCE
-        window.addEventListener('load', () => {
-            gsap.to('.initial-fade', {
-                opacity: 1, y: 0, duration: 1.2, stagger: 0.2,
-                ease: "power3.out", delay: 0.3, clearProps: "all"
-            });
-            gsap.to('.hero-line', {
-                y: '0%', duration: 1.4, stagger: 0.15,
-                ease: "power4.out", delay: 0.1
-            });
-        });
+        gsap.to('.initial-fade', { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: "power3.out", delay: 0.2, clearProps: "all" });
+        gsap.to('.hero-line', { y: '0%', duration: 1.4, stagger: 0.15, ease: "power4.out", delay: 0.1 });
 
-        // 2. SCROLL REVEALS
-        gsap.utils.toArray('.reveal-fold').forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: { trigger: el, start: "top 90%" },
-                y: 50, opacity: 0, duration: 1.2, ease: "power3.out"
-            });
-        });
+        // 2. MOUSE KINETICS
+        let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+        let currentX = targetX, currentY = targetY;
+        document.addEventListener('mousemove', e => { targetX = e.clientX; targetY = e.clientY; });
 
-        // 3. NAV THEME SWITCHING (Dark <-> Light zones)
+        // 3. NAV THEME SWITCHING
+        gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.create({
-            trigger: "#light-zone",
-            start: "top 80px",
-            onEnter: () => {
-                document.getElementById('nav-pill').classList.remove('theme-dark');
-                document.getElementById('nav-pill').classList.add('theme-light');
-            },
-            onLeaveBack: () => {
-                document.getElementById('nav-pill').classList.remove('theme-light');
-                document.getElementById('nav-pill').classList.add('theme-dark');
-            }
+            trigger: "#light-zone", start: "top 80px",
+            onEnter: () => { document.getElementById('nav-pill').classList.remove('theme-dark'); document.getElementById('nav-pill').classList.add('theme-light'); },
+            onLeaveBack: () => { document.getElementById('nav-pill').classList.remove('theme-light'); document.getElementById('nav-pill').classList.add('theme-dark'); }
         });
         ScrollTrigger.create({
-            trigger: "#pricing-zone",
-            start: "top 80px",
-            onEnter: () => {
-                document.getElementById('nav-pill').classList.remove('theme-light');
-                document.getElementById('nav-pill').classList.add('theme-dark');
-            },
-            onLeaveBack: () => {
-                document.getElementById('nav-pill').classList.remove('theme-dark');
-                document.getElementById('nav-pill').classList.add('theme-light');
-            }
+            trigger: "#final-dark", start: "top 80px",
+            onEnter: () => { document.getElementById('nav-pill').classList.remove('theme-light'); document.getElementById('nav-pill').classList.add('theme-dark'); },
+            onLeaveBack: () => { document.getElementById('nav-pill').classList.remove('theme-dark'); document.getElementById('nav-pill').classList.add('theme-light'); }
         });
 
-        // 4. CURSOR GLOW (Desktop only)
-        if (window.matchMedia('(pointer: fine)').matches) {
-            let glow = document.getElementById('cursor-glow');
-            let raf;
-            document.addEventListener('mousemove', e => {
-                if (raf) cancelAnimationFrame(raf);
-                raf = requestAnimationFrame(() => {
-                    glow.style.left = e.clientX + 'px';
-                    glow.style.top = e.clientY + 'px';
+        // 4. THREE.JS SENTINEL
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x04070D, 0.05);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        document.getElementById('canvas-sentinel').appendChild(renderer.domElement);
+        const innerGeo = new THREE.IcosahedronGeometry(3, 1);
+        const innerMat = new THREE.MeshBasicMaterial({ color: 0x00D0FF, wireframe: true, transparent: true, opacity: 0.03 });
+        const innerSentinel = new THREE.Mesh(innerGeo, innerMat);
+        scene.add(innerSentinel);
+        camera.position.z = 7; camera.position.x = 4;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            currentX += (targetX - currentX) * 0.1; currentY += (targetY - currentY) * 0.1;
+            const cx = currentX - window.innerWidth / 2, cy = currentY - window.innerHeight / 2;
+            gsap.set('.parallax-layer', { x: cx * 0.02, y: cy * 0.02 });
+            const t = Date.now() * 0.001;
+            innerSentinel.rotation.y += 0.001; innerSentinel.rotation.x += 0.0005;
+            innerSentinel.position.z = Math.sin(t) * 0.4;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // 5. GSAP REVEALS
+        gsap.utils.toArray('.reveal-fold').forEach(panel => {
+            gsap.from(panel, {
+                scrollTrigger: { trigger: panel, start: "top 90%" },
+                y: 50, opacity: 0, scale: 0.98, rotationX: 2, transformPerspective: 1000, duration: 1.2, ease: "power3.out"
+            });
+        });
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // 6. HAMBURGER
+        document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
+        function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+        // 7. FAQ ACCORDION
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open'); i.querySelector('.faq-answer').style.maxHeight = '0';
+                    i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
                 });
+                if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; trigger.setAttribute('aria-expanded', 'true'); }
             });
-        } else {
-            document.getElementById('cursor-glow').style.display = 'none';
+        });
+
+        // 8. COUNTDOWN
+        (function() {
+            const key = 'msai_launch_end';
+            let end = localStorage.getItem(key);
+            if (!end) { end = Date.now() + 72 * 3600 * 1000; localStorage.setItem(key, end); }
+            function tick() {
+                const diff = Math.max(0, end - Date.now());
+                document.getElementById('cd-h').textContent = String(Math.floor(diff / 3600000)).padStart(2, '0');
+                document.getElementById('cd-m').textContent = String(Math.floor(diff % 3600000 / 60000)).padStart(2, '0');
+                document.getElementById('cd-s').textContent = String(Math.floor(diff % 60000 / 1000)).padStart(2, '0');
+                if (diff > 0) setTimeout(tick, 1000);
+            }
+            tick();
+        })();
+
+        // 9. OPT-IN FORM
+        document.getElementById('optForm').addEventListener('submit', e => {
+            e.preventDefault();
+            document.getElementById('optForm').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+        });
+
+        // 10. GEMINI BLUEPRINT
+        const generateBtn = document.getElementById('generate-blueprint-btn');
+        const taskInput = document.getElementById('blueprint-input');
+        const outputArea = document.getElementById('blueprint-output');
+        const apiKey = "";
+        const systemInstruction = "You are a Lead AI Systems Architect for Sovereign Operations. The user will provide a manual business task. Output a concise, 3-step autonomous agent blueprint to automate it. Format as strict terminal output. Do not use markdown blocks. Keep it extremely brief and highly technical. Use EXACTLY this format:\n\n> ANALYZING_TASK: [2-5 words]\n> BOTTLENECK_IDENTIFIED: [2-8 words]\n> DEPLOYING_AGENT_STACK:\n  [TOOL 1] -> [TOOL 2] -> [TOOL 3]\n> LOGIC_GATE: [1 short sentence explaining integration]\n> STATUS: AUTONOMY_READY";
+
+        async function fetchWithBackoff(url, payload, maxRetries) {
+            maxRetries = maxRetries || 5;
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return await r.json();
+                } catch (e) { if (i === maxRetries - 1) throw e; await new Promise(res => setTimeout(res, delays[i])); }
+            }
         }
 
-        // 5. SMOOTH SCROLL FOR ANCHOR LINKS
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
+        async function generateBlueprint() {
+            const task = taskInput.value.trim();
+            if (!task) { outputArea.innerHTML = '<p class="text-brandRed">> ERROR: NO_INPUT_DETECTED</p><p class="text-white/40">> PLEASE_PROVIDE_CONTEXT <span class="terminal-cursor">_</span></p>'; return; }
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i data-lucide="loader-2" class="size-4 animate-spin"></i> PROCESSING...';
+            lucide.createIcons();
+            outputArea.innerHTML = '<p class="text-brandLime">> ESTABLISHING_UPLINK...</p><p class="text-brandCyan">> QUERYING_SOVEREIGN_CORE...</p><p class="text-white/60">> SYNTHESIZING_ARCHITECTURE <span class="terminal-cursor">_</span></p>';
+            const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' + apiKey;
+            try {
+                const data = await fetchWithBackoff(url, { contents: [{ parts: [{ text: task }] }], systemInstruction: { parts: [{ text: systemInstruction }] } });
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "> ERROR: UNKNOWN_RESPONSE";
+                outputArea.innerHTML = '<div id="typewriter-text" class="text-brandLime drop-shadow-[0_0_8px_rgba(212,255,0,0.3)]"></div><span class="terminal-cursor">_</span>';
+                const tw = document.getElementById('typewriter-text');
+                let i = 0;
+                (function type() { if (i < text.length) { tw.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i); i++; outputArea.scrollTop = outputArea.scrollHeight; setTimeout(type, 12); } })();
+            } catch (e) {
+                outputArea.innerHTML = '<p class="text-brandRed">> CRITICAL_FAILURE: CONNECTION_LOST</p><p class="text-white/60">> RETRY_LIMIT_EXCEEDED <span class="terminal-cursor">_</span></p>';
+            } finally { generateBtn.disabled = false; generateBtn.innerHTML = 'Engineer Blueprint'; }
+        }
+        if (generateBtn) generateBtn.addEventListener('click', generateBlueprint);
     </script>
 </body>
 </html>

@@ -4,8 +4,27 @@ All tool modifications, workflow updates, and major system actions are logged he
 
 ---
 
+## 2026-04-08
+
+- **Reduced pricing** for launch strategy — Masterclass $97→$27, VIP $297→$97
+  - Created new Stripe prices (`price_1TJnYpR75FvuQy4yaeSkHb6f` @ $27, `price_1TJnYpR75FvuQy4ygaiOV0zI` @ $97)
+  - Created new Stripe payment links (`plink_1TJnYtR75FvuQy4yHdAvLBDi` Masterclass, `plink_1TJnYuR75FvuQy4yg122ds5B` VIP)
+  - Updated all price references in homepage (buttons, pricing cards, meta tags, JSON-LD, CTA, countdown text)
+- **Fixed footer 404s** — copied source pages to expected filenames:
+  - `blog-source.html` → `blog.html`, `affiliates-source.html` → `affiliates.html`, `contact-source.html` → `contact.html`
+  - `privacy-source.html` → `privacy-policy.html`, `terms-source.html` → `terms.html`, `refund-source.html` → `refund-policy.html`
+  - Changed "About" footer link to `/contact.html` (no about page exists)
+- **Synced** `index.html` with updated `homepage-source.html`
+
 ## 2026-04-07
 
+- **Deployed** full site to Turbify (mindsparkstack.com) via FTP:
+  - Redesigned homepage (`index.html`) — live at https://mindsparkstack.com/
+  - 11 static pages (blog, contact, affiliates, privacy, terms, refund, thank-you, footer)
+  - Complete course platform (52 files): 33 lessons across 7 modules, dashboard, login, certificate, cheatsheets, shared assets
+  - Created `deploy@mindsparkstack.com` FTP account via cPanel for automated deployments
+  - Fixed FTP_ROOT config for chrooted deploy account (changed from `public_html` to empty)
+  - Verified: homepage renders correctly, course login page loads, all assets served via CDN
 - **Built** full autonomous social media posting system (8 new Python tools):
   - `tools/post_to_twitter.py` — X API v2 posting (tweets + threads, OAuth 1.0a, dry-run)
   - `tools/upload_to_youtube.py` — YouTube Data API v3 uploads (long-form + Shorts, OAuth2, quota tracking)
