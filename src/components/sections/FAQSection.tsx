@@ -54,7 +54,10 @@ export default function FAQSection() {
               >
                 <button
                   type="button"
+                  id={`faq-q-${i}`}
                   onClick={() => toggle(i)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${i}`}
                   className="w-full text-left px-8 py-6 flex justify-between items-center gap-4"
                 >
                   <span className="font-bold text-obsidian text-sm">
@@ -68,6 +71,9 @@ export default function FAQSection() {
                 </button>
                 <div
                   ref={setRef(i)}
+                  id={`faq-answer-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-q-${i}`}
                   className="faq-answer px-8 overflow-hidden transition-[max-height] duration-300 ease-in-out"
                   style={{ maxHeight: isOpen ? undefined : '0px' }}
                 >

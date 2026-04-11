@@ -42,9 +42,10 @@ function ParticleField() {
   const meshRef = useRef<THREE.InstancedMesh>(null)
   const count = 200
 
-  const { positions, velocities } = useMemo(() => {
+  const { positions, velocities, scales } = useMemo(() => {
     const pos = new Float32Array(count * 3)
     const vel = new Float32Array(count * 3)
+    const scl = new Float32Array(count)
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 30
       pos[i * 3 + 1] = (Math.random() - 0.5) * 30
@@ -52,8 +53,9 @@ function ParticleField() {
       vel[i * 3] = (Math.random() - 0.5) * 0.002
       vel[i * 3 + 1] = Math.random() * 0.003 + 0.001
       vel[i * 3 + 2] = (Math.random() - 0.5) * 0.001
+      scl[i] = 0.02 + Math.random() * 0.01
     }
-    return { positions: pos, velocities: vel }
+    return { positions: pos, velocities: vel, scales: scl }
   }, [])
 
   const dummy = useMemo(() => new THREE.Object3D(), [])
@@ -74,8 +76,7 @@ function ParticleField() {
         positions[i * 3 + 1],
         positions[i * 3 + 2]
       )
-      const scale = 0.02 + Math.random() * 0.01
-      dummy.scale.setScalar(scale)
+      dummy.scale.setScalar(scales[i])
       dummy.updateMatrix()
       meshRef.current.setMatrixAt(i, dummy.matrix)
     }

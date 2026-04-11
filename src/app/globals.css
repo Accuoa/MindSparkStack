@@ -54,6 +54,22 @@ body {
   will-change: transform;
 }
 
+@keyframes hero-fallback {
+  to { transform: translateY(0); }
+}
+
+/* If GSAP hasn't run after 2s, show the text anyway */
+.hero-line {
+  animation: hero-fallback 0.8s ease 2s forwards;
+}
+
+@keyframes fade-fallback {
+  to { opacity: 1; }
+}
+.initial-fade {
+  animation: fade-fallback 0.8s ease 2.5s forwards;
+}
+
 /* ── TEXT SHEEN ── */
 .text-sheen {
   background: linear-gradient(
@@ -118,6 +134,19 @@ body {
 @keyframes drift-reverse {
   0% { transform: translate3d(0, 0, 0) scale3d(1.1, 1.1, 1); }
   100% { transform: translate3d(-5%, -10%, 0) scale3d(1, 1, 1); }
+}
+
+@media (max-width: 768px) {
+  .aurora-lime {
+    width: 50vw;
+    height: 50vw;
+    filter: blur(80px);
+  }
+  .aurora-cyan {
+    width: 60vw;
+    height: 60vw;
+    filter: blur(90px);
+  }
 }
 
 /* ── CARDS ── */
@@ -418,4 +447,41 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-lime,
+  .aurora-cyan {
+    animation: none !important;
+  }
+  .text-sheen {
+    animation: none !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+  }
+  .terminal-block::after {
+    animation: none !important;
+  }
+  .terminal-cursor {
+    animation: none !important;
+  }
+  .hero-line {
+    transform: translateY(0) !important;
+    animation: none !important;
+  }
+  .initial-fade {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .reveal-fold {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── FOCUS VISIBLE ── */
+:focus-visible {
+  outline: 2px solid #D4FF00;
+  outline-offset: 2px;
 }
